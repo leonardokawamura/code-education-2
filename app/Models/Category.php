@@ -15,8 +15,14 @@ class Category extends Model
     {
         return [
             'slug' => [
-                'source' => 'name'
+                'source' => 'name',
+                'onUpdate' => true
             ]
         ];
+    }
+
+    public function products()
+    {
+        return $this->belongsToMany(Product::class);
     }
 }

@@ -9,14 +9,20 @@ class Product extends Model
 {
     use Sluggable;
     
-    protected $fillable = ['name', 'description', 'price', 'stock', 'active'];
+    protected $fillable = ['name', 'description', 'price', 'active'];
 
     public function sluggable()
     {
         return [
             'slug' => [
-                'source' => 'name'
+                'source' => 'name',
+                'onUpdate' => true
             ]
         ];
+    }
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class);
     }
 }
