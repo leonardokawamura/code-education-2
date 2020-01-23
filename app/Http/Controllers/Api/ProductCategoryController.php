@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProductCategoryRequest;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -14,7 +15,7 @@ class ProductCategoryController extends Controller
         return $product->categories;
     }
     
-    public function store(Request $request, Product $product)
+    public function store(ProductCategoryRequest $request, Product $product)
     {
         $changed = $product->categories()->sync($request->categories);
         $categoriesAttachedId = $changed['attached'];
