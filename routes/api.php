@@ -21,5 +21,6 @@ Route::group(['namespace' => 'Api', 'as' => 'api.'], function() {
     Route::resource('categories', 'CategoryController')->except(['create', 'edit']);
     Route::resource('products', 'ProductController')->except(['create', 'edit']);
     Route::resource('products.categories', 'ProductCategoryController')->only(['index', 'store', 'destroy']);
+    Route::resource('product.input', 'ProductInputController')->only(['index', 'store', 'update', 'destroy']);
 });
 
