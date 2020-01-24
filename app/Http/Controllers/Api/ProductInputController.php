@@ -4,13 +4,15 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ProductInputResource;
 use App\Models\ProductInput;
 
 class ProductInputController extends Controller
 {
     public function index()
     {
-        return ProductInput::all();
+        $inputs = ProductInput::with('product')->paginate();        
+        return ProductInputResource::collection($inputs);
     }
 
     public function store(Request $request)
@@ -19,16 +21,6 @@ class ProductInputController extends Controller
     }
 
     public function show($id)
-    {
-        //
-    }
-
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    public function destroy($id)
     {
         //
     }
