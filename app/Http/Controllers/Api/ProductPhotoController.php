@@ -6,13 +6,14 @@ use App\Models\Product;
 use App\Models\ProductPhoto;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ProductPhotoCollection;
 use App\Http\Resources\ProductPhotoResource;
 
 class ProductPhotoController extends Controller
 {
     public function index(Product $product)
     {
-        return ProductPhotoResource::collection($product->photos);
+        return ProductPhotoCollection::collection($product);
     }
     
     public function store(Request $request)
