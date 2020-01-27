@@ -1,35 +1,30 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Models\Product;
 use App\Models\ProductPhoto;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class ProductPhotoController extends Controller
 {
-    public function index()
+    public function index(Product $product)
     {
-        //
+        return $product->photos;
     }
-
-    public function create()
-    {
-        //
-    }
-
+    
     public function store(Request $request)
     {
         //
     }
 
-    public function show(ProductPhoto $productPhoto)
+    public function show(Product $product, ProductPhoto $photo)
     {
-        //
-    }
-
-    public function edit(ProductPhoto $productPhoto)
-    {
-        //
+        if ($photo->product_id != $product->id) {
+            abort(404);
+            return $photo;
+        }
     }
 
     public function update(Request $request, ProductPhoto $productPhoto)
