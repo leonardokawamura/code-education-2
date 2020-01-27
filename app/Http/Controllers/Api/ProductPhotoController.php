@@ -6,12 +6,13 @@ use App\Models\Product;
 use App\Models\ProductPhoto;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ProductPhotoResource;
 
 class ProductPhotoController extends Controller
 {
     public function index(Product $product)
     {
-        return $product->photos;
+        return ProductPhotoResource::collection($product->photos);
     }
     
     public function store(Request $request)
@@ -22,9 +23,9 @@ class ProductPhotoController extends Controller
     public function show(Product $product, ProductPhoto $photo)
     {
         if ($photo->product_id != $product->id) {
-            abort(404);
-            return $photo;
+            abort(404);            
         }
+        return $photo;
     }
 
     public function update(Request $request, ProductPhoto $productPhoto)
