@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 class ProductPhoto extends Model
@@ -14,15 +15,35 @@ class ProductPhoto extends Model
 
     public static function photosPath($productId)
     {
-        $path = self::PRODUCTS_PATH;
+        $path = self::PRODUCTS_PATH;        
         return storage_path("{$path}/{$productId}");
     }
 
-    public static function uploadFiles($productId, array $files)
+    public static function createWithPhotosFiles(int $productId, array $files)
+    {
+        self::uploadFiles($productId, $files);
+        $photos = self::createPhotosModels($productId, $files);
+        return new Collection($photos);
+    }
+
+    public static function uploadFiles(int $productId, array $files)
     {
         $dir = self::photosDir($productId);
+
         foreach($files as $file) {
             $file->store($dir, ['disk' => 'public']);
+        }
+    }
+
+    private static function createPhotosModels(int $productId, array $files)
+    {
+        $photos = [];
+
+        foreach($files as $file) {
+            $photos[] = self::create([
+                'file_name' => $file->hashName(),
+                'product_id' => $productId
+            ]);
         }
     }
 
@@ -32,11 +53,11 @@ class ProductPhoto extends Model
         return asset("{$path}/{$this->file_name}");
     }
 
-    public static function photosDir($productId)
+    public static function photosDir(int $productId)
     {
         $dir = self::DIR_PRODUCTS;
         return "{$dir}/{$productId}";
-    }
+    }    
 
     public function product()
     {
