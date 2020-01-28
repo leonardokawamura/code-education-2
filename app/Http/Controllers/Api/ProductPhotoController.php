@@ -13,7 +13,7 @@ class ProductPhotoController extends Controller
 {
     public function index(Product $product)
     {
-        return ProductPhotoCollection::collection($product);
+        return new ProductPhotoCollection($product->photos, $product);
     }
     
     public function store(Request $request)
