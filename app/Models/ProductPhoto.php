@@ -6,6 +6,8 @@ use DB;
 use File;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\UploadedFile;
+use Storage;
 
 class ProductPhoto extends Model
 {
@@ -25,14 +27,38 @@ class ProductPhoto extends Model
     {
         try {
             self::uploadFiles($productId, $files);
-            DB::beginTransaction();
+            DB::beginTransaction();            
             $photos = self::createPhotosModels($productId, $files);
             DB::commit();
             return new Collection($photos);
         } catch (\Exception $e) {
             self::deleteFiles($productId, $files);
             DB::rollBack();
+            throw $e;
         }    
+    }
+
+    public function updateWithPhoto(UploadedFile $file)
+    {
+        try {
+            self::uploadFiles($this->product_id, [$file]);
+            DB::beginTransaction();
+            $this->deletePhoto($this->file_name);
+            $this->file_name = $file->hashName();
+            $this->save();
+            DB::commit();
+            return $this;
+        } catch (\Exception $e) {
+            self::deleteFiles($this->product_id, [$file]);
+            DB::rollBack();
+            throw $e;
+        }    
+    }
+
+    private function deletePhoto($fileName)
+    {
+        $dir = self::photosDir($this->product_id);
+        Storage::disk('public')->delete("{$dir}/{$fileName}");
     }
     
     public static function deleteFiles(int $productId, array $files)
