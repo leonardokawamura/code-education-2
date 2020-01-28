@@ -45,12 +45,14 @@ class ProductPhoto extends Model
                 'product_id' => $productId
             ]);
         }
+
+        return $photos;
     }
 
     public function getPhotoUrlAttribute()
     {
         $path = self::photosDir($this->product_id);
-        return asset("{$path}/{$this->file_name}");
+        return asset("storage/{$path}/{$this->file_name}");
     }
 
     public static function photosDir(int $productId)

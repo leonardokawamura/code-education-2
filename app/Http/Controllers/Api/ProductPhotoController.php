@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\ProductPhoto;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProductPhotoRequest;
 use App\Http\Resources\ProductPhotoCollection;
 use App\Http\Resources\ProductPhotoResource;
 
@@ -16,9 +17,10 @@ class ProductPhotoController extends Controller
         return new ProductPhotoCollection($product->photos, $product);
     }
     
-    public function store(Request $request, Product $product)
+    public function store(ProductPhotoRequest $request, Product $product)
     {
-        ProductPhoto::createWithPhotosFiles($product->id, $request->photos);
+        $photos = ProductPhoto::createWithPhotosFiles($product->id, $request->photos);
+        return new ProductPhotoCollection($photos, $product);
     }
 
     public function show(Product $product, ProductPhoto $photo)
@@ -26,7 +28,8 @@ class ProductPhotoController extends Controller
         if ($photo->product_id != $product->id) {
             abort(404);            
         }
-        return $photo;
+
+        return new ProductPhotoResource($photo);
     }
 
     public function update(Request $request, ProductPhoto $productPhoto)
