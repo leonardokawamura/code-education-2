@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Product;
 use App\Models\ProductPhoto;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductPhotoRequest;
 use App\Http\Resources\ProductPhotoCollection;
