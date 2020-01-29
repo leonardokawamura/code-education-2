@@ -27,9 +27,9 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public static function createCustom($attributes = array())
+    public function fill(array $attributes)
     {
         !isset($attributes['password']) ? : $attributes['password'] = bcrypt($attributes['password']);
-        return parent::create($attributes);
+        return parent::fill($attributes);
     }
 }
