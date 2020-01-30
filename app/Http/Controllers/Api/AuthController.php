@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Lang;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -21,4 +22,11 @@ class AuthController extends Controller
             'error' => Lang::get('auth.failed')
         ], 400);
     }
+
+    public function logout()
+    {
+        Auth::guard('api')->logout();
+        return response()->json([], 204);
+    }
 }
+
