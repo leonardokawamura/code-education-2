@@ -20,9 +20,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::group(['namespace' => 'Api', 'as' => 'api.'], function() {
     Route::name('login')->post('login', 'AuthController@login');
+    Route::name('logout')->post('logout', 'AuthController@logout')->middleware(['auth:api']);
     Route::name('refresh')->post('refresh', 'AuthController@refresh');
-    Route::group(['middleware' => 'auth:api'], function () {
-        Route::name('logout')->post('logout', 'AuthController@logout');
+    Route::group(['middleware' => ['auth:api', 'jwt.refresh']], function () {        
         Route::name('me')->get('me', 'AuthController@me');
         Route::patch('products/{product}/restore', 'ProductController@restore');
         Route::resource('products', 'ProductController')->except(['create', 'edit']);
