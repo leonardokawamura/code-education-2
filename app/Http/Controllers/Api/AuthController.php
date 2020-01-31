@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 use Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Lang;
@@ -27,6 +28,12 @@ class AuthController extends Controller
     {
         Auth::guard('api')->logout();
         return response()->json([], 204);
+    }
+
+    public function me()
+    {
+        $user = Auth::guard('api')->user();
+        return new UserResource($user);
     }
 }
 
