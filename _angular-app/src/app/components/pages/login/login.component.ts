@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -12,14 +13,16 @@ export class LoginComponent implements OnInit {
     "password" : ""
   };  
 
-  constructor() { }
+  constructor(private http: HttpClient) { 
+
+  }
 
   ngOnInit() {
        
   }
 
   submit() {
-    alert("submit");
+    this.http.post('http://localhost:8000/api/login');
     return false;
   }
 
