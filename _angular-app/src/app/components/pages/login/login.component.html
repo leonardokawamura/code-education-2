@@ -1,8 +1,9 @@
 <form class="form-signin">    
     <h1 class="h3 mb-3 font-weight-normal">Montecarlo - Login</h1>
     <label for="email" class="sr-only">E-mail:</label>
-    <input type="email" id="email" class="form-control" placeholder="E-mail:" required autofocus [value]="'valor'">
+    <input type="email" name="email" id="email" class="form-control" placeholder="E-mail:" required autofocus [(ngModel)]="credentials.email">
     <label for="password" class="sr-only">Password</label>
-    <input type="password" id="password" class="form-control" placeholder="Senha:" required (keypress)="digitou($event)">    
+    <input type="password" name="password" id="password" class="form-control" placeholder="Senha:" required [(ngModel)]="credentials.password">    
     <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="meclicou($event)">ENTRAR</button>
+    {{ credentials | json }}
 </form>
