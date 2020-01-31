@@ -18,4 +18,9 @@ export class LoginComponent implements OnInit {
        
   }
 
+  submit() {
+    alert("submit");
+    return false;
+  }
+
 }

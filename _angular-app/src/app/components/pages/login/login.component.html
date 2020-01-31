@@ -1,4 +1,4 @@
-<form class="form-signin">    
+<form class="form-signin" (submit)="submit()">    
     <h1 class="h3 mb-3 font-weight-normal">Montecarlo - Login</h1>
     <label for="email" class="sr-only">E-mail:</label>
     <input type="email" name="email" id="email" class="form-control" placeholder="E-mail:" required autofocus [(ngModel)]="credentials.email">
