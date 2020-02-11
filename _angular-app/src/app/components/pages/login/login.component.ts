@@ -9,8 +9,8 @@ import { HttpClient } from '@angular/common/http';
 export class LoginComponent implements OnInit {
 
   credentials = {
-    "email" : "",
-    "password" : ""
+    "email" : "admin@user.com",
+    "password" : "secret"
   };  
 
   constructor(private http: HttpClient) { 
@@ -22,8 +22,16 @@ export class LoginComponent implements OnInit {
   }
 
   submit() {
-    this.http.post('http://localhost/projects/code-education/public/api/login', this.credentials)
-      .subscribe((data) => console.log(data));
+    this.http.post<any>('http://localhost/projects/code-education/public/api/login', this.credentials)
+      .subscribe((data) => {
+        const token = data.token;
+        this.http.get('http://localhost/projects/code-education/public/api/categories', {
+          headers: {
+            'Authorization' : 'Bearer ' + token
+          }
+        })
+          .subscribe(data => console.log(data));
+      });
     return false;
   }
 
