@@ -16,12 +16,12 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>ID</td>
-                <td>Nome</td>
-                <td>Ativa?</td>
-                <td>Criada em</td>
-                <td>Ações</td>
+            <tr *ngFor="let category of categories">
+                <td>{{ category.id }}</td>
+                <td>{{ category.name }}</td>
+                <td>{{ category.active }}</td>
+                <td>{{ category.created_at.date }}</td>
+                <td>Editar | Excluir</td>
             </tr>
         </tbody>
     </table>

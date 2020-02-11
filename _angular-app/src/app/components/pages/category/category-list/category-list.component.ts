@@ -14,12 +14,12 @@ export class CategoryListComponent implements OnInit {
 
   ngOnInit() {
     const token = window.localStorage.getItem('token');
-    this.http.get<Array<any>>('http://localhost/projects/code-education/public/api/categories', {
+    this.http.get<{data: Array<any>}>('http://localhost/projects/code-education/public/api/categories', {
       headers: {
         'Authorization' : 'Bearer ' + token
       }
     })
-      .subscribe(data => this.categories = data);
+      .subscribe(response => this.categories = response.data);
   }
 
 }
