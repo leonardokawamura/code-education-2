@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
     "password" : "secret"
   };  
 
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient, private router: Router) { 
 
   }
 
@@ -24,13 +24,14 @@ export class LoginComponent implements OnInit {
   submit() {
     this.http.post<any>('http://localhost/projects/code-education/public/api/login', this.credentials)
       .subscribe((data) => {
+        this.router.navigate(['categories/list']);
         const token = data.token;
-        this.http.get('http://localhost/projects/code-education/public/api/categories', {
+        /*this.http.get('http://localhost/projects/code-education/public/api/categories', {
           headers: {
             'Authorization' : 'Bearer ' + token
           }
         })
-          .subscribe(data => console.log(data));
+          .subscribe(data => console.log(data));*/
       });
     return false;
   }
