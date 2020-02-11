@@ -12,12 +12,17 @@ import { HttpClientModule } from '@angular/common/http';
 
 const routes: Routes = [
   {
-    path:'login',
+    path: 'login',
     component: LoginComponent
   },
   {
-    path:'categories/list',
+    path: 'categories/list',
     component: CategoryListComponent
+  },
+  {
+    path: '',
+    redirectTo: '/login',
+    pathMatch: 'full'
   }
 ]
 @NgModule({
