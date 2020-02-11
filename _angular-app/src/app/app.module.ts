@@ -8,6 +8,7 @@ import { CategoryListComponent } from './components/pages/category/category-list
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import { AlertErrorComponent } from './components/bootstrap/alert-error/alert-error.component';
 
 
 const routes: Routes = [
@@ -29,7 +30,8 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     LoginComponent,
-    CategoryListComponent
+    CategoryListComponent,
+    AlertErrorComponent
   ],
   imports: [
     BrowserModule,
