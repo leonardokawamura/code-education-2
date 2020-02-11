@@ -25,13 +25,7 @@ export class LoginComponent implements OnInit {
     this.http.post<any>('http://localhost/projects/code-education/public/api/login', this.credentials)
       .subscribe((data) => {
         this.router.navigate(['categories/list']);
-        const token = data.token;
-        /*this.http.get('http://localhost/projects/code-education/public/api/categories', {
-          headers: {
-            'Authorization' : 'Bearer ' + token
-          }
-        })
-          .subscribe(data => console.log(data));*/
+        const token = data.token;        
       });
     return false;
   }
