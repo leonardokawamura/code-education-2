@@ -13,6 +13,7 @@ export class CategoryListComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
+    const token = window.localStorage.getItem('token');
     this.http.get<Array<any>>('http://localhost/projects/code-education/public/api/categories', {
       headers: {
         'Authorization' : 'Bearer ' + token

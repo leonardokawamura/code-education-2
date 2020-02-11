@@ -24,8 +24,9 @@ export class LoginComponent implements OnInit {
   submit() {
     this.http.post<any>('http://localhost/projects/code-education/public/api/login', this.credentials)
       .subscribe((data) => {
-        this.router.navigate(['categories/list']);
-        const token = data.token;        
+        const token = data.token; 
+        window.localStorage.setItem('token', token);
+        this.router.navigate(['categories/list']);               
       });
     return false;
   }
