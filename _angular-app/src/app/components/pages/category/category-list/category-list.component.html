@@ -9,10 +9,10 @@
             </tr>
             <tr>
                 <td style="width: 5%">ID</td>
-                <td style="width: 65%">Nome</td>
+                <td style="width: 60%">Nome</td>
                 <td style="width: 10%">Ativa?</td>
                 <td style="width: 10%">Criada em</td>
-                <td style="width: 10%">Ações</td>
+                <td style="width: 15%">Ações</td>
             </tr>
         </thead>
         <tbody>
@@ -29,25 +29,27 @@
     </table>
 </div>
 
-<div class="modal" tabindex="-1" role="dialog" id="exampleModal">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Nova categoria</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+<form (submit)="submit()">
+    <div class="modal" tabindex="-1" role="dialog" id="exampleModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Nova categoria</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">            
+                    <div class="form-group">
+                        <label for="name">Nome</label>
+                        <input type="text" class="form-control" id="name" name="name" required [(ngModel)]="category.name"> 
+                    </div>                             
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-primary">Incluir</button>
+                </div>
+            </div>
         </div>
-        <div class="modal-body">
-          <div class="form-group">
-            <label for="name">Nome</label>
-            <input type="text" class="form-control" id="name" name="name" required> 
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-          <button type="submit" class="btn btn-primary">Incluir</button>
-        </div>
-      </div>
     </div>
-  </div>
+</form>     
