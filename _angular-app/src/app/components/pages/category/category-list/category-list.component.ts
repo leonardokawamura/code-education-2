@@ -59,7 +59,11 @@ export class CategoryListComponent implements OnInit {
     this.modal.show();
     setTimeout(() => {
       this.modal.hide();
-    }, 500);
+    }, 2000);
+  }
+
+  hideModal($event: Event) {
+    
   }
 
 }
