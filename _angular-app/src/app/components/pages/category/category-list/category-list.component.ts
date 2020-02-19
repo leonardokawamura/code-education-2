@@ -29,22 +29,22 @@ export class CategoryListComponent implements OnInit {
   submit() {
     const token = window.localStorage.getItem('token');
     this.http
-      .post('http://localhost/projects/code-education/public/api/categories', this.category, {
+      .post('http://dev.code-education.com.br/api/categories', this.category, {
       headers: {
         'Authorization' : 'Bearer ' + token
       }
     })
       .subscribe((category) => {
         console.log(category);
-        this.getCategories();
-        $('#exampleModal').modal('hide');        
+        this.modal.hide();
+        this.getCategories();      
       });
   }
 
   getCategories() {
     const token = window.localStorage.getItem('token');
     this.http
-      .get<{data: Array<any>}>('http://localhost/projects/code-education/public/api/categories', {
+      .get<{data: Array<any>}>('http://dev.code-education.com.br/api/categories', {
       headers: {
         'Authorization' : 'Bearer ' + token
       }
@@ -57,9 +57,6 @@ export class CategoryListComponent implements OnInit {
 
   showModal() {
     this.modal.show();
-    setTimeout(() => {
-      this.modal.hide();
-    }, 2000);
   }
 
   hideModal($event: Event) {
