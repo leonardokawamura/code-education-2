@@ -32,5 +32,5 @@
         </tbody>
     </table>
 </div>
-<category-new-modal (onSucess)="onInsertSuccess($event)" (onError)="onInsertError($event)"></category-new-modal>
-<category-edit-modal [categoryId]="categoryId"></category-edit-modal>
+<category-new-modal (onSuccess)="onInsertSuccess($event)" (onError)="onInsertError($event)"></category-new-modal>
+<category-edit-modal [categoryId]="categoryId" (onSuccess)="onEditSuccess($event)" (onError)="onEditError($event)"></category-edit-modal>
