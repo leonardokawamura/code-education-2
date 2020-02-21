@@ -9,8 +9,8 @@
             </tr>
             <tr>
                 <td style="width: 5%">ID</td>
-                <td style="width: 60%">Nome</td>
-                <td style="width: 10%">Ativa?</td>
+                <td style="width: 65%">Nome</td>
+                <td style="width: 5%">Ativa?</td>
                 <td style="width: 10%">Criada em</td>
                 <td style="width: 15%">Ações</td>
             </tr>
@@ -19,13 +19,16 @@
             <tr *ngFor="let category of categories">
                 <td>{{ category.id }}</td>
                 <td>{{ category.name }}</td>
-                <td>
+                <td class="active">
                     <i class='fas' [ngClass]="{'fa-check' : category.active, 'fa-times' : !category.active}"></i>  
                 </td>
                 <td>{{ category.created_at.date | date: 'dd/MM/yyyy' }}</td>
                 <td>
                     <a href="javascript:void(0)" (click)="showModalEdit(category.id)">
                         <i class="fas fa-edit"></i>
+                    </a> |
+                    <a href="javascript:void(0)" (click)="showModalDelete(category.id)">
+                        <i class="fas fa-trash-alt"></i>
                     </a>
                 </td>
             </tr>
@@ -34,3 +37,4 @@
 </div>
 <category-new-modal (onSuccess)="onInsertSuccess($event)" (onError)="onInsertError($event)"></category-new-modal>
 <category-edit-modal [categoryId]="categoryId" (onSuccess)="onEditSuccess($event)" (onError)="onEditError($event)"></category-edit-modal>
+<category-delete-modal [categoryId]="categoryId" (onSuccess)="onDeleteSuccess($event)" (onError)="onDeleteError($event)"></category-delete-modal>
