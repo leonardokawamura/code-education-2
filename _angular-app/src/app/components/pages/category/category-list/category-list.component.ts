@@ -4,6 +4,7 @@ import { CategoryNewModalComponent } from '../category-new-modal/category-new-mo
 import { CategoryEditModalComponent } from '../category-edit-modal/category-edit-modal.component';
 import { CategoryDeleteModalComponent } from '../category-delete-modal/category-delete-modal.component';
 import { CategoryHttpService } from 'src/app/services/http/category-http.service';
+import { Category } from 'src/app/model';
 
 @Component({
   selector: 'app-category-list',
@@ -12,7 +13,7 @@ import { CategoryHttpService } from 'src/app/services/http/category-http.service
 })
 export class CategoryListComponent implements OnInit {
 
-  categories = [];  
+  categories: Array<Category> = [];
 
   categoryId: number;
 
