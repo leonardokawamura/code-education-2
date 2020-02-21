@@ -33,14 +33,8 @@ export class CategoryListComponent implements OnInit {
 
   getCategories() {
     const token = window.localStorage.getItem('token');
-    this.http
-      .get<{data: Array<any>}>('http://dev.code-education.com.br/api/categories', {
-      headers: {
-        'Authorization' : 'Bearer ' + token
-      }
-    })
-      .subscribe(response => {
-        response.data[0].active = false;
+    this.categoryHttp.list()
+      .subscribe(response => {        
         this.categories = response.data;
       });
   }
