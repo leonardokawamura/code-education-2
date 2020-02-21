@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { CategoryNewModalComponent } from '../category-new-modal/category-new-modal.component';
 import { CategoryEditModalComponent } from '../category-edit-modal/category-edit-modal.component';
 import { CategoryDeleteModalComponent } from '../category-delete-modal/category-delete-modal.component';
+import { CategoryHttpService } from 'src/app/services/http/category-http.service';
 
 @Component({
   selector: 'app-category-list',
@@ -24,7 +25,7 @@ export class CategoryListComponent implements OnInit {
   @ViewChild(CategoryDeleteModalComponent, {static: false})
   categoryDeleteModal: CategoryDeleteModalComponent;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private categoryHttp: CategoryHttpService) { }
 
   ngOnInit() {
     this.getCategories();
