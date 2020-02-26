@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angu
 import { ModalComponent } from 'src/app/components/bootstrap/modal/modal.component';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Category } from 'src/app/model';
+import { CategoryHttpService } from 'src/app/services/http/category-http.service';
 
 @Component({
   selector: 'category-delete-modal',
@@ -19,7 +20,7 @@ export class CategoryDeleteModalComponent implements OnInit {
 
   @ViewChild(ModalComponent, {static: false}) modal: ModalComponent;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private categoryHttp: CategoryHttpService) { }
 
   ngOnInit() {
   }
@@ -28,13 +29,9 @@ export class CategoryDeleteModalComponent implements OnInit {
   set categoryId(value) {
     this._categoryId = value;
     if (this._categoryId) {
-      const token = window.localStorage.getItem('token');    
-      this.http.get<{data: any}>('http://dev.code-education.com.br/api/categories/' + value, {
-        headers: {
-          'Authorization' : 'Bearer ' + token
-        }
-      })
-        .subscribe((response) => this.category = response.data);
+      this.categoryHttp
+        .get(this._categoryId)   
+        .subscribe((category) => this.category = category);
     }    
   }
 
