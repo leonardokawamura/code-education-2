@@ -63,8 +63,14 @@ export class CategoryHttpService {
         );
   }
 
-  destroy() {
-
+  destroy(id: number): Observable<any> {
+    const token = window.localStorage.getItem('token');
+    return this.http
+      .delete<{data: Category}>(`${this.baseUrl}/${id}`, {
+        headers: {
+          'Authorization' : 'Bearer ' + token
+        }
+      });
   }
 
 }
