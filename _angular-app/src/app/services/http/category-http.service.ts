@@ -50,8 +50,17 @@ export class CategoryHttpService {
 
   }
 
-  update() {
-
+  update(id: number, data: Category) {
+    const token = window.localStorage.getItem('token');
+    return this.http
+      .put<{data: Category}>(`${this.baseUrl}/${id}`, data, {
+        headers: {
+          'Authorization' : 'Bearer ' + token
+        }
+      })
+        .pipe(
+          map(response => response.data)
+        );
   }
 
   destroy() {

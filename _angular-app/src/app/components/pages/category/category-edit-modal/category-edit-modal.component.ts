@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { ModalComponent } from 'src/app/components/bootstrap/modal/modal.component';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Category } from 'src/app/model';
 import { CategoryHttpService } from 'src/app/services/http/category-http.service';
 
@@ -23,7 +23,7 @@ export class CategoryEditModalComponent implements OnInit {
 
   @ViewChild(ModalComponent, {static: false}) modal: ModalComponent;  
 
-  constructor(private http: HttpClient, private categoryHttp: CategoryHttpService) { }
+  constructor(private categoryHttp: CategoryHttpService) { }
 
   ngOnInit() {
   }
@@ -39,13 +39,8 @@ export class CategoryEditModalComponent implements OnInit {
   }
 
   submit() {
-    const token = window.localStorage.getItem('token');
-    this.http
-      .put('http://dev.code-education.com.br/api/categories/' + this._categoryId, this.category, {
-      headers: {
-        'Authorization' : 'Bearer ' + token
-      }
-    })
+    this.categoryHttp
+      .update(this._categoryId, this.category)
       .subscribe((category) => {  
         this.onSuccess.emit(category);      
         this.modal.hide();   
