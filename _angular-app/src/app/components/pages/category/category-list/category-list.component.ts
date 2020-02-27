@@ -5,8 +5,7 @@ import { CategoryEditModalComponent } from '../category-edit-modal/category-edit
 import { CategoryDeleteModalComponent } from '../category-delete-modal/category-delete-modal.component';
 import { CategoryHttpService } from 'src/app/services/http/category-http.service';
 import { Category } from 'src/app/model';
-import PNotify from 'pnotify/dist/es/PNotify';
-import PNotifyButtons from 'pnotify/dist/es/PNotifyButtons';
+import { NotifyMessageService } from 'src/app/services/notify-message.service';
 
 @Component({
   selector: 'app-category-list',
@@ -28,7 +27,7 @@ export class CategoryListComponent implements OnInit {
   @ViewChild(CategoryDeleteModalComponent, {static: false})
   categoryDeleteModal: CategoryDeleteModalComponent;
 
-  constructor(private http: HttpClient, private categoryHttp: CategoryHttpService) { }
+  constructor(private categoryHttp: CategoryHttpService, private notifyMessage: NotifyMessageService) { }
 
   ngOnInit() {
     this.getCategories();
@@ -57,6 +56,7 @@ export class CategoryListComponent implements OnInit {
   }
 
   onInsertSuccess($event: any) {
+    this.notifyMessage.success('Categoria cadastrada');
     this.getCategories();
   }
 
@@ -77,12 +77,6 @@ export class CategoryListComponent implements OnInit {
   }
 
   onDeleteError($event: HttpErrorResponse) {
-    console.log($event);
+    this.notifyMessage.error('Não foi possível excluir a categoria');
   }
-
-  showNotify() {
-    PNotifyButtons;
-    PNotify.alert({text: "hello world", type: "success"});
-  }  
-
 }
