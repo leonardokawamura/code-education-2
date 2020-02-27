@@ -5,10 +5,8 @@ import { CategoryEditModalComponent } from '../category-edit-modal/category-edit
 import { CategoryDeleteModalComponent } from '../category-delete-modal/category-delete-modal.component';
 import { CategoryHttpService } from 'src/app/services/http/category-http.service';
 import { Category } from 'src/app/model';
-//import PNotify from 'pnotify/dist/es/PNotify';
-//import PNotifyButtons from 'pnotify/dist/es/PNotifyButtons';
-import {PNotify, PNotifyButtons} from 'pnotify/dist/es';
-
+import PNotify from 'pnotify/dist/es/PNotify';
+import PNotifyButtons from 'pnotify/dist/es/PNotifyButtons';
 
 @Component({
   selector: 'app-category-list',
