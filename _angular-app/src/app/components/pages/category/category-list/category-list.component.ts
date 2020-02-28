@@ -19,7 +19,11 @@ export class CategoryListComponent implements OnInit {
 
   categoryId: number;
 
-  page = 1;
+  pagination = {
+    page: 1,
+    totalItems: 0,
+    itemsPerPage: 15
+  }
 
   @ViewChild(CategoryNewModalComponent, {static: false})
   categoryNewModal: CategoryNewModalComponent;
@@ -46,10 +50,17 @@ export class CategoryListComponent implements OnInit {
   }
 
   getCategories() {
-    this.categoryHttp.list()
+    this.categoryHttp.list(this.pagination.page)
       .subscribe(response => {        
         this.categories = response.data;
+        this.pagination.totalItems = response.meta.total;
+        this.pagination.itemsPerPage = response.meta.per_page;
       });
+  }
+
+  pageChanged(page) {
+    this.pagination.page = page;
+    this.getCategories();
   }
   
 }
