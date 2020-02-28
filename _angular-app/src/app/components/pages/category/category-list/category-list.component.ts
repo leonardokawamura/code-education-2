@@ -19,6 +19,8 @@ export class CategoryListComponent implements OnInit {
 
   categoryId: number;
 
+  page = 1;
+
   @ViewChild(CategoryNewModalComponent, {static: false})
   categoryNewModal: CategoryNewModalComponent;
 
