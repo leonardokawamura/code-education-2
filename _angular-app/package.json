@@ -23,6 +23,7 @@
     "bootstrap": "^4.4.1",
     "jquery": "^3.4.1",
     "ngx-pagination": "^3.1.1",
+    "pace": "github:HubSpot/pace#v1.0.2",
     "pnotify": "^4.0.0",
     "popper.js": "^1.16.1",
     "rxjs": "~6.4.0",
