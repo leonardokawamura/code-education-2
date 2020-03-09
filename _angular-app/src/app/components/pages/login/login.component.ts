@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
       .subscribe((data) => {
         const token = data.token; 
         window.localStorage.setItem('token', token);
-        this.router.navigate(['categories/list']);               
+        this.router.navigate(['products/list']);               
       }, () => this.showMessageError = true);
     return false;
   }
