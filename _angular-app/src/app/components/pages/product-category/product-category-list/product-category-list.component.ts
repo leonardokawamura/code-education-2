@@ -4,6 +4,7 @@ import { ProductHttpService } from 'src/app/services/http/product-http.service';
 import { Product, ProductCategory, Category } from 'src/app/model';
 import { ProductCategoryHttpService } from 'src/app/services/http/product-category-http.service';
 import { CategoryHttpService } from 'src/app/services/http/category-http.service';
+import { AstMemoryEfficientTransformer } from '@angular/compiler';
 
 @Component({
   selector: 'app-product-category-list',
@@ -56,6 +57,22 @@ export class ProductCategoryListComponent implements OnInit {
       .subscribe(productCategory => {
         this.productCategory = productCategory;
       })
+  }
+
+  submit() {
+    const categoriesId = this.mergeCategories();
+    this.productCategoryHttp
+      .create(this.productId, categoriesId)
+      .subscribe(productCategory => this.getProductCategory());
+    return false;
+  }
+
+  private mergeCategories() {
+    const categoriesId = this.productCategory.categories.map(category => category.id);
+    const newCategoriesId = this.categoriesId.filter(category => {
+      return categoriesId.indexOf(category) == -1;
+    });
+    return categoriesId.concat(newCategoriesId);
   }
 
 }
