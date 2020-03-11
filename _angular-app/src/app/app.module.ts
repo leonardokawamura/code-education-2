@@ -21,6 +21,8 @@ import { ProductNewModalComponent } from './components/pages/product/product-new
 import { NumberFormatBrPipe } from './pipes/number-format-br.pipe';
 import { ProductCategoryListComponent } from './components/pages/product-category/product-category-list/product-category-list.component';
 import { ProductCategoryNewComponent } from './components/pages/product-category/product-category-new/product-category-new.component';
+import { JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
+import { AuthService } from './services/auth.service';
 
 const routes: Routes = [
   {
@@ -44,7 +46,18 @@ const routes: Routes = [
     redirectTo: '/login',
     pathMatch: 'full'
   }
-]
+];
+
+function jwtFactory(authService: AuthService) {
+  return {
+    whitelistedDomains: [
+      new RegExp('dev.code-education.com.br/*')
+    ],
+    tokenGetter: () => {
+      return authService.getToken()
+    }
+  }
+}
 @NgModule({
   declarations: [
     AppComponent,
@@ -69,7 +82,14 @@ const routes: Routes = [
     FormsModule,
     HttpClientModule,
     RouterModule.forRoot(routes, {enableTracing: true}),
-    NgxPaginationModule
+    NgxPaginationModule,
+    JwtModule.forRoot({
+      jwtOptionsProvider: {
+        provide: JWT_OPTIONS, 
+        useFactory: jwtFactory,
+        deps: [ AuthService ]
+      }
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
