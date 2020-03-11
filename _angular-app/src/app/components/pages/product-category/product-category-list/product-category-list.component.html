@@ -26,7 +26,7 @@
                 </td>
                 <td>{{ category.created_at.date | date: 'dd/MM/yyyy' }}</td>
                 <td>
-                    <a href="javascript:void(0)" (click)="categoryDeleteService.showModalDelete(category.id)">
+                    <a href="javascript:void(0)" (click)="destroy(product.id, category.id)">
                         <i class="fas fa-trash-alt"></i>
                     </a>
                 </td>

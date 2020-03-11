@@ -28,6 +28,16 @@ export class ProductCategoryListComponent implements OnInit {
     });
   }
 
+  destroy(productId: number, categoryId: number) {
+    this.productCategoryHttp
+      .destroy(productId, categoryId)
+      .subscribe(response => {
+        this.getProductCategory();
+      }, error => {
+        console.log(error);
+      })
+  }
+
   getProduct() {
     this.productHttp
       .get(this.productId)
@@ -37,6 +47,10 @@ export class ProductCategoryListComponent implements OnInit {
   onInsertSuccess($event: any) {
       this.getProductCategory();
   }
+
+  onDeleteSuccess($event: any) {
+    this.getProductCategory();
+}
 
   getProductCategory() {
     this.productCategoryHttp

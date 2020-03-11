@@ -23,9 +23,7 @@ export class LoginComponent implements OnInit {
 
   submit() {
     this.authService.login(this.credentials)
-      .subscribe(data => {
-        const token = data.token; 
-        window.localStorage.setItem('token', token);
+      .subscribe(data => {        
         this.router.navigate(['products/list']);               
       }, () => this.showMessageError = true);
     return false;

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { map } from 'rxjs/operators';
 import { Product } from 'src/app/model';
 import { HttpResource, SearchParams, SearchParamsBuilder } from './http-resource';
+import { AuthService } from '../auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,10 +13,10 @@ export class ProductHttpService implements HttpResource<Product> {
 
   private baseUrl = 'http://dev.code-education.com.br/api/products';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private authService: AuthService) { }
 
   list(searchParams: SearchParams): Observable<{data: Array<Product>, meta: any}> {
-    const token = window.localStorage.getItem('token');
+    const token = this.authService.getToken();
     const sParams = new SearchParamsBuilder(searchParams).makeObject();
     const params = new HttpParams({
       fromObject: (<any>sParams)
@@ -30,7 +31,7 @@ export class ProductHttpService implements HttpResource<Product> {
   }
 
   get(id: number): Observable<Product> {
-    const token = window.localStorage.getItem('token');
+    const token = this.authService.getToken();
     return this.http
       .get<{data: Product}>(`${this.baseUrl}/${id}`, {
         headers: {
@@ -43,7 +44,7 @@ export class ProductHttpService implements HttpResource<Product> {
   }
 
   create(data: Product): Observable<Product> {
-    const token = window.localStorage.getItem('token');
+    const token = this.authService.getToken();
     return this.http
       .post<{data: Product}>(this.baseUrl, data, {
         headers: {
@@ -57,7 +58,7 @@ export class ProductHttpService implements HttpResource<Product> {
   }
 
   update(id: number, data: Product): Observable<Product> {
-    const token = window.localStorage.getItem('token');
+    const token = this.authService.getToken();
     return this.http
       .put<{data: Product}>(`${this.baseUrl}/${id}`, data, {
         headers: {
@@ -70,7 +71,7 @@ export class ProductHttpService implements HttpResource<Product> {
   }
 
   destroy(id: number): Observable<any> {
-    const token = window.localStorage.getItem('token');
+    const token = this.authService.getToken();
     return this.http
       .delete<{data: Product}>(`${this.baseUrl}/${id}`, {
         headers: {
