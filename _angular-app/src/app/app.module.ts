@@ -7,7 +7,7 @@ import { LoginComponent } from './components/pages/login/login.component';
 import { CategoryListComponent } from './components/pages/category/category-list/category-list.component';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AlertErrorComponent } from './components/bootstrap/alert-error/alert-error.component';
 import { ModalComponent } from './components/bootstrap/modal/modal.component';
 import { CategoryNewModalComponent } from './components/pages/category/category-new-modal/category-new-modal.component';
@@ -25,6 +25,7 @@ import { JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { AuthService } from './services/auth.service';
 import { NavbarComponent } from './components/bootstrap/navbar/navbar.component';
 import { AuthGuard } from './guards/auth.guard';
+import { RefreshTokenInterceptorService } from './services/refresh-token-interceptor.service';
 
 const routes: Routes = [
   {
@@ -102,7 +103,13 @@ function jwtFactory(authService: AuthService) {
       }
     })
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: RefreshTokenInterceptorService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
