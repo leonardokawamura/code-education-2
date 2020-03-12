@@ -24,6 +24,7 @@ import { ProductCategoryNewComponent } from './components/pages/product-category
 import { JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { AuthService } from './services/auth.service';
 import { NavbarComponent } from './components/bootstrap/navbar/navbar.component';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -32,16 +33,24 @@ const routes: Routes = [
   },
   {
     path: 'products/:product/categories/list',
-    component: ProductCategoryListComponent
+    component: ProductCategoryListComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'categories/list',
-    component: CategoryListComponent
+    component: CategoryListComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'products/list',
-    component: ProductListComponent
+    component: ProductListComponent,
+    canActivate: [AuthGuard]
   },  
+  /*{
+    path: 'users/list',
+    component: UserListComponent,
+    canActivate: [AuthGuard]
+  },*/
   {
     path: '',
     redirectTo: '/login',
