@@ -23,6 +23,7 @@ import { ProductCategoryListComponent } from './components/pages/product-categor
 import { ProductCategoryNewComponent } from './components/pages/product-category/product-category-new/product-category-new.component';
 import { JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { AuthService } from './services/auth.service';
+import { NavbarComponent } from './components/bootstrap/navbar/navbar.component';
 
 const routes: Routes = [
   {
@@ -74,7 +75,8 @@ function jwtFactory(authService: AuthService) {
     ProductNewModalComponent,
     NumberFormatBrPipe,
     ProductCategoryListComponent,
-    ProductCategoryNewComponent
+    ProductCategoryNewComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
