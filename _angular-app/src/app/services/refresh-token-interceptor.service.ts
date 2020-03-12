@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse, HttpResponseBase } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
 import { tap } from 'rxjs/operators';
 import { AuthService } from './auth.service';
@@ -19,6 +19,7 @@ export class RefreshTokenInterceptorService implements HttpInterceptor {
         tap((event: HttpEvent<any>) => {
           this.setNewTokenIfResponseValid(event);
         }, (eventError: HttpEvent<any>) => {
+          this.setNewTokenIfResponseValid(eventError);
           this.redirectToLoginIfUnaunthenticated(eventError);
         })
       )
@@ -32,7 +33,7 @@ export class RefreshTokenInterceptorService implements HttpInterceptor {
   }
 
   private setNewTokenIfResponseValid(event: HttpEvent<any>) {
-    if(event instanceof HttpResponse) {
+    if(event instanceof HttpResponseBase) {
       const authorizathionHeader = event.headers.get('authorization');
       if(authorizathionHeader) {
         const token = authorizathionHeader.split(' ')[1];
