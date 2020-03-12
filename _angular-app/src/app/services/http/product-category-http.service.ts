@@ -4,53 +4,39 @@ import { ProductCategory, Product } from 'src/app/model';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { AuthService } from '../auth.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductCategoryHttpService {
 
-  private baseApi = 'http://dev.code-education.com.br/api';
+  private baseApi = environment.api.url
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
   list(productId: number): Observable<ProductCategory> {
-    const token = this.authService.getToken();
     return this.http
       .get<{data: ProductCategory}>
-      (this.getBaseUrl(productId), {
-        headers: {
-          'Authorization' : `Bearer ${token}`
-        }
-      })
+      (this.getBaseUrl(productId))
       .pipe(
         map(response => response.data)
       );
   }
 
   create(productId: number, categoriesId: Array<number>): Observable<ProductCategory> {
-    const token = this.authService.getToken();
     return this.http
       .post<{data: ProductCategory}>
-      (this.getBaseUrl(productId), {categories: categoriesId}, {
-        headers: {
-          'Authorization' : `Bearer ${token}`
-        }
-      })
+      (this.getBaseUrl(productId), {categories: categoriesId})
       .pipe(
         map(response => response.data)
       );
   }
 
   destroy(productId: number, categoryId: number): Observable<any> {
-    const token = this.authService.getToken();
     return this.http
       .delete<any>
-      (this.getBaseUrl(productId, categoryId), {
-        headers: {
-          'Authorization' : 'Bearer ' + token
-        }
-      });
+      (this.getBaseUrl(productId, categoryId));
   }
 
   private getBaseUrl(productId: number, categoryId: number = null): string {

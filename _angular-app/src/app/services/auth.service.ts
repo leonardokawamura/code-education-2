@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 import { User } from '../model';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { environment } from 'src/environments/environment';
 
 const TOKEN_KEY = 'code-education';
 @Injectable({
@@ -20,7 +21,7 @@ export class AuthService {
 
   login(user: {email: string, password: string}): Observable<{token: string}> {
     return this.http
-      .post<{token: string}>('http://dev.code-education.com.br/api/login', user)
+      .post<{token: string}>(`${environment.api.url}/login`, user)
       .pipe(
         tap(response => {
           this.setToken(response.token);
@@ -53,7 +54,7 @@ export class AuthService {
 
   logout(): Observable<any> {
     return this.http
-      .post<{token: string}>('http://dev.code-education.com.br/api/logout', {})
+      .post<{token: string}>(`${environment.api.url}/logout`, {})
       .pipe(
         tap(() => {
           this.setToken(null);
