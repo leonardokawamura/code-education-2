@@ -24,6 +24,11 @@ import { JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { AuthService } from './services/auth.service';
 import { NavbarComponent } from './components/bootstrap/navbar/navbar.component';
 import { RefreshTokenInterceptorService } from './services/refresh-token-interceptor.service';
+import { UserListComponent } from './components/pages/user/user-list/user-list.component';
+import { UserNewModalComponent } from './components/pages/user/user-new-modal/user-new-modal.component';
+import { UserEditModalComponent } from './components/pages/user/user-edit-modal/user-edit-modal.component';
+import { UserDeleteModalComponent } from './components/pages/user/user-delete-modal/user-delete-modal.component';
+import { environment } from 'src/environments/environment';
 
 function jwtFactory(authService: AuthService) {
   return {
@@ -52,7 +57,11 @@ function jwtFactory(authService: AuthService) {
     NumberFormatBrPipe,
     ProductCategoryListComponent,
     ProductCategoryNewComponent,
-    NavbarComponent
+    NavbarComponent,
+    UserListComponent,
+    UserNewModalComponent,
+    UserEditModalComponent,
+    UserDeleteModalComponent
   ],
   imports: [
     BrowserModule,

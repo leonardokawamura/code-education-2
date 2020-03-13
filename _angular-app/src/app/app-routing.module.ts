@@ -5,6 +5,7 @@ import { ProductCategoryListComponent } from './components/pages/product-categor
 import { AuthGuard } from './guards/auth.guard';
 import { CategoryListComponent } from './components/pages/category/category-list/category-list.component';
 import { ProductListComponent } from './components/pages/product/product-list/product-list.component';
+import { UserListComponent } from './components/pages/user/user-list/user-list.component';
 
 const routes: Routes = [
   {
@@ -26,11 +27,11 @@ const routes: Routes = [
     component: ProductListComponent,
     canActivate: [AuthGuard]
   },  
-  /*{
+  {
     path: 'users/list',
     component: UserListComponent,
     canActivate: [AuthGuard]
-  },*/
+  },
   {
     path: '',
     redirectTo: '/login',
