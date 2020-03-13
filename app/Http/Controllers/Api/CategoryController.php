@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Filters\CategoryFilter;
 use App\Http\Requests\CategoryRequest;
 use App\Http\Resources\CategoryResource;
 use App\Models\Category;
@@ -11,13 +12,20 @@ use Illuminate\Http\Request;
 class CategoryController extends Controller
 {
     public function index(Request $request)
-    {   
-        $categories = $request->has('all') ? Category::all() : Category::paginate(5);
+    {
+        /** @var CategoryFilter $filter */        
+        $filter = app(CategoryFilter::class);
+
+        /** @var Builder $filterQuery */
+        $filterQuery = Category::filtered($filter);
+
+        $categories = $filterQuery->get();
+        //$categories = $request->has('all') ? Category::all() : Category::paginate(5);
         return CategoryResource::collection($categories);
     }
     
     public function store(CategoryRequest $request)
-    {
+    {       
         $category = Category::create($request->all());
         $category->refresh();
         return new CategoryResource($category);
