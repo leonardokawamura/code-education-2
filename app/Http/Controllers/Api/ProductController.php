@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Common\OnlyTrashed;
 use App\Http\Controllers\Controller;
+use App\Http\Filters\ProductFilter;
 use App\Http\Requests\ProductRequest;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
@@ -17,7 +18,17 @@ class ProductController extends Controller
     {
         $query = Product::query();
         $query = $this->onlyTrashedIfRequested($request, $query);
-        $products = $query->paginate(5);
+        //$products = $query->paginate(5);        
+
+        /** @var ProductFilter $filter */        
+        $filter = app(ProductFilter::class);
+
+        /** @var Builder $filterQuery */
+        //$filterQuery = Product::filtered($filter);
+        $filterQuery = $query->filtered($filter);
+       
+        $products = $request->has('all') ? $filterQuery->get() : $filterQuery->paginate(5);
+
         return ProductResource::collection($products);
     }
 

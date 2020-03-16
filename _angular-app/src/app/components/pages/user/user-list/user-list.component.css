@@ -1,4 +1,16 @@
-.fa-trash-alt {
+h1 {
+    text-align: center;
+    text-transform: uppercase;
+    width: 100%;
+    color: #007bff;
+    margin: 25px 0;
+    padding-bottom: 25px;
+    border-bottom: 1px solid #007bff;
+}
+.fa-check {
+    color: #28a745;
+}
+.fa-trash-alt, .fa-times {
     color: red;
 }
 .active {

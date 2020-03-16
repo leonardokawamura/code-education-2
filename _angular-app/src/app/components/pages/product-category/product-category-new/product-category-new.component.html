@@ -1,6 +1,6 @@
 <form class="form-inline" (submit)="submit()">
     <div class="col-auto">
-        <label for="categories[]">Categorias</label>
+        <label for="categories[]">CATEGORIAS</label>
         <select name="categories[]" id="categories[]" class="form-control" multiple [(ngModel)]="categoriesId">
             <option *ngFor="let category of categories" [ngValue]="category.id">{{ category.name }}</option>
         </select>

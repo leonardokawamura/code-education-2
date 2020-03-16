@@ -1,18 +1,23 @@
 <div class="row"> 
     <h1>Listagem de usuário</h1>
-    <table class="table table-striped">
-        <thead>
+    <div class="col-12" style="margin-top: 25px;margin-bottom: 25px;">
+        <div class="row">
+            <div class="col-auto">
+                <button class="btn btn-primary" (click)="userInsertService.showModalInsert()">Novo usuário</button>
+            </div>
+            <div class="col-auto">
+                <user-search-form (onSearch)="search($event)"></user-search-form>
+            </div>
+        </div>        
+    </div>
+    <table class="table table-bordered">
+        <thead class="thead-dark">            
             <tr>
-                <td colspan="5">
-                    <button class="btn btn-primary" (click)="userInsertService.showModalInsert()">Novo usuário</button>
-                </td>
-            </tr>
-            <tr>
-                <td style="width: 5%">ID</td>
-                <td style="width: 35%">Nome</td>
-                <td style="width: 35%">E-mail</td>
-                <td style="width: 10%">Criado em</td>
-                <td style="width: 15%">Ações</td>
+                <th style="width: 6%" [sortColumn]="sortColumn" columnName="id" (onSort)="sort($event)">ID</th>
+                <th style="width: 35%" [sortColumn]="sortColumn" columnName="name" (onSort)="sort($event)">Nome</th>
+                <th style="width: 35%" [sortColumn]="sortColumn" columnName="email" (onSort)="sort($event)">E-mail</th>
+                <th style="width: 11%" [sortColumn]="sortColumn" columnName="created_at" (onSort)="sort($event)">Criado em</th>
+                <th style="width: 13%">Ações</th>
             </tr>
         </thead>
         <tbody>

@@ -23,7 +23,7 @@ export class ProductEditService {
 
     onEditSuccess($event: any) {
         this.notifyMessage.success('Categoria atualizada com sucesso');
-        this._productListComponent.getCategories();
+        this._productListComponent.getProducts();
     }
 
     onEditError($event: HttpErrorResponse) {

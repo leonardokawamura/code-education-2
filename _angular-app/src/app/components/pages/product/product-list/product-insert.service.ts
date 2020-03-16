@@ -22,7 +22,7 @@ export class ProductInsertService {
 
     onInsertSuccess($event: any) {
         this.notifyMessage.success('Produto cadastrado');
-        this._productListComponent.getCategories();
+        this._productListComponent.getProducts();
     }
 
     onInsertError($event: HttpErrorResponse) {

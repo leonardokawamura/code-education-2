@@ -66,7 +66,7 @@ export class CategoryListComponent implements OnInit {
       });
   }
 
-  pageChanged(page) {
+  pageChanged(page: number) {
     this.pagination.page = page;
     this.getCategories();
   }
@@ -75,7 +75,7 @@ export class CategoryListComponent implements OnInit {
     this.getCategories();
   }
 
-  search(search) {
+  search(search: string) {
     this.searchText = search;
     this.getCategories();
   }

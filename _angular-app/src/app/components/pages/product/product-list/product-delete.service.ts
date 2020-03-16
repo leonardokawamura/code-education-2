@@ -22,7 +22,7 @@ export class ProductDeleteService {
     }
 
     onDeleteSuccess($event: any) {
-        this._productListComponent.getCategories();
+        this._productListComponent.getProducts();
     }
 
     onDeleteError($event: HttpErrorResponse) {

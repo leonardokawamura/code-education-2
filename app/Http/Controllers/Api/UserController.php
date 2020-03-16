@@ -6,6 +6,7 @@ use App\Common\OnlyTrashed;
 use App\Events\UserCreatedEvent;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Filters\UserFilter;
 use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
@@ -18,7 +19,16 @@ class UserController extends Controller
     {        
         $query = User::query();
         $query = $this->onlyTrashedIfRequested($request, $query);
-        $users = $query->paginate(5);
+        
+        /** @var UserFilter $filter */        
+        $filter = app(UserFilter::class);
+
+        /** @var Builder $filterQuery */
+        //$filterQuery = User::filtered($filter);
+        $filterQuery = $query->filtered($filter);
+       
+        $users = $request->has('all') ? $filterQuery->get() : $filterQuery->paginate(5);          
+        
         return UserResource::collection($users);
     }
 

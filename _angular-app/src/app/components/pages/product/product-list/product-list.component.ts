@@ -25,6 +25,10 @@ export class ProductListComponent implements OnInit {
     itemsPerPage: 15
   }
 
+  sortColumn = {column: 'created_at', sort: 'desc'};
+
+  searchText: string = '';
+
   @ViewChild(ProductNewModalComponent, {static: false})
   productNewModal: ProductNewModalComponent;
 
@@ -46,11 +50,15 @@ export class ProductListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getCategories();
+    this.getProducts();
   }
 
-  getCategories() {
-    this.productHttp.list({page: this.pagination.page})
+  getProducts() {
+    this.productHttp.list({
+        page: this.pagination.page,
+        sort: this.sortColumn.column === '' ? null : this.sortColumn,
+        search: this.searchText === '' ? null : this.searchText      
+      })
       .subscribe(response => {        
         this.categories = response.data;
         this.pagination.totalItems = response.meta.total;
@@ -58,9 +66,18 @@ export class ProductListComponent implements OnInit {
       });
   }
 
-  pageChanged(page) {
+  pageChanged(page: number) {
     this.pagination.page = page;
-    this.getCategories();
+    this.getProducts();
+  }
+
+  sort() {
+    this.getProducts();
+  }
+
+  search(search: string) {
+    this.searchText = search;
+    this.getProducts();
   }
   
 }
