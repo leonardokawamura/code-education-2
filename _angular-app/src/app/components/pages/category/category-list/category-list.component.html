@@ -9,10 +9,10 @@
                 </td>
             </tr>
             <tr>
-                <td style="width: 5%" [sortColumn]="sortColumn" columnName="id">ID</td>
-                <td style="width: 65%" [sortColumn]="sortColumn" columnName="name">Nome</td>
+                <td style="width: 5%" [sortColumn]="sortColumn" columnName="id" (onSort)="sort($event)">ID</td>
+                <td style="width: 65%" [sortColumn]="sortColumn" columnName="name" (onSort)="sort($event)">Nome</td>
                 <td style="width: 5%">Ativa?</td>
-                <td style="width: 10%" [sortColumn]="sortColumn" columnName="created_at">Criada em</td>
+                <td style="width: 10%" [sortColumn]="sortColumn" columnName="created_at" (onSort)="sort($event)">Criada em</td>
                 <td style="width: 15%">Ações</td>
             </tr>
         </thead>

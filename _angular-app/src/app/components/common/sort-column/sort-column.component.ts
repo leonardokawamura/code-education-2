@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, HostListener } from '@angular/core';
+import { Component, OnInit, Input, HostListener, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: '[sortColumn]',
@@ -13,6 +13,8 @@ export class SortColumnComponent implements OnInit {
   @Input()
   columnName: string;
 
+  @Output() onSort: EventEmitter<any> = new EventEmitter<any>();
+
   constructor() { }
 
   ngOnInit() {
@@ -22,6 +24,7 @@ export class SortColumnComponent implements OnInit {
   changeSort() {
     this.sortColumn.column = this.columnName;
     this.sortColumn.sort = (this.sortColumn.sort === 'desc') ? 'asc' : 'desc';
+    this.onSort.emit(this.sortColumn);
   }
 
   showArrowDown() {
