@@ -27,6 +27,8 @@ export class CategoryListComponent implements OnInit {
 
   sortColumn = {column: 'created_at', sort: 'desc'};
 
+  searchText: string = '';
+
   @ViewChild(CategoryNewModalComponent, {static: false})
   categoryNewModal: CategoryNewModalComponent;
 
@@ -54,7 +56,8 @@ export class CategoryListComponent implements OnInit {
   getCategories() {
     this.categoryHttp.list({
         page: this.pagination.page,
-        sort: this.sortColumn.column === '' ? null : this.sortColumn
+        sort: this.sortColumn.column === '' ? null : this.sortColumn,
+        search: this.searchText === '' ? null : this.searchText
       })
       .subscribe(response => {        
         this.categories = response.data;
@@ -69,6 +72,11 @@ export class CategoryListComponent implements OnInit {
   }
 
   sort() {
+    this.getCategories();
+  }
+
+  search(search) {
+    this.searchText = search;
     this.getCategories();
   }
   
