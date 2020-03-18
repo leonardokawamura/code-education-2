@@ -3,6 +3,7 @@ import { ModalComponent } from 'src/app/components/bootstrap/modal/modal.compone
 import { HttpErrorResponse } from '@angular/common/http';
 import { Category } from 'src/app/model';
 import { CategoryHttpService } from 'src/app/services/http/category-http.service';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'category-edit-modal',
@@ -18,12 +19,19 @@ export class CategoryEditModalComponent implements OnInit {
 
   _categoryId: number;
 
+  form: FormGroup;  
+
   @Output() onSuccess: EventEmitter<any> = new EventEmitter<any>();
   @Output() onError: EventEmitter<HttpErrorResponse> = new EventEmitter<HttpErrorResponse>();
 
   @ViewChild(ModalComponent, {static: false}) modal: ModalComponent;  
 
-  constructor(private categoryHttp: CategoryHttpService) { }
+  constructor(private categoryHttp: CategoryHttpService, private formBuilder: FormBuilder) {
+    this.form = this.formBuilder.group({
+      name: '',
+      active: true
+    })
+  }
 
   ngOnInit() {
   }

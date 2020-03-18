@@ -1,9 +1,8 @@
 <form (submit)="submit()">
     <modal (onHide)="hideModal($event)">
         <h5 modal-title>Nova categoria</h5>
-        <div modal-body>
-            <input type="text" name="description" id="description" [formControl]="description">
-            <category-form [category]="category"></category-form> 
+        <div modal-body>            
+            <category-form [form]="form"></category-form> 
         </div>
         <div modal-footer>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
