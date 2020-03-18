@@ -3,6 +3,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ModalComponent } from 'src/app/components/bootstrap/modal/modal.component';
 import { Category } from 'src/app/model';
 import { CategoryHttpService } from 'src/app/services/http/category-http.service';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'category-new-modal',
@@ -16,13 +17,17 @@ export class CategoryNewModalComponent implements OnInit {
     active: true
   };
 
+  description: FormControl;
+
   @ViewChild(ModalComponent, {static: false})
   modal: ModalComponent;
 
   @Output() onSuccess: EventEmitter<any> = new EventEmitter<any>();
   @Output() onError: EventEmitter<HttpErrorResponse> = new EventEmitter<HttpErrorResponse>();
 
-  constructor(private categoryHttp: CategoryHttpService) { }
+  constructor(private categoryHttp: CategoryHttpService) {
+    this.description = new FormControl();
+  }
 
   ngOnInit() {
 
@@ -43,7 +48,8 @@ export class CategoryNewModalComponent implements OnInit {
   }
 
   hideModal($event: Event) {
-    
+    this.category.name = '';
+    this.category.active = true;
   }
 
 }

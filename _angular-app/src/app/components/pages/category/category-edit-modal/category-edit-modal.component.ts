@@ -59,7 +59,8 @@ export class CategoryEditModalComponent implements OnInit {
   }
 
   hideModal($event: Event) {
-    
+    this.category.name = '';
+    this.category.active = true;
   }
 
 }
