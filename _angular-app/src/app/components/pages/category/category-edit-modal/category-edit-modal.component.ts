@@ -43,7 +43,7 @@ export class CategoryEditModalComponent implements OnInit {
       this.categoryHttp
         .get(this._categoryId)   
         .subscribe(
-          category => this.category = category,
+          category => this.form.patchValue(category),
           responseError => {
             if(responseError.status == 401) {
               this.modal.hide();
@@ -55,7 +55,7 @@ export class CategoryEditModalComponent implements OnInit {
 
   submit() {
     this.categoryHttp
-      .update(this._categoryId, this.category)
+      .update(this._categoryId, this.form.value)
       .subscribe((category) => {  
         this.onSuccess.emit(category);      
         this.modal.hide();   

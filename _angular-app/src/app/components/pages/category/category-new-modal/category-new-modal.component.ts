@@ -12,10 +12,10 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 })
 export class CategoryNewModalComponent implements OnInit {
 
-  category: Category = {
+  /*category: Category = {
     name: '',
     active: true
-  };
+  };*/
 
   form: FormGroup;
 
@@ -38,11 +38,14 @@ export class CategoryNewModalComponent implements OnInit {
 
   submit() {
     this.categoryHttp
-      .create(this.category)
+      .create(this.form.value)
       .subscribe((category) => {  
         this.onSuccess.emit(category);      
         this.modal.hide();
-        //this.getCategories();      
+        this.form.reset({
+          name: '',
+          active: true
+        });    
       }, error => this.onError.emit(error));
   }
 
@@ -51,8 +54,7 @@ export class CategoryNewModalComponent implements OnInit {
   }
 
   hideModal($event: Event) {
-    this.category.name = '';
-    this.category.active = true;
+    
   }
 
 }
