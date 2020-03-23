@@ -20,4 +20,20 @@ export class CategoryFormComponent implements OnInit {
     this.changeRef.detectChanges();
   }
 
+  get fieldOptions() {
+    return {
+      name: {
+        id: 'name',
+        label: 'Nome',
+        validationMessage: {
+          maxlength: 5
+        }
+      },
+      active: {
+        id: 'active',
+        label: 'Ativo'
+      }
+    }
+  }
+
 }
