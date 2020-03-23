@@ -33,6 +33,7 @@ import { CategorySearchFormComponent } from './components/pages/category/categor
 import { ProductSearchFormComponent } from './components/pages/product/product-search-form/product-search-form.component';
 import { UserSearchFormComponent } from './components/pages/user/user-search-form/user-search-form.component';
 import { CategoryFormComponent } from './components/pages/category/category-form/category-form.component';
+import { FieldErrorComponent } from './components/bootstrap/field-error/field-error.component';
 
 function jwtFactory(authService: AuthService) {
   return {
@@ -70,7 +71,8 @@ function jwtFactory(authService: AuthService) {
     CategorySearchFormComponent,
     ProductSearchFormComponent,
     UserSearchFormComponent,
-    CategoryFormComponent
+    CategoryFormComponent,
+    FieldErrorComponent
   ],
   imports: [
     BrowserModule,

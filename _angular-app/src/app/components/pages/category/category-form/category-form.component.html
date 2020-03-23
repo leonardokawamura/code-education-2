@@ -3,10 +3,11 @@
     <input type="text" class="form-control" id="name" name="name" required maxlength="5" 
         formControlName="name"
         [ngClass]="{'is-invalid': form.get('name').invalid && (form.get('name').dirty || form.get('name').touched)}"> 
-    <div class="invalid-feedback" *ngIf="form.get('name').invalid && (form.get('name').dirty || form.get('name').touched)">
+    <field-error [field]="form.get('name')"></field-error>
+    <!--<div class="invalid-feedback" *ngIf="form.get('name').invalid && (form.get('name').dirty || form.get('name').touched)">
         <p *ngIf="form.get('name').errors && form.get('name').errors.required">O campo nome é requerido</p>
         <p *ngIf="form.get('name').errors && form.get('name').errors.maxlength">O máximo de caracteres é 5</p>
-    </div>
+    </div>-->
 </div> 
 <div class="form-group form-check" [formGroup]="form">                
     <input type="checkbox" class="form-check-input" id="active" name="active" formControlName="active"> 
