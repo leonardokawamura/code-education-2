@@ -1,0 +1,9 @@
+<div class="form-group" [formGroup]="form">
+    <label [for]="fieldOptions.amount.id">{{ fieldOptions.amount.label }}</label>
+    <input type="text" class="form-control" 
+        [id]="fieldOptions.amount.id"
+        isInvalid formControlName="amount"> 
+    <field-error [field]="form.get('amount')" 
+                 [label]="fieldOptions.amount.label"
+                 [messages]="fieldOptions.amount.validationMessage"></field-error>
+</div>

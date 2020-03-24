@@ -6,6 +6,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { CategoryListComponent } from './components/pages/category/category-list/category-list.component';
 import { ProductListComponent } from './components/pages/product/product-list/product-list.component';
 import { UserListComponent } from './components/pages/user/user-list/user-list.component';
+import { ProductInputListComponent } from './components/pages/product-input/product-input-list/product-input-list.component';
 
 const routes: Routes = [
   {
@@ -27,6 +28,11 @@ const routes: Routes = [
     component: ProductListComponent,
     canActivate: [AuthGuard]
   },  
+  {
+    path: 'inputs/list',
+    component: ProductInputListComponent,
+    canActivate: [AuthGuard]
+  },
   {
     path: 'users/list',
     component: UserListComponent,
