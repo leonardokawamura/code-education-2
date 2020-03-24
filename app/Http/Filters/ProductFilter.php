@@ -17,6 +17,15 @@ class ProductFilter extends SimpleQueryFilter
 
     protected function applySearch($value)
     {
-        $this->query->where('name', 'LIKE', "%$value%");
+        $this->query
+            ->where('name', 'LIKE', "%$value%")
+            ->orWhere('description', 'LIKE', "%$value%");
     } 
+
+    public function hasFilterParemeter() {
+        $contains = $this->parser->getFilters()->contains(function($filter) {
+            return $filter->getField() === 'search' && !empty($filter->getValue());
+        });
+        return $contains;
+    }
 }

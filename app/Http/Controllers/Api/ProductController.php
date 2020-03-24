@@ -27,7 +27,7 @@ class ProductController extends Controller
         //$filterQuery = Product::filtered($filter);
         $filterQuery = $query->filtered($filter);
        
-        $products = $request->has('all') ? $filterQuery->get() : $filterQuery->paginate(5);
+        $products = $filter->hasFilterParemeter() ? $filterQuery->get() : $filterQuery->paginate(5);
 
         return ProductResource::collection($products);
     }
