@@ -15,7 +15,7 @@ class ProductInputController extends Controller
     {
         $filter = app(ProductInputFilter::class);
         $filterQuery = ProductInput::with('product')->filtered($filter);
-        $inputs = $filterQuery->paginate();        
+        $inputs = $filterQuery->paginate(5);        
         return ProductInputResource::collection($inputs);
     }
 
