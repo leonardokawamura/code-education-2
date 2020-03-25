@@ -3,6 +3,7 @@ import { ModalComponent } from 'src/app/components/bootstrap/modal/modal.compone
 import { HttpErrorResponse } from '@angular/common/http';
 import { ProductInputHttpService } from 'src/app/services/http/product-input-http.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import fieldsOptions from '../product-input-form/product-input-fields-options';
 
 @Component({
   selector: 'product-input-new-modal',
@@ -12,19 +13,16 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class ProductInputNewModalComponent implements OnInit {
  
   errors = {};
-
   form: FormGroup;
 
-  @ViewChild(ModalComponent, {static: false})
-  modal: ModalComponent;
-
+  @ViewChild(ModalComponent, {static: false}) modal: ModalComponent;
   @Output() onSuccess: EventEmitter<any> = new EventEmitter<any>();
   @Output() onError: EventEmitter<HttpErrorResponse> = new EventEmitter<HttpErrorResponse>();
 
   constructor(private inputHttp: ProductInputHttpService, private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
-      amount: [0, [Validators.required]],
-      product_id: [0, [Validators.required]]
+      product_id: ['', [Validators.required]],
+      amount: [null, [Validators.required, Validators.min(fieldsOptions.amount.validationMessage.min)]]
     });
   }
 
