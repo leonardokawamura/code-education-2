@@ -9,5 +9,13 @@
 </div>
 <div class="form-group">
     <label [for]="fieldOptions.product_id.id">{{ fieldOptions.product_id.label }}</label>
-    <select2 [data]="productIdField.data" [options]="productIdField.options" [id]="fieldOptions.product_id.id"></select2>
+    <select2 
+        [data]="productIdField.data" 
+        [options]="productIdField.options" 
+        [id]="fieldOptions.product_id.id"
+        [isInvalidControl]="form.get('product_id')">
+    </select2>
+    <field-error [field]="form.get('product_id')" 
+                 [label]="fieldOptions.product_id.label"
+                 [messages]="fieldOptions.product_id.validationMessage"></field-error>
 </div>
