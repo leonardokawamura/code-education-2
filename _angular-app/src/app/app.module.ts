@@ -41,7 +41,7 @@ import { ProductInputFormComponent } from './components/pages/product-input/prod
 import { ProductInputListComponent } from './components/pages/product-input/product-input-list/product-input-list.component';
 import { ProductInputNewModalComponent } from './components/pages/product-input/product-input-new-modal/product-input-new-modal.component';
 import { ProductInputSearchFormComponent } from './components/pages/product-input/product-input-search-form/product-input-search-form.component';
-
+import { Select2Module } from 'ng2-select2';
 function jwtFactory(authService: AuthService) {
   return {
     whitelistedDomains: [
@@ -94,8 +94,8 @@ function jwtFactory(authService: AuthService) {
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    //RouterModule.forRoot(routes, {enableTracing: true}),
     NgxPaginationModule,
+    Select2Module,
     JwtModule.forRoot({
       jwtOptionsProvider: {
         provide: JWT_OPTIONS, 

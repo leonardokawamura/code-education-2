@@ -2,14 +2,10 @@
     <modal (onHide)="hideModal($event)">
         <h5 modal-title>Novo produto</h5>
         <div modal-body>
-            <div class="form-group">
-                <label for="name">Qtd</label>
-                <input type="text" class="form-control" id="name" name="name" required [(ngModel)]="input.amount"> 
-            </div> 
-            <div class="form-group">
-                <label for="name">Produto</label>
-                <input type="text" class="form-control" id="product_id" name="product_id" required [(ngModel)]="input.product_id">
-            </div>           
+            <card-error *ngIf="showErrors()">
+                <list-error [errors]="errors"></list-error>
+            </card-error>
+            <product-input-form [form]="form"></product-input-form>           
         </div>
         <div modal-footer>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
