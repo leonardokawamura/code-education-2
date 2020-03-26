@@ -25,3 +25,8 @@
 .is-invalid .select2-selection {
   border-color: #dc3545 !important;
 }
+
+.dropdown-menu {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}

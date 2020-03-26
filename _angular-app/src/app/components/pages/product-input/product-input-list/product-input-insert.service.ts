@@ -21,7 +21,7 @@ export class ProductInputInsertService {
     }
 
     onInsertSuccess($event: any) {
-        this.notifyMessage.success('Produto cadastrado');
+        this.notifyMessage.success('Entrada de estoque cadastrado');
         this._inputListComponent.getInputs();
     }
 

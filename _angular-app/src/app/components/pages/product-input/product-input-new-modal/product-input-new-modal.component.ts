@@ -37,8 +37,8 @@ export class ProductInputNewModalComponent implements OnInit {
         this.onSuccess.emit(input);      
         this.modal.hide(); 
         this.form.reset({
-          amount: 0,
-          product_id: 0
+          amount: '',
+          product_id: null
         });   
       }, responseError => {
         if(responseError.status === 422) {
