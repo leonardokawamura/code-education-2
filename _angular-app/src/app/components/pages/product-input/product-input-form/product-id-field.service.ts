@@ -1,6 +1,7 @@
 import { Injectable, ElementRef } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { environment } from 'src/environments/environment';
+import { AbstractControl } from '@angular/forms';
 
 declare const $;
 
@@ -12,6 +13,7 @@ export class ProductIdFieldService {
   data;
   options: Select2Options;
   select2Element: ElementRef;
+  formControl: AbstractControl;
 
   constructor(private authSerivce: AuthService) { }
 
@@ -24,8 +26,9 @@ export class ProductIdFieldService {
     return this.select2Element.nativeElement;
   }
 
-  make(select2Element: ElementRef) {
+  make(select2Element: ElementRef, formControl: AbstractControl) {
     this.select2Element = select2Element;
+    this.formControl = formControl;
     this.options = {
       minimumInputLength: 1,
       dropdownParent: $(this.divModal),
@@ -49,7 +52,20 @@ export class ProductIdFieldService {
         }
       }
     };
-    this.data = []
+    this.data = [];
+    this.onClosingDropdown();
+  }
+
+  private onClosingDropdown() {
+    $(this.select2Native).on('select2:closing', (e: Event) => {
+      const element: HTMLInputElement = (<any>e.target);
+      this.formControl.markAsTouched();
+      this.formControl.setValue(element.value);
+    });
+  }
+
+  updateFormControl(value) {
+    this.formControl.setValue(value);
   }
   
 }
