@@ -20,6 +20,14 @@ export interface ProductInput {
     product: Product;
 }
 
+export interface ProductOutput {
+    id?: number;
+    amount: number;
+    readonly created_at?: {date: string};
+    readonly update_at?: {date: string};
+    product: Product;
+}
+
 export interface Product {
     id?: number;
     name: string;

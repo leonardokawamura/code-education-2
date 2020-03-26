@@ -7,6 +7,7 @@ import { CategoryListComponent } from './components/pages/category/category-list
 import { ProductListComponent } from './components/pages/product/product-list/product-list.component';
 import { UserListComponent } from './components/pages/user/user-list/user-list.component';
 import { ProductInputListComponent } from './components/pages/product-input/product-input-list/product-input-list.component';
+import { ProductOutputListComponent } from './components/pages/product-output/product-output-list/product-output-list.component';
 
 const routes: Routes = [
   {
@@ -31,6 +32,11 @@ const routes: Routes = [
   {
     path: 'inputs/list',
     component: ProductInputListComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'outputs/list',
+    component: ProductOutputListComponent,
     canActivate: [AuthGuard]
   },
   {
