@@ -28,6 +28,14 @@ export interface ProductOutput {
     product: Product;
 }
 
+export interface ProductPhoto {
+    id?: number;
+    photo_url: string;
+    product?: Product;
+    readonly created_at?: {date: string};
+    readonly update_at?: {date: string}; 
+}
+
 export interface Product {
     id?: number;
     name: string;

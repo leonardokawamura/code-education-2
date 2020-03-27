@@ -48,6 +48,7 @@ import { ProductOutputNewModalComponent } from './components/pages/product-outpu
 import { ProductOutputSearchFormComponent } from './components/pages/product-output/product-output-search-form/product-output-search-form.component';
 import { ProductFormComponent } from './components/pages/product/product-form/product-form.component';
 import { UserFormComponent } from './components/pages/user/user-form/user-form.component';
+import { ProductPhotoManagerComponent } from './components/pages/product-photo/product-photo-manager/product-photo-manager.component';
 function jwtFactory(authService: AuthService) {
   return {
     whitelistedDomains: [
@@ -99,7 +100,8 @@ function jwtFactory(authService: AuthService) {
     ProductOutputNewModalComponent,
     ProductOutputSearchFormComponent,
     ProductFormComponent,
-    UserFormComponent
+    UserFormComponent,
+    ProductPhotoManagerComponent
   ],
   imports: [
     BrowserModule,
