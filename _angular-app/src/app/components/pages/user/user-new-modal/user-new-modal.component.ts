@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
-import { User } from 'src/app/model';
 import { ModalComponent } from 'src/app/components/bootstrap/modal/modal.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { UserHttpService } from 'src/app/services/http/user-http.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import fieldsOptions from '../../user/user-form/user-fields-options';
 
 @Component({
   selector: 'user-new-modal',
@@ -11,11 +12,9 @@ import { UserHttpService } from 'src/app/services/http/user-http.service';
 })
 export class UserNewModalComponent implements OnInit {
 
-  user: User = {
-    name: '',
-    email: '',
-    password: ''
-  };
+  form: FormGroup;  
+
+  errors = {};
 
   @ViewChild(ModalComponent, {static: false})
   modal: ModalComponent;
@@ -23,7 +22,15 @@ export class UserNewModalComponent implements OnInit {
   @Output() onSuccess: EventEmitter<any> = new EventEmitter<any>();
   @Output() onError: EventEmitter<HttpErrorResponse> = new EventEmitter<HttpErrorResponse>();
 
-  constructor(private userHttp: UserHttpService) { }
+  constructor(private userHttp: UserHttpService, private formBuilder: FormBuilder) {
+    const maxlength = fieldsOptions.name.validationMessage.maxlength;
+    const minlength = fieldsOptions.password.validationMessage.minlength;
+    this.form = this.formBuilder.group({
+      name: ['', [Validators.required, Validators.maxLength(maxlength)]],
+      email: ['', [Validators.required, Validators.email, Validators.maxLength(maxlength)]],
+      password: ['', [Validators.required, Validators.maxLength(maxlength), Validators.minLength(minlength)]]
+    })
+  }
 
   ngOnInit() {
 
@@ -31,7 +38,7 @@ export class UserNewModalComponent implements OnInit {
 
   submit() {
     this.userHttp
-      .create(this.user)
+      .create(this.form.value)
       .subscribe((user) => {  
         this.onSuccess.emit(user);      
         this.modal.hide();      
@@ -40,6 +47,10 @@ export class UserNewModalComponent implements OnInit {
 
   showModal() {
     this.modal.show();
+  }
+
+  showErrors() {
+    return Object.keys(this.errors).length != 0;
   }
 
   hideModal($event: Event) {

@@ -46,6 +46,8 @@ import { ProductOutputListComponent } from './components/pages/product-output/pr
 import { ProductOutputFormComponent } from './components/pages/product-output/product-output-form/product-output-form.component';
 import { ProductOutputNewModalComponent } from './components/pages/product-output/product-output-new-modal/product-output-new-modal.component';
 import { ProductOutputSearchFormComponent } from './components/pages/product-output/product-output-search-form/product-output-search-form.component';
+import { ProductFormComponent } from './components/pages/product/product-form/product-form.component';
+import { UserFormComponent } from './components/pages/user/user-form/user-form.component';
 function jwtFactory(authService: AuthService) {
   return {
     whitelistedDomains: [
@@ -95,7 +97,9 @@ function jwtFactory(authService: AuthService) {
     ProductOutputListComponent,
     ProductOutputFormComponent,
     ProductOutputNewModalComponent,
-    ProductOutputSearchFormComponent
+    ProductOutputSearchFormComponent,
+    ProductFormComponent,
+    UserFormComponent
   ],
   imports: [
     BrowserModule,

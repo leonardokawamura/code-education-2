@@ -1,0 +1,32 @@
+<div class="form-group" [formGroup]="form">
+    <label [for]="fieldOptions.name.id">{{ fieldOptions.name.label }}</label>
+    <input type="text" class="form-control" 
+        [id]="fieldOptions.name.id"
+        isInvalid formControlName="name"> 
+    <field-error [field]="form.get('name')" 
+                 [label]="fieldOptions.name.label"
+                 [messages]="fieldOptions.name.validationMessage"></field-error>
+</div> 
+<div class="form-group" [formGroup]="form">
+    <label [for]="fieldOptions.description.id">Descrição</label>
+    <textarea class="form-control" rows="4"
+        [id]="fieldOptions.description.id"
+        isInvalid formControlName="description">
+    </textarea>
+    <field-error [field]="form.get('description')" 
+                 [label]="fieldOptions.description.label"
+                 [messages]="fieldOptions.description.validationMessage"></field-error> 
+</div> 
+<div class="form-group" [formGroup]="form">
+    <label [for]="fieldOptions.price.id">Preço</label>
+    <input type="number" class="form-control"
+        [id]="fieldOptions.price.id"
+        isInvalid formControlName="price"> 
+    <field-error [field]="form.get('price')" 
+                 [label]="fieldOptions.price.label"
+                 [messages]="fieldOptions.price.validationMessage"></field-error>
+</div>
+<div class="form-group form-check" [formGroup]="form">                
+    <input type="checkbox" class="form-check-input" id="active" name="active" formControlName="active"> 
+    <label for="active">Ativo?</label>
+</div> 

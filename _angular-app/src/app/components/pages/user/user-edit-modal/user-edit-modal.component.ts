@@ -1,8 +1,9 @@
 import { Component, OnInit, Output, EventEmitter, ViewChild, Input } from '@angular/core';
-import { User } from 'src/app/model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ModalComponent } from 'src/app/components/bootstrap/modal/modal.component';
 import { UserHttpService } from 'src/app/services/http/user-http.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import fieldsOptions from '../../user/user-form/user-fields-options';
 
 @Component({
   selector: 'user-edit-modal',
@@ -11,11 +12,9 @@ import { UserHttpService } from 'src/app/services/http/user-http.service';
 })
 export class UserEditModalComponent implements OnInit {
 
-  user: User = {
-    name: '',
-    email: '',
-    password: ''
-  };
+  form: FormGroup;  
+
+  errors = {};
 
   _userId: number;
 
@@ -24,7 +23,15 @@ export class UserEditModalComponent implements OnInit {
 
   @ViewChild(ModalComponent, {static: false}) modal: ModalComponent;  
 
-  constructor(private userHttp: UserHttpService) { }
+  constructor(private userHttp: UserHttpService, private formBuilder: FormBuilder) {
+    const maxlength = fieldsOptions.name.validationMessage.maxlength;
+    const minlength = fieldsOptions.password.validationMessage.minlength;
+    this.form = this.formBuilder.group({
+      name: ['', [Validators.required, Validators.maxLength(maxlength)]],
+      email: ['', [Validators.required, Validators.maxLength(maxlength)]],
+      password: ['', [Validators.required, Validators.maxLength(maxlength), Validators.minLength(minlength)]]
+    })
+  }
 
   ngOnInit() {
   }
@@ -36,7 +43,7 @@ export class UserEditModalComponent implements OnInit {
       this.userHttp
         .get(this._userId)   
         .subscribe(
-          user => this.user = user,
+          user => this.form.patchValue(user),
           responseError => {
             if(responseError.status == 401) {
               this.modal.hide();
@@ -48,7 +55,7 @@ export class UserEditModalComponent implements OnInit {
 
   submit() {
     this.userHttp
-      .update(this._userId, this.user)
+      .update(this._userId, this.form.value)
       .subscribe((user) => {  
         this.onSuccess.emit(user);      
         this.modal.hide();   
@@ -57,6 +64,10 @@ export class UserEditModalComponent implements OnInit {
 
   showModal() {
     this.modal.show();
+  }
+
+  showErrors() {
+    return Object.keys(this.errors).length != 0;
   }
 
   hideModal($event: Event) {

@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Output, ChangeDetectorRef, ViewChild, ElementRef, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import fieldsOptions from '../../product-output/product-output-form/product-output-fields-options';
 import { ProductIdFieldService } from './product-id-field.service';
@@ -11,7 +11,7 @@ import { Select2Component } from 'ng2-select2';
 })
 export class ProductOutputFormComponent implements OnInit {
 
-  @Output()
+  @Input()
   form: FormGroup; 
 
   @ViewChild(Select2Component, {read: ElementRef, static: false})

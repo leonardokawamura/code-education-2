@@ -1,0 +1,28 @@
+<div class="form-group" [formGroup]="form">
+    <label [for]="fieldOptions.name.id">{{ fieldOptions.name.label }}</label>
+    <input type="text" class="form-control"
+        [id]="fieldOptions.name.id"
+        isInvalid formControlName="name">
+    <field-error [field]="form.get('name')" 
+                [label]="fieldOptions.name.label"
+                [messages]="fieldOptions.name.validationMessage"></field-error>
+</div>
+<div class="form-group" [formGroup]="form">
+    <label [for]="fieldOptions.email.id">{{ fieldOptions.email.label }}</label>
+    <input type="text" class="form-control"
+        [id]="fieldOptions.email.id"
+        isInvalid formControlName="email">
+    <field-error [field]="form.get('email')" 
+                [label]="fieldOptions.email.label"
+                [messages]="fieldOptions.email.validationMessage"></field-error>
+</div>
+<div class="form-group" [formGroup]="form">
+    <label [for]="fieldOptions.password.id">{{ fieldOptions.password.label }}</label>
+    <input type="password" class="form-control"
+        [id]="fieldOptions.password.id"
+        isInvalid formControlName="password">
+    <small id="passwordHelpInline" class="text-muted">Deve ter entre 6-20 caracteres.</small>    
+    <field-error [field]="form.get('password')" 
+                 [label]="fieldOptions.password.label"
+                 [messages]="fieldOptions.password.validationMessage"></field-error>
+</div>
