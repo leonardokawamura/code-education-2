@@ -42,7 +42,9 @@ export class ProductPhotoHttpService {
       )
   }
 
-
+  destroy(productId: number, photoId: number): Observable<any> {    
+    return this.http.delete<any>(this.getBaseUrl(productId, photoId));
+  }
 
   private getBaseUrl(productId: number, photoId: number = null): string {
     let baseUrl = `${this.beaseApi}/products/${productId}/photos`;
