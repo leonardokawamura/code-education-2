@@ -67,4 +67,14 @@ export class ProductPhotoManagerComponent implements OnInit {
     this.notifyMessage.success('Foto(s) cadastrada(s) com sucesso');
   }
 
+  onEditSuccess(data: ProductPhoto) {
+    $.fancybox.getInstance().close();
+    this.editModal.hideModal();
+    const index = this.photos.findIndex((photo: ProductPhoto) => {
+      return photo.id == this.photoIdToEdit;
+    });
+    this.photos[index] = data;
+    this.notifyMessage.success('Foto substituida com sucesso');
+  }
+
 }
