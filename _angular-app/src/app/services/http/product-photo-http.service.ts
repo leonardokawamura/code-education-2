@@ -31,6 +31,19 @@ export class ProductPhotoHttpService {
     return this.http.post<any>(this.getBaseUrl(productId), formData);
   }
 
+  update(productId: number, photoId: number, file: File): Observable<{ProductPhoto}> {
+    const formData = new FormData();    
+    formData.append('photo', file);
+    formData.append('_method', 'PUT');
+    return this.http
+      .post<any>(this.getBaseUrl(productId, photoId), formData)
+      .pipe(
+        map(response => response.data)
+      )
+  }
+
+
+
   private getBaseUrl(productId: number, photoId: number = null): string {
     let baseUrl = `${this.beaseApi}/products/${productId}/photos`;
     if(photoId) {

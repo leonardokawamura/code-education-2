@@ -6,7 +6,7 @@
         </card-error>
         <div class="form-group">
             <label for="photo">Substituir foto</label>
-            <input type="file" class="form-control" id="photo" multiple (change)="editPhoto($event.target.files)">
+            <input type="file" class="form-control" id="photo" (change)="editPhoto($event.target.files)">
         </div>
     </div>
 </modal>

@@ -17,6 +17,7 @@ export class ProductPhotoManagerComponent implements OnInit {
   photos: ProductPhoto[];
   product: Product = null;
   productId: number;
+  photoIdToEdit: number;
 
   @ViewChild(ProductPhotoEditModalComponent, {static: false}) editModal: ProductPhotoEditModalComponent;
 
@@ -49,8 +50,16 @@ export class ProductPhotoManagerComponent implements OnInit {
     `
     $.fancybox.defaults.buttons = [ 'download', 'edit' ];
     $('body').on('click', '[data-fancybox-edit]', (e) => {
+      const photoId = this.getPhotoIdFromSlideShow();
+      this.photoIdToEdit = photoId;
       this.editModal.showModal();
     });
+  }
+
+  getPhotoIdFromSlideShow() {
+    const src = $('.fancybox-slide--current .fancybox-image').attr('src');
+    const id = $('[data-fancybox="gallery"]').find(`[src="${src}"]`).attr('id');
+    return id.split('-')[1];
   }
 
   onInsertSuccess(data: {photos: ProductPhoto[]}) {
