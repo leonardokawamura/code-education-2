@@ -4,9 +4,24 @@
         <product-photo-upload (onSuccess)="onInsertSuccess($event)"></product-photo-upload>
     </div>
     <div class="col-md-12">
-        <a [href]="photo.photo_url" data-fancybox="gallery" *ngFor="let photo of photos">
-            <img [src]="photo.photo_url" [id]="'photo' + photo.id">
-        </a>
+        <div class="row">
+            <div class="col-md-2 container-photo" *ngFor="let photo of photos">
+                <a [href]="photo.photo_url" data-fancybox="gallery">
+                    <img [src]="photo.photo_url" [id]="'photo-' + photo.id" class="img-fluid">
+                </a>
+                <div class="acoes">
+                    <a class="fancybox-button fancybox-button--download" title="Download" [href]="photo.photo_url">
+                        <svg viewBox="0 0 40 40"><path d="M13,16 L20,23 L27,16 M20,7 L20,23 M10,24 L10,28 L30,28 L30,24"></path></svg>
+                    </a>
+                    <a class="fancybox-button fancybox-button-edit" [id]="'photo-' + photo.id" title="Substituir" href="javascript:void(0)" style="text-align: center">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <a class="fancybox-button fancybox-button-delete" [id]="'photo-' + photo.id" title="Excluir foto" href="javascript:void(0)" style="text-align: center">
+                        <i class="fas fa-trash-alt"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <product-photo-edit-modal (onSuccess)="onEditSuccess($event)" [photoId]="photoIdToEdit"></product-photo-edit-modal>

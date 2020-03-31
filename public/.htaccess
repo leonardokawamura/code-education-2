@@ -1,4 +1,4 @@
-Options +FollowSymlinks
+# Options +FollowSymlinks
 
 <IfModule mod_rewrite.c>
     <IfModule mod_negotiation.c>

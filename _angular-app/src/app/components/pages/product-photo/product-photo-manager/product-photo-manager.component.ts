@@ -71,6 +71,18 @@ export class ProductPhotoManagerComponent implements OnInit {
       this.photoIdToDelete = photoId;
       this.deleteModal.showModal();
     });
+
+    $('body').on('click', '.fancybox-button-edit', (e) => {
+      const photoId = $(e.currentTarget).attr('id');
+      this.photoIdToEdit = photoId.split('-')[1];
+      this.editModal.showModal();
+    });
+
+    $('body').on('click', '.fancybox-button-delete', (e) => {
+      const photoId = $(e.currentTarget).attr('id');
+      this.photoIdToDelete = photoId.split('-')[1];
+      this.deleteModal.showModal();
+    });
   }
 
   getPhotoIdFromSlideShow() {
@@ -85,7 +97,9 @@ export class ProductPhotoManagerComponent implements OnInit {
   }
 
   onEditSuccess(data: ProductPhoto) {
-    $.fancybox.getInstance().close();
+    if($.fancybox.getInstance() !== false) {
+      $.fancybox.getInstance().close();
+    }    
     this.editModal.hideModal();
     const index = this.photos.findIndex((photo: ProductPhoto) => {
       return photo.id == this.photoIdToEdit;
@@ -95,7 +109,9 @@ export class ProductPhotoManagerComponent implements OnInit {
   }
 
   onDeleteSuccess() {
-    $.fancybox.getInstance().close();
+    if($.fancybox.getInstance() !== false) {
+      $.fancybox.getInstance().close();
+    }
     this.deleteModal.hideModal();  
     const index = this.photos.findIndex((photo: ProductPhoto) => {
       return photo.id == this.photoIdToDelete;

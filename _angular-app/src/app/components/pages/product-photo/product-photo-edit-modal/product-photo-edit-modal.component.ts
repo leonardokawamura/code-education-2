@@ -4,6 +4,8 @@ import { ProductPhotoHttpService } from 'src/app/services/http/product-photo-htt
 import { ActivatedRoute } from '@angular/router';
 import { ModalComponent } from 'src/app/components/bootstrap/modal/modal.component';
 
+declare const $;
+
 @Component({
   selector: 'product-photo-edit-modal',
   templateUrl: './product-photo-edit-modal.component.html',
@@ -47,7 +49,7 @@ export class ProductPhotoEditModalComponent implements OnInit {
     this.modal.show();
   }
 
-  hideModal() {
+  hideModal() {     
     this.modal.hide();
   }
 

@@ -49,7 +49,7 @@ export class ProductPhotoHttpService {
   private getBaseUrl(productId: number, photoId: number = null): string {
     let baseUrl = `${this.beaseApi}/products/${productId}/photos`;
     if(photoId) {
-      baseUrl += `${photoId}`;
+      baseUrl += `/${photoId}`;
     }
     return baseUrl;
   }
