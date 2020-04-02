@@ -6,7 +6,6 @@ use App\Models\ProductInput;
 use App\Models\ProductOutput;
 use Illuminate\Support\ServiceProvider;
 use Kreait\Firebase;
-use Kreait\Firebase\ServiceAccount;
 use Kreait\Firebase\Factory;
 
 class AppServiceProvider extends ServiceProvider
