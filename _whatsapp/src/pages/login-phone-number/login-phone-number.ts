@@ -4,6 +4,7 @@ import * as firebase from 'firebase';
 import * as firebaseui from 'firebaseui';
 import firebaseConfig from '../../app/firebase-config';
 import scriptjs from 'scriptjs';
+import { FirebaseAuthProvider } from '../../providers/auth/firebase-auth';
 
 declare const firebaseui;
 (<any>window).firebase = firebase;
@@ -22,11 +23,17 @@ declare const firebaseui;
 })
 export class LoginPhoneNumberPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, 
+              public navParams: NavParams,
+              private firebaseAuth: FirebaseAuthProvider) {
   }
 
   ionViewDidLoad() {
-    scriptjs('https://www.gstatic.com/firebasejs/ui/3.1.1/firebase-ui-auth__pt.js', () => {
+    const promise = this.firebaseAuth.getFirebaseUI();
+    promise.then(() => {
+      
+    })
+    /* scriptjs('https://www.gstatic.com/firebasejs/ui/3.1.1/firebase-ui-auth__pt.js', () => {
       firebase.initializeApp(firebaseConfig);
       const uiConfig = {
         signInOptions: [
@@ -35,7 +42,7 @@ export class LoginPhoneNumberPage {
       }
       const ui = new firebaseui.auth.AuthUI(firebase.auth());
       ui.start('#firebase-ui', uiConfig);
-    });
+    }); */
   }
 
 }
