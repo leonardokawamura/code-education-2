@@ -1,8 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import firebase from 'firebase';
 import firebaseConfig from '../../app/firebase-config';
-import firebaseui from 'firebaseui';
+//import firebaseui from 'firebaseui';
 import scriptjs from 'scriptjs';
 
 declare const firebaseui;
@@ -18,12 +17,23 @@ declare const firebaseui;
 export class FirebaseAuthProvider {
 
   constructor() {
-    console.log('Hello AuthProvider Provider');
+    firebase.initializeApp(firebaseConfig);
   }
 
-  public getFirebaseUI(): Promise<any> {
+  async makePhoneNumberForm(selectorElement: string) {
+    const firebaseui = await this.getFirebaseUI();
+    const uiConfig = {
+      signInOptions: [
+        firebase.auth.PhoneAuthProvider.PROVIDER_ID
+      ]
+    }
+    const ui = new firebaseui.auth.AuthUI(firebase.auth());
+    ui.start(selectorElement, uiConfig);
+  }
+
+  private async getFirebaseUI(): Promise<any> {
     return new Promise((resolve, reject) => {
-      if(firebaseui) {
+      if(window.hasOwnProperty('firebaseui')) {
         resolve(firebaseui);
         return;
       }
@@ -31,13 +41,5 @@ export class FirebaseAuthProvider {
         resolve(firebaseui);
       });
     });
-    /* firebase.initializeApp(firebaseConfig);
-    const uiConfig = {
-      signInOptions: [
-        firebase.auth.PhoneAuthProvider.PROVIDER_ID
-      ]
-    }
-    const ui = new firebaseui.auth.AuthUI(firebase.auth());
-    ui.start('#firebase-ui', uiConfig); */
   }
 }
