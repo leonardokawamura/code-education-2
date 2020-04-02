@@ -41,7 +41,7 @@ export class FirebaseAuthProvider {
 
   private async getFirebaseUI(): Promise<any> {
     return new Promise((resolve, reject) => {
-      if(window.hasOwnProperty('firebaseui')) {
+      if (window.hasOwnProperty('firebaseui')) {
         resolve(firebaseui);
         return;
       }
@@ -51,9 +51,22 @@ export class FirebaseAuthProvider {
     });
   }
 
+  async getToken(): Promise<string> {
+    try {
+      const user = await this.getUser();
+      if (!user) {
+        throw new Error('User not found');
+      }
+      const token = await user.getIdTokenResult();
+      return token.token;
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
   getUser(): Promise<firebase.User | null> {
     const currentUser = this.getCurrentUser();
-    if(currentUser) {
+    if (currentUser) {
       return Promise.resolve(currentUser);
     }
     return new Promise((resolve, reject) => {
@@ -66,7 +79,7 @@ export class FirebaseAuthProvider {
           reject(error);
           unsubscribed();
         });
-    });    
+    });
   }
 
   private getCurrentUser(): firebase.User | null {
