@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
 use App\Models\UserProfile;
+use App\Rules\FirebaseTokenVerification;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
@@ -24,6 +25,9 @@ class AuthController extends Controller
 
     public function loginFirebase(Request $request)
     {
+        $this->validate($request, [
+            'token' => new FirebaseTokenVerification()
+        ]);
         $firebaseAuth = app(FirebaseAuth::class);
         $user = $firebaseAuth->user($request->token);
         $profile = UserProfile::where('phone_number', $user->phoneNumber)->first();
@@ -40,10 +44,6 @@ class AuthController extends Controller
             'error' => \Lang::get('auth.failed')
         ], 400);
     }
-    
-    
-    
-    
 
     public function logout()
     {
