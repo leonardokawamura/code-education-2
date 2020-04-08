@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\FirebaseTokenVerification;
+use App\Rules\PhoneNumberUnique;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CustomerRequest extends FormRequest
@@ -24,7 +26,14 @@ class CustomerRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:255'
+            'name' => 'required|max:255',
+            'email' => 'required|email|unique:users,email',
+            'photo' => 'image|max:' . (3 * 1024),
+            'token' => [
+                'required',
+                new FirebaseTokenVerification(),
+                new PhoneNumberUnique()
+            ]
         ];
     }
 }
