@@ -1,10 +1,11 @@
 <?php
-
+declare(strict_types = 1);
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\DB;
 use Mnabialek\LaravelEloquentFilter\Traits\Filterable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
@@ -34,6 +35,20 @@ class User extends Authenticatable implements JWTSubject
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public static function createCustomer(array $data): User
+    {
+        try {
+            UserProfile::uploadPhoto($data['photo']);
+            DB::beginTransaction();
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
+    }
+    
+    
 
     public function fill(array $attributes)
     {
