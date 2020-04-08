@@ -25,13 +25,14 @@ export class LoginPhoneNumberPage {
   }
 
   ionViewDidLoad() {
-    this.firebaseAuth.firebase.auth().onAuthStateChanged(user => {
+    const unsubscribed = this.firebaseAuth.firebase.auth().onAuthStateChanged(user => {
       if(user) {
         this.authService.login().subscribe(token => {
           this.redirectToMainPage();
         }, responseError => {
 
         }); 
+        unsubscribed();
       }
     });       
     this.firebaseAuth.makePhoneNumberForm('#firebase-ui');
@@ -42,7 +43,7 @@ export class LoginPhoneNumberPage {
   }
 
   redirectToCustomerCreatePage() {
-    
+
   }
 
 }
