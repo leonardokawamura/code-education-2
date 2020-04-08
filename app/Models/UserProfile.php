@@ -16,7 +16,7 @@ class UserProfile extends Model
 
     protected $fillable = ['photo', 'phone_number'];
 
-    public function saveProfile(User $user, array $data): UserProfile
+    public static function saveProfile(User $user, array $data): UserProfile
     {
         $data['photo'] = UserProfile::getPhotoHashName($data['photo']);
         $user->profile->fill($data)->save();
@@ -45,7 +45,7 @@ class UserProfile extends Model
         $photo->store($dir, ['disk' => 'public']);
     }
 
-    public function deleteFile($photo = null)
+    public static function deleteFile($photo = null)
     {
         if(!$photo) {
             return;
