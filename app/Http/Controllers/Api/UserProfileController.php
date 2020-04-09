@@ -2,20 +2,23 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Auth;
 use App\Firebase\Auth as FirebaseAuth;
+use App\Http\Requests\UserProfileUpdateRequest;
 
 class UserProfileController extends Controller
 {
-    public function update(Request $request)
+    public function update(UserProfileUpdateRequest $request)
     {
         $data = $request->all();
         if($request->has('token')) {
             $token = $request->token;
             $data['phone_number'] = $this->getPhoneNumber($token);
+        }
+        if($request->has('remove_photo')) {
+            $data['photo'] = null;
         }
         $data['photo'] = $data['photo'] ?? null;
         $user = Auth::guard('api')->user();
