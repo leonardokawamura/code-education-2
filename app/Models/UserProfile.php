@@ -69,14 +69,18 @@ class UserProfile extends Model
             File::delete($photoPath);
         }
     }
-    
-    
 
     public static function photoDir()
     {
         $dir = self::DIR_USER_PHOTO;
         return $dir;
     }  
+
+    public function getPhotoUrlAttribute()
+    {
+        $path = self::photoDir();
+        return $this->photo ? asset("storage/{$path}/{$this->photo}") : 'https://www.gravatar.com/avatar/nouser.jpg';
+    }
     
     public function user()
     {
