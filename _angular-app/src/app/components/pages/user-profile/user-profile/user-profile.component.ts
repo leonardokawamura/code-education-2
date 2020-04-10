@@ -13,6 +13,7 @@ export class UserProfileComponent implements OnInit {
 
   form: FormGroup;
   errors = {};
+  has_photo: boolean;
 
   constructor(private formBuilder: FormBuilder,
               private userProfileHttp: UserProfileHttpService,
@@ -26,7 +27,8 @@ export class UserProfileComponent implements OnInit {
       photo: false
     }); 
     this.form.patchValue(this.authService.me);   
-    this.form.get('phone_number').setValue(this.authService.me.profile.phone_number);        
+    this.form.get('phone_number').setValue(this.authService.me.profile.phone_number); 
+    this.has_photo = this.authService.me.profile.has_photo;       
   }
 
   ngOnInit() {
@@ -51,6 +53,10 @@ export class UserProfileComponent implements OnInit {
       return;
     }
     this.form.get('photo').setValue(files[0]);
+  }
+
+  removePhoto() {
+    
   }
 
   showErrors() {
