@@ -24,6 +24,8 @@
     "@fancyapps/fancybox": "^3.3.5",
     "@fortawesome/fontawesome-free-webfonts": "^1.0.9",
     "bootstrap": "^4.4.1",
+    "firebase": "^5.2.0",
+    "firebaseui": "^3.1.1",
     "jquery": "^3.4.1",
     "ng2-select2": "^1.0.0-beta.12",
     "ngx-pagination": "^3.1.1",
@@ -33,6 +35,7 @@
     "rxjs": "~6.4.0",
     "select2": "^4.0.3",
     "select2-bootstrap4-theme": "^1.0.0",
+    "scriptjs": "^2.5.8",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"
   },
