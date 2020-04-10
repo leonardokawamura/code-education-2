@@ -20,7 +20,6 @@ class UserProfileController extends Controller
         if($request->has('remove_photo')) {
             $data['photo'] = null;
         }
-        $data['photo'] = $data['photo'] ?? null;
         $user = Auth::guard('api')->user();
         $user->updateWithProfile($data);
         return new UserResource($user);
