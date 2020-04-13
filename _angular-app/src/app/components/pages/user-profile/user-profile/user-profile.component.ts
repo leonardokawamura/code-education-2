@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NotifyMessageService } from 'src/app/services/notify-message.service';
 import { UserProfileHttpService } from 'src/app/services/http/user-profile-http.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { PhoneNumberAuthModalComponent } from 'src/app/components/common/phone-number-auth-modal/phone-number-auth-modal.component';
 
 @Component({
   selector: 'app-user-profile',
@@ -14,6 +15,9 @@ export class UserProfileComponent implements OnInit {
   form: FormGroup;
   errors = {};
   has_photo: boolean;
+
+  @ViewChild(PhoneNumberAuthModalComponent, {static: false})
+  phoneNumberAuthModal: PhoneNumberAuthModalComponent;
 
   constructor(private formBuilder: FormBuilder,
               private userProfileHttp: UserProfileHttpService,
@@ -65,6 +69,10 @@ export class UserProfileComponent implements OnInit {
   removePhoto() {
     this.form.get('photo').setValue(null);
     this.has_photo = false;
+  }
+
+  openPhoneNumberAuthModal() {
+    this.phoneNumberAuthModal.showModal();
   }
 
   showErrors() {
