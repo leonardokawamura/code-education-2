@@ -4,6 +4,7 @@ import { NotifyMessageService } from 'src/app/services/notify-message.service';
 import { UserProfileHttpService } from 'src/app/services/http/user-profile-http.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { PhoneNumberAuthModalComponent } from 'src/app/components/common/phone-number-auth-modal/phone-number-auth-modal.component';
+import { FirebaseAuthService } from 'src/app/services/firebase-auth.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -22,12 +23,14 @@ export class UserProfileComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private userProfileHttp: UserProfileHttpService,
               private notifyMessage: NotifyMessageService,
-              private authService: AuthService) {
+              private authService: AuthService,
+              private firebaseAuth: FirebaseAuthService) {
     this.form = this.formBuilder.group({
       name: ['', [Validators.maxLength(255)]],
       email: ['', [Validators.email, Validators.maxLength(255)]],
       password: ['', [Validators.minLength(4), Validators.maxLength(16)]],
       phone_number: null,
+      token: null,
       photo: false
     }); 
     this.form.patchValue(this.authService.me);   
@@ -45,6 +48,7 @@ export class UserProfileComponent implements OnInit {
       .update(data)
       .subscribe(data => {
         this.form.get('photo').setValue(false);
+        this.form.get('token').setValue(null);
         this.setHasPhoto();
         this.notifyMessage.success('Perfil atualizado com sucesso');
       }, responseError => {
@@ -73,6 +77,15 @@ export class UserProfileComponent implements OnInit {
 
   openPhoneNumberAuthModal() {
     this.phoneNumberAuthModal.showModal();
+  }
+
+  onPhoneNumberVerification($event) {
+    this.firebaseAuth.getUser().then(user => {
+      this.form.get('phone_number').setValue(user.phoneNumber);
+    });
+    this.firebaseAuth.getToken().then(token => {
+      this.form.get('token').setValue(token);
+    });
   }
 
   showErrors() {
