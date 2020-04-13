@@ -11,17 +11,21 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-list>
-    <ion-item>
-      <ion-label stacked>Nome</ion-label>
-      <ion-input type="text"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label stacked>E-mail</ion-label>
-      <ion-input type="text"></ion-input>
-    </ion-item>
-    <ion-input type="file" [hidden]="true" #inputFilePhoto></ion-input>
-    <button ion-button color="primary" (click)="selectPhoto()">Escolher foto para o perfil</button>
-  </ion-list>
-  <button ion-button block color="green-dark">CRIAR O PERFIL</button>
+  <form [formGroup]="form" (submit)="submit">
+    <ion-list>
+      <ion-item>
+        <ion-label stacked>Nome</ion-label>
+        <ion-input type="text" formControlName="name"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>E-mail</ion-label>
+        <ion-input type="text" formControlName="email"></ion-input>
+      </ion-item>
+      <ion-input type="file" [hidden]="true" #inputFilePhoto></ion-input>
+      <button ion-button color="primary" (click)="selectPhoto()">Escolher foto para o perfil</button>
+    </ion-list>
+    <button type="submit" ion-button block color="green-dark" [disabled]="form.invalid">CRIAR O PERFIL</button>
+  </form>
+  
+  
 </ion-content>
