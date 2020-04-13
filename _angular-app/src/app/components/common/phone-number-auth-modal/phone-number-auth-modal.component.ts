@@ -18,12 +18,15 @@ export class PhoneNumberAuthModalComponent implements OnInit {
 
   constructor(private firebaseAuth: FirebaseAuthService) { }
 
-  ngOnInit() {    
-    this.firebaseAuth.makePhoneNumberForm('#firebase-ui');
+  ngOnInit() {   
+    
   }
 
-  showModal() {  
-    this.onAuthStateChanged();  
+  showModal() { 
+    this.firebaseAuth.makePhoneNumberForm('#firebase-ui');
+    this.firebaseAuth.logout().then(() => {
+      this.onAuthStateChanged();
+    });
     this.modal.show();
   }
 
