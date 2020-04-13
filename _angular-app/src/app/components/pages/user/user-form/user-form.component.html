@@ -21,7 +21,7 @@
     <input type="password" class="form-control"
         [id]="fieldOptions.password.id"
         isInvalid formControlName="password">
-    <small id="passwordHelpInline" class="text-muted">Deve ter entre 6-20 caracteres.</small>    
+    <small id="passwordHelpInline" class="text-muted">Deve ter entre 4-16 caracteres.</small>    
     <field-error [field]="form.get('password')" 
                  [label]="fieldOptions.password.label"
                  [messages]="fieldOptions.password.validationMessage"></field-error>

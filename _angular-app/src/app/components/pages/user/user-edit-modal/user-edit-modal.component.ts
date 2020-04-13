@@ -24,12 +24,20 @@ export class UserEditModalComponent implements OnInit {
   @ViewChild(ModalComponent, {static: false}) modal: ModalComponent;  
 
   constructor(private userHttp: UserHttpService, private formBuilder: FormBuilder) {
-    const maxlength = fieldsOptions.name.validationMessage.maxlength;
-    const minlength = fieldsOptions.password.validationMessage.minlength;
     this.form = this.formBuilder.group({
-      name: ['', [Validators.required, Validators.maxLength(maxlength)]],
-      email: ['', [Validators.required, Validators.maxLength(maxlength)]],
-      password: ['', [Validators.required, Validators.maxLength(maxlength), Validators.minLength(minlength)]]
+      name: ['', [
+        Validators.required, 
+        Validators.maxLength(fieldsOptions.name.validationMessage.maxlength)
+      ]],
+      email: ['', [
+        Validators.required, 
+        Validators.maxLength(fieldsOptions.email.validationMessage.maxlength)
+      ]],
+      password: ['', [
+        Validators.required, 
+        Validators.maxLength(fieldsOptions.password.validationMessage.maxlength), 
+        Validators.minLength(fieldsOptions.password.validationMessage.minlength)
+      ]]
     })
   }
 

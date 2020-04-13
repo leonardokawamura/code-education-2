@@ -9,7 +9,7 @@ import { UserListComponent } from './components/pages/user/user-list/user-list.c
 import { ProductInputListComponent } from './components/pages/product-input/product-input-list/product-input-list.component';
 import { ProductOutputListComponent } from './components/pages/product-output/product-output-list/product-output-list.component';
 import { ProductPhotoManagerComponent } from './components/pages/product-photo/product-photo-manager/product-photo-manager.component';
-import { UserProfileComponent } from './components/pages/user-profile/user-profile/user-profile.component';
+import { UserProfileComponent } from './components/pages/user-profile/user-profile.component';
 
 const routes: Routes = [
   {

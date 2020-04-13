@@ -9,15 +9,25 @@
         <form (submit)="submit()" [formGroup]="form">
             <div class="form-group">
                 <label for="name">Nome</label>
-                <input type="text" class="form-control" id="name" formControlName="name">
+                <input type="text" class="form-control" id="name" formControlName="name" isInvalid>
+                <field-error [field]="form.get('name')" 
+                            [label]="fieldOptions.name.label"
+                            [messages]="fieldOptions.name.validationMessage"></field-error>
             </div>
             <div class="form-group">
                 <label for="email">E-mail</label>
-                <input type="email" class="form-control" id="email" formControlName="email">
+                <input type="email" class="form-control" id="email" formControlName="email" isInvalid>
+                <field-error [field]="form.get('email')" 
+                            [label]="fieldOptions.email.label"
+                            [messages]="fieldOptions.email.validationMessage"></field-error>
             </div>
             <div class="form-group">
                 <label for="password">Senha</label>
-                <input type="password" class="form-control" id="password" formControlName="password">
+                <input type="password" class="form-control" id="password" formControlName="password" isInvalid>
+                <small id="passwordHelpInline" class="text-muted">Deve ter entre 4-16 caracteres.</small>    
+                <field-error [field]="form.get('password')" 
+                            [label]="fieldOptions.password.label"
+                            [messages]="fieldOptions.password.validationMessage"></field-error>
             </div>
             <div class="form-group">
                 <label for="phone_number">Telefone</label>
