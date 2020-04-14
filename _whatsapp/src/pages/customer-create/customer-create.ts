@@ -18,6 +18,7 @@ import { CustomerHttpProvider } from '../../providers/http/customer-http';
 export class CustomerCreatePage {
 
   form: FormGroup;
+  photoPreview;
 
   @ViewChild('inputFilePhoto') inputFilePhoto: TextInput;
 
@@ -54,7 +55,17 @@ export class CustomerCreatePage {
     if(!files.length) {
       return;
     }
+    this.makePhotoPreview(files[0]);
     this.form.get('photo').setValue(files[0]);
+  }
+
+  makePhotoPreview(file: File) {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = (event: ProgressEvent) => {
+      const target = event.target;
+      this.photoPreview = (<any>target).result;
+    }
   }
 
 
