@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FirebaseAuthProvider } from '../../providers/auth/firebase-auth';
 import { AuthProvider } from '../../providers/auth/auth';
 import { MainPage } from '../main/main';
+import { CustomerCreatePage } from '../customer-create/customer-create';
 
 /**
  * Generated class for the LoginPhoneNumberPage page.
@@ -27,15 +28,24 @@ export class LoginPhoneNumberPage {
   ionViewDidLoad() {
     const unsubscribed = this.firebaseAuth.firebase.auth().onAuthStateChanged(user => {
       if(user) {
-        this.authService.login().subscribe(token => {
-          this.redirectToMainPage();
-        }, responseError => {
-
-        }); 
+        this.handleAuthUser();
         unsubscribed();
       }
     });       
     this.firebaseAuth.makePhoneNumberForm('#firebase-ui');
+  }
+
+  handleAuthUser() {
+    this.authService
+      .login()
+      .subscribe(token => {
+        this.redirectToMainPage();
+    }, responseError => {
+      this.firebaseAuth
+        .makePhoneNumberForm('#firebase-ui')
+        .then(() => this.handleAuthUser());
+      this.redirectToCustomerCreatePage();
+    }); 
   }
 
   redirectToMainPage() {
@@ -43,7 +53,7 @@ export class LoginPhoneNumberPage {
   }
 
   redirectToCustomerCreatePage() {
-
+    this.navCtrl.push(CustomerCreatePage);
   }
 
 }
