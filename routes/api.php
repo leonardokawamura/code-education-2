@@ -24,6 +24,7 @@ Route::group(['namespace' => 'Api', 'as' => 'api.'], function() {
     Route::name('logout')->post('logout', 'AuthController@logout')->middleware(['auth:api']);
     Route::name('refresh')->post('refresh', 'AuthController@refresh');
 
+    Route::post('customers/phone_numbers', 'CustomerController@requestPhoneNumberUpdate');
     Route::resource('customers', 'CustomerController', ['only' => ['store']]);
     Route::group(['middleware' => ['auth:api', 'jwt.refresh']], function () { 
         Route::patch('profile', 'UserProfileController@update');
