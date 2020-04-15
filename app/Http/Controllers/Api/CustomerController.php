@@ -7,9 +7,11 @@ use App\Http\Controllers\Controller;
 use App\Firebase\Auth as FirebaseAuth;
 use App\Http\Requests\CustomerRequest;
 use App\Http\Requests\PhoneNumberToUpdateRequest;
+use App\Mail\PhoneNumberChangeMail;
 use App\Models\User;
 use App\Models\UserProfile;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class CustomerController extends Controller
 {
@@ -30,6 +32,7 @@ class CustomerController extends Controller
         $user = User::whereEmail($request->email)->first();
         $phoneNumber = $this->getPhoneNumber($request->token);
         $token = UserProfile::createTokenToChangePhoneNumber($user->profile, $phoneNumber);
+        Mail::to($user)->send(new PhoneNumberChangeMail($user, $token));
         return response()->json([], 204);
     }
 
