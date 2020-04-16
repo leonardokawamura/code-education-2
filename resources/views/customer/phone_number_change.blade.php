@@ -11,7 +11,7 @@
                 document.getElementById('result').innerText = 'Não foi possível atualizar o telefone';
             }
         };
-        xhttp.open('PATCH', '/api/customers/phone_numbers/{{$token}}', true);
+        xhttp.open('PATCH', 'http://dev.code-education.com.br/api/customers/phone_numbers/{{$token}}', true);
         xhttp.send();
     </script>
 @endsection    

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\ProductController;
 use Illuminate\Http\Request;
 
@@ -25,6 +26,7 @@ Route::group(['namespace' => 'Api', 'as' => 'api.'], function() {
     Route::name('refresh')->post('refresh', 'AuthController@refresh');
 
     Route::post('customers/phone_numbers', 'CustomerController@requestPhoneNumberUpdate');
+    Route::patch('customers/phone_numbers/{token}', 'CustomerController@updatePhoneNumber');
     Route::resource('customers', 'CustomerController', ['only' => ['store']]);
     Route::group(['middleware' => ['auth:api', 'jwt.refresh']], function () { 
         Route::patch('profile', 'UserProfileController@update');

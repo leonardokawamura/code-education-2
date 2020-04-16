@@ -41,6 +41,14 @@ class CustomerController extends Controller
         $firebaseAuth = app(FirebaseAuth::class);
         return $firebaseAuth->phoneNumber($token);
     }   
+
+    public function updatePhoneNumber($token)
+    {
+        UserProfile::updatePhoneNumber($token);
+        return response()->json([], 204);
+    }
+    
+    
     
     
 }

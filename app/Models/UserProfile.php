@@ -25,8 +25,16 @@ class UserProfile extends Model
         return $token;
     }
     
+    public static function updatePhoneNumber($token): UserProfile
+    {
+        $profile = UserProfile::where('phone_number_token_to_change', $token)->firstOrFail();
+        $phoneNumber = base64_decode($token);
+        $profile->phone_number = $phoneNumber;
+        $profile->phone_number_token_to_change = null;
+        $profile->save();
+        return $profile;
+    }
     
-
     public static function saveProfile(User $user, array $data): UserProfile
     {
         if(array_key_exists('photo', $data)) {
