@@ -39,4 +39,13 @@ export class CustomerHttpProvider {
     return formData;
   }
 
+  requestUpdatePhoneNumber(email: string): Observable<any> {
+    return fromPromise(this.firebaseAuth.getToken())
+      .pipe(
+        flatMap(token => {
+          return this.http.post<{token: string}>('http://dev.code-education.com.br/api/customers/phone_numbers', {email, token});
+        })
+      );
+  }
+
 }
