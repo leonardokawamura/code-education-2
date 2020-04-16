@@ -8,8 +8,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 class UserProfile extends Model
-{
-    
+{    
     const BASE_PATH = 'app/public';
     const DIR_USERS = 'users';
     const DIR_USER_PHOTO = self::DIR_USERS . '/photos';
