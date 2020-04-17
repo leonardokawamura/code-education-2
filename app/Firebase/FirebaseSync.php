@@ -2,6 +2,7 @@
 declare(strict_types = 1);
 namespace App\Firebase;
 
+use Illuminate\Database\Eloquent\Model;
 use Kreait\Firebase;
 use Kreait\Firebase\Database\Reference;
 
@@ -9,17 +10,37 @@ trait FirebaseSync
 {
     public static function bootFirebaseSync()
     {
-        static::created(function() {
-
+        static::created(function($model) {
+            $model->syncFbCreate();
         });
 
-        static::updated(function() {
-
+        static::updated(function($model) {
+            $model->syncFbUpdate();
         });
 
-        static::deleted(function() {
-
+        static::deleted(function($model) {
+            $model->syncFbRemove();
         });
+    }
+
+    protected function syncFbCreate()
+    {
+        $this->syncFbSet();
+    }
+    
+    protected function syncFbUpdate()
+    {
+        $this->syncFbSet();
+    }
+
+    protected function syncFbSet()
+    {
+        $this->getModelReference()->update($this->toArray());
+    }       
+
+    protected function syncFbRemove()
+    {
+        $this->getModelReference()->remove();
     }
 
     protected function getModelReference(): Reference
