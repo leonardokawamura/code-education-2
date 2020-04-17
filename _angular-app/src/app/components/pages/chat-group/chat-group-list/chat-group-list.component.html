@@ -1,0 +1,60 @@
+<div class="row"> 
+    <h1>Listagem de grupos</h1>
+    <div class="col-12" style="margin-top: 25px;margin-bottom: 25px;">
+        <div class="row">
+            <div class="col-auto">
+                <button class="btn btn-primary" (click)="chatGroupInsertService.showModalInsert()">Novo grupo</button>
+            </div>
+            <div class="col-auto">
+               
+            </div>
+        </div>        
+    </div>
+    <table class="table table-bordered">
+        <thead class="thead-dark">            
+            <tr>
+                <th style="width: 5%" [sortColumn]="sortColumn" columnName="id" (onSort)="sort($event)">ID</th>
+                <th style="width: 60%" [sortColumn]="sortColumn" columnName="name" (onSort)="sort($event)">Nome</th>
+                <th style="width: 10%" [sortColumn]="sortColumn" columnName="users" (onSort)="sort($event)">Usuários</th>
+                <th style="width: 12%" [sortColumn]="sortColumn" columnName="created_at" (onSort)="sort($event)">Criado em</th>
+                <th style="width: 10%">Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let chatGroup of chatGroups | paginate: {itemsPerPage: 5, currentPage: pagination.page, totalItems: pagination.totalItems}">
+                <td>{{ chatGroup.id }}</td>
+                <td>{{ chatGroup.name }}</td>
+                <td>{{ chatGroup.count_users }}</td>
+                <td>{{ chatGroup.created_at.date | date: 'dd/MM/yyyy' }}</td>
+                <td>
+                    <a href="javascript:void(0)" (click)="chatGroupEditService.showModalEdit(chatGroup.id)">
+                        <i class="fas fa-edit"></i>
+                    </a> |
+                    <a href="javascript:void(0)" (click)="chatGroupDeleteService.showModalDelete(chatGroup.id)">
+                        <i class="fas fa-trash-alt"></i>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <pagination-controls (pageChange)="pageChanged($event)" 
+        previousLabel="Anterior"
+        nextLabel="Próximo">
+    </pagination-controls>
+</div>
+
+<chat-group-new-modal 
+    (onSuccess)="chatGroupInsertService.onInsertSuccess($event)" 
+    (onError)="chatGroupInsertService.onInsertError($event)">
+</chat-group-new-modal>
+
+<chat-group-edit-modal [chatGroupId]="chatGroupId" 
+    (onSuccess)="chatGroupEditService.onEditSuccess($event)" 
+    (onError)="chatGroupEditService.onEditError($event)">
+</chat-group-edit-modal>
+
+<chat-group-delete-modal [chatGroupId]="chatGroupId" 
+    (onSuccess)="chatGroupDeleteService.onDeleteSuccess($event)" 
+    (onError)="chatGroupDeleteService.onDeleteError($event)">
+</chat-group-delete-modal>

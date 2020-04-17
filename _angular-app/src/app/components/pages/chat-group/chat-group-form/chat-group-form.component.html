@@ -7,7 +7,7 @@
                  [label]="fieldOptions.name.label"
                  [messages]="fieldOptions.name.validationMessage"></field-error>
 </div> 
-<div class="form-group form-check" [formGroup]="form">                
-    <input type="checkbox" class="form-check-input" id="active" name="active" formControlName="active"> 
-    <label for="active">Ativo?</label>
+<div class="form-group">     
+    <label for="photo">Foto</label>           
+    <input type="file" class="form-control" id="photo" (change)="choosePhoto($event.target.files)">     
 </div> 
