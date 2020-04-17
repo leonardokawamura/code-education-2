@@ -44,7 +44,7 @@ class UsersTableSeeder extends Seeder
                 Model::unguard();
             });
 
-        factory(User::class, 50)
+        factory(User::class, 20)
             ->create([
                 'role' => User::ROLE_CUSTOMER   
             ]);  
