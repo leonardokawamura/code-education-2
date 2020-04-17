@@ -12,7 +12,7 @@ class ChatGroupController extends Controller
 {   
     public function index()
     {
-        $chat_groups = ChatGroup::paginate(5);
+        $chat_groups = ChatGroup::withCount('users')->paginate(5);
         return ChatGroupResource::collection($chat_groups);
     }
     
