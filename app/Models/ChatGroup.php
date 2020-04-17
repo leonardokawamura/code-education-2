@@ -2,6 +2,7 @@
 declare(strict_types = 1);
 namespace App\Models;
 
+use App\Firebase\FirebaseSync;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\UploadedFile;
@@ -11,7 +12,7 @@ use Illuminate\Support\Facades\Storage;
 
 class ChatGroup extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, FirebaseSync;
 
     const BASE_PATH = 'app/public';
     const DIR_CHAT_GROUPS = 'chat_groups';
