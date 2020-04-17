@@ -18,6 +18,8 @@ import { MainPage } from '../pages/main/main';
 import { CustomerCreatePage } from '../pages/customer-create/customer-create';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CustomerHttpProvider } from '../providers/http/customer-http';
+import { SuperTabsModule } from 'ionic2-super-tabs';
+import { ChatGroupListComponent } from '../components/chat-group-list/chat-group-list';
 
 @NgModule({
   declarations: [
@@ -28,13 +30,15 @@ import { CustomerHttpProvider } from '../providers/http/customer-http';
     LoginPhoneNumberPage,
     ResetPhoneNumberPage,
     CustomerCreatePage,
-    MainPage    
+    MainPage,
+    ChatGroupListComponent    
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SuperTabsModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -45,7 +49,8 @@ import { CustomerHttpProvider } from '../providers/http/customer-http';
     LoginPhoneNumberPage,
     ResetPhoneNumberPage,
     CustomerCreatePage,
-    MainPage
+    MainPage,
+    ChatGroupListComponent
   ],
   providers: [
     StatusBar,
