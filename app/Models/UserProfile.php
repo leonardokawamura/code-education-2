@@ -2,6 +2,7 @@
 declare(strict_types = 1);
 namespace App\Models;
 
+use App\Firebase\FirebaseSync;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\File;
@@ -9,6 +10,8 @@ use Illuminate\Support\Facades\Storage;
 
 class UserProfile extends Model
 {    
+    use FirebaseSync;
+
     const BASE_PATH = 'app/public';
     const DIR_USERS = 'users';
     const DIR_USER_PHOTO = self::DIR_USERS . '/photos';
@@ -94,14 +97,26 @@ class UserProfile extends Model
     }  
 
     public function getPhotoUrlAttribute()
+    {        
+        return $this->photo ? asset("storage/{$this->photo_url_base}") : $this->photo_url_base;
+    }
+
+    public function getPhotoUrlBaseAttribute()
     {
         $path = self::photoDir();
-        return $this->photo ? asset("storage/{$path}/{$this->photo}") : 'https://www.gravatar.com/avatar/nouser.jpg';
+        return $this->photo ? "{$path}/{$this->photo}" : 'https://www.gravatar.com/avatar/nouser.jpg';
     }
     
     public function user()
     {
         return $this->belongsTo(User::class);
     }    
+
+    protected function syncFbSet()
+    {
+        $this->user->syncFbSetCustom();
+    }
+    
+    
     
 }

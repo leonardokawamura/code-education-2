@@ -2,6 +2,7 @@
 declare(strict_types = 1);
 namespace App\Models;
 
+use App\Firebase\FirebaseSync;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -11,7 +12,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject
 {
-    use Notifiable, SoftDeletes, Filterable;
+    use Notifiable, SoftDeletes, Filterable, FirebaseSync;
 
     const ROLE_SELLER = 1;
     const ROLE_CUSTOMER = 2;
@@ -123,4 +124,36 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasOne(UserProfile::class)->withDefault();
     }
+
+    protected function syncFbCreate()
+    {
+        $this->syncFbSetCustom();
+    }
+    
+    protected function syncFbUpdate()
+    {
+        $this->syncFbSetCustom();
+    }    
+
+    protected function syncFbRemove()
+    {
+        $this->syncFbSetCustom();
+    }
+
+    public function syncFbSetCustom()
+    {
+        $this->profile->refresh();        
+        if($this->profile->firebase_uid) {
+            $database = $this->getFirebaseDatabase();
+            $path = 'users/' . $this->profile->firebase_uid;
+            $reference = $database->getReference($path);
+            $reference->set([
+                'name' => $this->name,
+                'photo_url' => $this->profile->photo_url_base,
+                'deleted_at' => $this->deleted_at
+            ]);
+        }
+    }
+    
+    
 }
