@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ChatGroupUserRequest;
 use App\Http\Resources\ChatGroupUserResource;
@@ -19,6 +18,7 @@ class ChatGroupUserController extends Controller
     public function store(ChatGroupUserRequest $request, ChatGroup $chat_group)
     {
         $chat_group->users()->attach($request->users);
+        /** @var Collection $users */
         $users = User::whereIn('id', $request->users)->get();
         return response()->json(new ChatGroupUserResource($chat_group, $users), 201);
     }

@@ -8,15 +8,18 @@ use Illuminate\Pagination\AbstractPaginator;
 
 class ChatGroupUserResource extends JsonResource
 {
-    /**
-     * Transform the resource into an array.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array
-     */
+    private $users;
+
+    public function __construct($resource, $users = null)
+    {
+        parent::__construct($resource);
+        $this->users = $users;
+    }
+    
+    
     public function toArray($request)
     {
-        self::withoutWrapping();
+        //self::withoutWrapping();
         return $this->makeArray($request);
     }
 
