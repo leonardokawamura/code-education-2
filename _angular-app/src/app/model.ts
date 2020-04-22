@@ -72,3 +72,7 @@ export interface ChatGroup {
     readonly created_at?: {date: string};
     readonly update_at?: {date: string};
 }
+
+export interface ChatGroupUser {
+    
+}

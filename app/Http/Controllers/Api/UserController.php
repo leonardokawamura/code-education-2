@@ -27,7 +27,7 @@ class UserController extends Controller
         //$filterQuery = User::filtered($filter);
         $filterQuery = $query->filtered($filter);
        
-        $users = $request->has('all') ? $filterQuery->get() : $filterQuery->paginate(5);          
+        $users = $filter->hasFilterParameter() ? $filterQuery->get() : $filterQuery->paginate(5);          
         
         return UserResource::collection($users);
     }

@@ -52,7 +52,10 @@ export class ProductIdFieldService {
         }
       }
     };
-    this.data = [];
+    this.data = null;
+    setTimeout(() => {
+            this.data = [];
+    },300);
     this.onClosingDropdown();
     this.resetSelect2OnSetNull();
   }
