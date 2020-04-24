@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ChatGroupUserHttpService } from 'src/app/services/http/chat-group-user-http.service';
 import { ActivatedRoute } from '@angular/router';
 import { ChatGroup, User } from 'src/app/model';
+import { ChatGroupUserDeleteModalComponent } from '../chat-group-user-delete-modal/chat-group-user-delete-modal.component';
+import { ChatGroupDeleteModalComponent } from '../../chat-group/chat-group-delete-modal/chat-group-delete-modal.component';
 
 @Component({
   selector: 'app-chat-group-user-list',
@@ -12,6 +14,7 @@ export class ChatGroupUserListComponent implements OnInit {
 
   chatGroup: ChatGroup;
   chatGroupId: number;
+  userIdToDelete;
   users: Array<User> = [];
 
   pagination = {
@@ -21,8 +24,9 @@ export class ChatGroupUserListComponent implements OnInit {
   }
 
   sortColumn = {column: 'created_at', sort: 'desc'};
-
   searchText: string = '';
+
+  @ViewChild(ChatGroupUserDeleteModalComponent, {static: false}) chatGroupUserDeleteModal: ChatGroupDeleteModalComponent;
 
   constructor(private chatGroupUserHttp: ChatGroupUserHttpService,
               private route: ActivatedRoute) { }
@@ -56,6 +60,11 @@ export class ChatGroupUserListComponent implements OnInit {
   search(search: string) {
     this.searchText = search;
     this.getUsers();
+  }
+
+  openModalDelete(userId) {
+    this.userIdToDelete = userId;
+    this.chatGroupUserDeleteModal.showModal();
   }
 
   onInsertSuccess($event) {
