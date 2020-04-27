@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FirebaseAuthProvider } from '../../../providers/auth/firebase-auth';
-import { ChatGroup } from '../../../app/model';
-
 /**
  * Generated class for the ChatMessagesPage page.
  *
@@ -28,7 +26,10 @@ export class ChatMessagesPage {
     const database = this.firebaseAuth.firebase.database();
     database.ref('chat_groups/1/messages').on('child_added', data => {
       const message = data.val();
-      this.messages.push(message);
+      database.ref(`users/${message.user_id}`).on('value', (data) => {
+        message.user = data.val();
+        this.messages.push(message);
+      });      
     });
   }
 
