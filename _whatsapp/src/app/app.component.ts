@@ -7,6 +7,8 @@ import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { MainPage } from '../pages/main/main';
 import { ChatMessagesPage } from '../pages/chat-messages/chat_messages/chat-messages';
+import { LoginPhoneNumberPage } from '../pages/login-phone-number/login-phone-number';
+import { LoginOptionsPage } from '../pages/login-options/login-options';
  
 @Component({
   templateUrl: 'app.html'

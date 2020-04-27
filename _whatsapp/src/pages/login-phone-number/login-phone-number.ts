@@ -39,7 +39,7 @@ export class LoginPhoneNumberPage {
     this.authService
       .login()
       .subscribe(token => {
-        this.redirectToMainPage();
+       this.redirectToMainPage();
     }, responseError => {
       this.firebaseAuth
         .makePhoneNumberForm('#firebase-ui')

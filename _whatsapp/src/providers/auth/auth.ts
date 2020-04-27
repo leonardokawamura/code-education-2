@@ -24,10 +24,10 @@ export class AuthProvider {
     this.setUserFromToken(token);
   }
 
-  login(): Observable<{token: string}> {
+  login(): Observable<{token: string}> {    
     return fromPromise(this.firebaseAuth.getToken())
       .pipe(
-        flatMap(token => {
+        flatMap(token => {          
           return this.http.post<{token: string}>('http://dev.code-education.com.br/api/login_vendor', {token});
         })
       );
