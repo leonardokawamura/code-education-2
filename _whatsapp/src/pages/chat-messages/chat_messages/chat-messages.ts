@@ -35,6 +35,7 @@ export class ChatMessagesPage {
       });
       this.messages.push(message);   
     });
+    console.log(this.messages);
   }
 
 }

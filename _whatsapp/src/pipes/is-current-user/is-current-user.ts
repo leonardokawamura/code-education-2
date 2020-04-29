@@ -16,6 +16,7 @@ export class IsCurrentUserPipe implements PipeTransform {
    * Takes a value and makes it lowercase.
    */
   transform(value: string, ...args) {
+    console.log('value = ' + value);
     return this.auth.me.profile.firebase_uid === value;
   }
 }

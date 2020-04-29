@@ -39,7 +39,7 @@ chat-content-detail {
         left: 0;
         border-right-color: $chat-content-left;
         border-left: 0;
-        margin-left: 0;
+        margin-left: -20px;
     }
     .chat-content-right:after {
         @extend %chat-content-after;
