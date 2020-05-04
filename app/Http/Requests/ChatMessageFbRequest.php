@@ -53,6 +53,7 @@ class ChatMessageFbRequest extends FormRequest
         $validator->sometimes('content', 'required|image|max:' . (3 * 1024), function ($input) {
             return $input->type === 'image';
         });
+        return $validator;
     }
     
     

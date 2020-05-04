@@ -25,7 +25,7 @@ class ChatMessageFb
                 $fileUrl = $this->groupFileDir() . '/' . $uploadedFile->hashName();
                 $data['content'] = $fileUrl;            
         }
-        
+
         $reference = $this->getMessageReferences();
         $reference->push([
             'type' => $data['type'],
@@ -42,7 +42,7 @@ class ChatMessageFb
     
     private function groupFileDir()
     {
-        return ChatGroup::DIR_CHAT_GROUPS . '/' . $this->chatGroup->id . 'messages_files';
+        return ChatGroup::DIR_CHAT_GROUPS . '/' . $this->chatGroup->id . '/messages_files';
     }       
 
     public function deleteMessage(ChatGroup $chatGroup)
