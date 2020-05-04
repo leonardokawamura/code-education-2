@@ -29,9 +29,7 @@ class ChatMessageFbRequest extends FormRequest
     {
         $user = Auth::guard('api')->user();
         return $user->role == User::ROLE_SELLER;
-    }
-    
-    
+    }  
 
     /**
      * Get the validation rules that apply to the request.
@@ -41,7 +39,8 @@ class ChatMessageFbRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'type' => 'required|in:text,image,audio',
+            'content' => 'required'
         ];
     }
 }
