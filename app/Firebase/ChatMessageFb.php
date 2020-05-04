@@ -2,6 +2,8 @@
 
 namespace App\Firebase;
 
+use App\Models\ChatGroup;
+
 class ChatMessageFb
 {
     use FirebaseSync;
@@ -27,6 +29,14 @@ class ChatMessageFb
             'user_id' => $data['firebase_uid']
         ]);
     }
+
+    public function deleteMessage(ChatGroup $chatGroup)
+    {
+        $this->chatGroup = $chatGroup;
+        $this->getMessageReferences()->remove();
+    }
+    
+    
 
     private function getMessageReferences()
     {
