@@ -3,6 +3,7 @@
 namespace App\Firebase;
 
 use App\Models\ChatGroup;
+use Illuminate\Http\UploadedFile;
 
 class ChatMessageFb
 {
@@ -18,9 +19,13 @@ class ChatMessageFb
                 # code...
                 break;
             case 'image':
-                # code...
-                break;
+                $this->upload($data['content']);
+                /** @var UploadedFile $uploadedFile */
+                $uploadedFile = $data['content'];
+                $fileUrl = $this->groupFileDir() . '/' . $uploadedFile->hashName();
+                $data['content'] = $fileUrl;            
         }
+        
         $reference = $this->getMessageReferences();
         $reference->push([
             'type' => $data['type'],
@@ -29,6 +34,16 @@ class ChatMessageFb
             'user_id' => $data['firebase_uid']
         ]);
     }
+
+    private function upload(UploadedFile $file)
+    {
+        $file->store($this->groupFileDir(), ['disk' => 'public']);
+    }
+    
+    private function groupFileDir()
+    {
+        return ChatGroup::DIR_CHAT_GROUPS . '/' . $this->chatGroup->id . 'messages_files';
+    }       
 
     public function deleteMessage(ChatGroup $chatGroup)
     {
