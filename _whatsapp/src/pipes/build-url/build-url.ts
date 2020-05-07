@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-
+import { environment } from '@app/env';
 /**
  * Generated class for the BuildUrlPipe pipe.
  *
@@ -13,6 +13,6 @@ export class BuildUrlPipe implements PipeTransform {
    * Takes a value and makes it lowercase.
    */
   transform(value: string, ...args) {
-    return value.startsWith('http') ? value : `http://192.168.1.6:8000/storage/${value}`;
+    return value.startsWith('http') ? value : `${environment.baseFilesUrl}/${value}`;
   }
 }
