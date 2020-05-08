@@ -29,7 +29,8 @@ import { File } from '@ionic-native/file';
 function jwtFactory(authService: AuthProvider) {
   return {
     whitelistedDomains: [
-      new RegExp('dev.code-education.com.br/*')
+      new RegExp('dev.code-education.com.br/*'),
+      new RegExp('192.168.1.6:8000/*')
     ],
     tokenGetter: () => {
       return authService.getToken()

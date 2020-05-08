@@ -16,8 +16,6 @@ class ChatMessageFb
 
         switch ($type) {
             case 'audio':
-                # code...
-                break;
             case 'image':
                 $this->upload($data['content']);
                 /** @var UploadedFile $uploadedFile */
@@ -40,11 +38,11 @@ class ChatMessageFb
         $file->storeAs($this->groupFileDir(), $this->buildFileName($file), ['disk' => 'public']);
     }
 
-    public function buildFileName($file)
+    private function buildFileName(UploadedFile $file)
     {
         switch($file->getMimeType()) {
             case 'audio/x-hx-aac-adts':
-                return "{$file->hashName()}aac";
+                return "{$file->hashName()}";
             default:
                 return $file->hashName();    
         }
