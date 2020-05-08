@@ -3,6 +3,8 @@ import { ChatMessageHttpProvider } from '../../../providers/http/chat-message-ht
 import { TextInput, ItemSliding } from 'ionic-angular';
 import Timer from 'easytimer.js/dist/easytimer.min';
 import { AudioRecorderProvider } from '../../../providers/audio-recorder/audio-recorder';
+import { Subject } from 'rxjs/Subject';
+import { debounceTime } from 'rxjs/operators';
 /**
  * Generated class for the ChatFooterComponent component.
  *
@@ -18,16 +20,22 @@ export class ChatFooterComponent {
   text: string = '';
   messageType = 'text';
   timer = new Timer();
+  recording = false;
+  subjectReleaseAudioButton = new Subject();
 
   @ViewChild('inputFileImage') InputFileImage: TextInput;
-  @ViewChild('itemSliding') itemSlidng: ItemSliding;
+  @ViewChild('itemSliding') itemSliding: ItemSliding;
 
   constructor(private chatMessageHttp: ChatMessageHttpProvider, 
               private audioRecorder: AudioRecorderProvider) {}
+
+  ngOnInit() {
+    this.onStopRecord();
+  }            
   
   onDrag() {
-    if(this.itemSlidng.getSlidingPercent() > 0.9) {
-      this.itemSlidng.close();
+    if(this.itemSliding.getSlidingPercent() > 0.9) {
+      this.itemSliding.close();
       this.clearRecording();
       this.audioRecorder.stopRecord()
       .then(
@@ -41,12 +49,38 @@ export class ChatFooterComponent {
     }
   } 
 
+  onStopRecord() {
+    this.subjectReleaseAudioButton
+      .pipe(
+        debounceTime(500)
+      )
+      .subscribe(() => {    
+        if(!this.recording) {
+          return;
+        }    
+        if(this.itemSliding.getSlidingPercent() === 0) {
+          this.clearRecording();
+          this.audioRecorder.stopRecord()
+            .then(
+              blob => {
+                console.log(blob);
+              }, 
+              error => {
+                console.log(error);
+              }
+            );
+        }
+      });
+  }
+
   clearRecording() {
     this.timer.stop();
     this.text = '';
+    this.recording = false;
   }
 
   holdAudioButton() {
+    this.recording = true;
     this.audioRecorder.startRecord();
     this.timer.start({precision: 'seconds'});
     this.timer.addEventListener('secondsUpdated', (e) => {
@@ -60,17 +94,7 @@ export class ChatFooterComponent {
   }
 
   releaseAudioButton() {
-    this.timer.stop();
-    this.text = '';
-    this.audioRecorder.stopRecord()
-      .then(
-        blob => {
-          console.log(blob);
-        }, 
-        error => {
-          console.log(error);
-        }
-      );
+    this.subjectReleaseAudioButton.next();    
   }
 
   sendMessageText() {
