@@ -25,7 +25,7 @@ export class ChatFooterComponent {
               private audioRecorder: AudioRecorderProvider) {}
 
   holdAudioButton() {
-    this.audioRecorder.startRecorder();
+    this.audioRecorder.startRecord();
     this.timer.start({precision: 'seconds'});
     this.timer.addEventListener('secondsUpdated', (e) => {
       const time = this.getMinutesSeconds();
@@ -40,6 +40,7 @@ export class ChatFooterComponent {
   releaseAudioButton() {
     this.timer.stop();
     this.text = '';
+    this.audioRecorder.stopRecord().then((blog) => {console.log(blog)});
   }
 
   sendMessageText() {
