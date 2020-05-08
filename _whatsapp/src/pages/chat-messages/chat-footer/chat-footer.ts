@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { ChatMessageHttpProvider } from '../../../providers/http/chat-message-http';
-import { TextInput } from 'ionic-angular';
+import { TextInput, ItemSliding } from 'ionic-angular';
 import Timer from 'easytimer.js/dist/easytimer.min';
 import { AudioRecorderProvider } from '../../../providers/audio-recorder/audio-recorder';
 /**
@@ -20,9 +20,31 @@ export class ChatFooterComponent {
   timer = new Timer();
 
   @ViewChild('inputFileImage') InputFileImage: TextInput;
+  @ViewChild('itemSliding') itemSlidng: ItemSliding;
 
   constructor(private chatMessageHttp: ChatMessageHttpProvider, 
               private audioRecorder: AudioRecorderProvider) {}
+  
+  onDrag() {
+    if(this.itemSlidng.getSlidingPercent() > 0.9) {
+      this.itemSlidng.close();
+      this.clearRecording();
+      this.audioRecorder.stopRecord()
+      .then(
+        blob => {
+          console.log('stop recording');
+        }, 
+        error => {
+          console.log(error);
+        }
+      );
+    }
+  } 
+
+  clearRecording() {
+    this.timer.stop();
+    this.text = '';
+  }
 
   holdAudioButton() {
     this.audioRecorder.startRecord();
@@ -40,7 +62,15 @@ export class ChatFooterComponent {
   releaseAudioButton() {
     this.timer.stop();
     this.text = '';
-    this.audioRecorder.stopRecord().then((blog) => {console.log(blog)});
+    this.audioRecorder.stopRecord()
+      .then(
+        blob => {
+          console.log(blob);
+        }, 
+        error => {
+          console.log(error);
+        }
+      );
   }
 
   sendMessageText() {
