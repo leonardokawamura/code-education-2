@@ -23,6 +23,8 @@ import { ChatGroupListComponent } from '../components/chat-group-list/chat-group
 import { ChatMessagesPageModule } from '../pages/chat-messages/chat_messages/chat-messages.module';
 import { JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { ChatMessageHttpProvider } from '../providers/http/chat-message-http';
+import { Media } from '@ionic-native/media';
+import { File } from '@ionic-native/file';
 
 function jwtFactory(authService: AuthProvider) {
   return {
@@ -81,7 +83,9 @@ function jwtFactory(authService: AuthProvider) {
     FirebaseAuthProvider,
     AuthProvider,
     CustomerHttpProvider,
-    ChatMessageHttpProvider
+    ChatMessageHttpProvider,
+    Media,
+    File    
   ]
 })
 export class AppModule {}
