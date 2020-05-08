@@ -2,8 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { ChatMessageHttpProvider } from '../../../providers/http/chat-message-http';
 import { TextInput } from 'ionic-angular';
 import Timer from 'easytimer.js/dist/easytimer.min';
-import { Media } from '@ionic-native/media';
-import { File } from "@ionic-native/file";
+import { AudioRecorderProvider } from '../../../providers/audio-recorder/audio-recorder';
 /**
  * Generated class for the ChatFooterComponent component.
  *
@@ -23,16 +22,10 @@ export class ChatFooterComponent {
   @ViewChild('inputFileImage') InputFileImage: TextInput;
 
   constructor(private chatMessageHttp: ChatMessageHttpProvider, 
-              private media: Media,
-              private file: File) {}
+              private audioRecorder: AudioRecorderProvider) {}
 
   holdAudioButton() {
-    const recorder = this.media.create('recording.acc');
-    recorder.startRecord();
-    setTimeout(() => {
-      recorder.stopRecord();
-      recorder.play();
-    }, 5000);
+    this.audioRecorder.startRecorder();
     this.timer.start({precision: 'seconds'});
     this.timer.addEventListener('secondsUpdated', (e) => {
       const time = this.getMinutesSeconds();

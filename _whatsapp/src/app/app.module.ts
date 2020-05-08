@@ -85,7 +85,7 @@ function jwtFactory(authService: AuthProvider) {
     CustomerHttpProvider,
     ChatMessageHttpProvider,
     Media,
-    File    
+    File   
   ]
 })
 export class AppModule {}
