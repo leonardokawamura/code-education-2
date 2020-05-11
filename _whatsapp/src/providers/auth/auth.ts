@@ -44,6 +44,7 @@ export class AuthProvider {
       id: decodedPayload.sub,
       name: decodedPayload.name,
       email: decodedPayload.email,
+      role: decodedPayload.role,
       profile: decodedPayload.profile
     } : null
   }

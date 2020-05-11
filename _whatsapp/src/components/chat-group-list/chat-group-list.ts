@@ -21,10 +21,10 @@ export class ChatGroupListComponent {
               private chatGroupFb: ChatGroupFbProvider) {}
 
   ngOnInit() {
-    this.chatGroupFb.list().subscribe((groups) => {
-      console.log(groups);
-    });
-    const database = this.firebaseAuth.firebase.database();
+    this.chatGroupFb
+      .list()
+      .subscribe(groups => this.groups = groups);
+    /* const database = this.firebaseAuth.firebase.database();
     database.ref('chat_groups').on('child_added', data => {
       const group = data.val() as ChatGroup;
       this.groups.push(group);
@@ -35,7 +35,7 @@ export class ChatGroupListComponent {
       if(index !== -1) {
         this.groups[index] = group;
       }
-    });
+    }); */
   }
 
 }
