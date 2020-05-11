@@ -23,9 +23,9 @@ export class ChatGroupFbProvider {
 
   list() {
     return Observable.create(observer => {
-      this.database.ref('chat_groups').once('value', data => {
+      this.database.ref('chat_groups').orderByChild('updated_at').once('value', data => {
         const groupsRaw = data.val() as Array<ChatGroup>;
-        const groupsKey = Object.keys(groupsRaw);
+        const groupsKey = Object.keys(groupsRaw).reverse();
         const groups = [];
         for(const key of groupsKey) {
           groupsRaw[key].is_member = this.getMember(groupsRaw[key]);
