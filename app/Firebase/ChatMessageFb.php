@@ -61,7 +61,7 @@ class ChatMessageFb
 
     private function getMessageReferences()
     {
-        $path = "/chat_groups/{$this->chatGroup->id}/messages";
+        $path = "/chat_groups_messages/{$this->chatGroup->id}/messages";
         return $this->getFirebaseDatabase()->getReference($path);        
     }       
     
