@@ -32,6 +32,17 @@ export class ChatGroupListComponent {
       .subscribe(group => {
         this.groups.unshift(group);
       });
+
+    this.chatGroupFb
+      .onChanged()
+      .subscribe(group => {
+        const index = this.groups.findIndex((g => g.id === group.id));
+        if(index === -1) {
+          return;
+        }
+        this.groups.splice(index, 1);
+        this.groups.unshift(group);
+      });
       
     /* const database = this.firebaseAuth.firebase.database();
     database.ref('chat_groups').on('child_added', data => {

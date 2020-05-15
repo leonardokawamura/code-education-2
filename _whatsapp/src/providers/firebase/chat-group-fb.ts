@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, ViewChild } from '@angular/core';
 import { FirebaseAuthProvider } from '../auth/firebase-auth';
 import { Observable } from 'rxjs/Observable';
 import { ChatGroup, Role, ChatMessage } from '../../app/model';
@@ -24,15 +24,14 @@ export class ChatGroupFbProvider {
 
   list(): Observable<ChatGroup[]> {
     return Observable.create(observer => {
-      this.database.ref('chat_groups').orderByChild('updated_at').once('value', data => {
-        const groupsRaw = data.val() as Array<ChatGroup>;
-        const groupsKey = Object.keys(groupsRaw).reverse();
+      this.database.ref('chat_groups').orderByChild('updated_at').once('value', data => {        
         const groups = [];
-        for(const key of groupsKey) {
-          groupsRaw[key].is_member = this.getMember(groupsRaw[key]);
-          groupsRaw[key].last_message = this.getLastMessage(groupsRaw[key]);
-          groups.push(groupsRaw[key]);
-        }
+        data.forEach(child => {
+          const group = child.val() as ChatGroup;
+          group.is_member = this.getMember(group);
+          group.last_message = this.getLastMessage(group); 
+          groups.unshift(group);
+        });
         observer.next(groups);
       }, error => console.log(error));
     });
@@ -44,10 +43,22 @@ export class ChatGroupFbProvider {
         .orderByChild('created_at')
         .startAt(Date.now())
         .on('child_added', data => {
-        const group = data.val() as ChatGroup;
-        group.is_member = this.getMember(group);
-        group.last_message = this.getLastMessage(group);        
-        observer.next(group);
+          const group = data.val() as ChatGroup;
+          group.is_member = this.getMember(group);
+          group.last_message = this.getLastMessage(group);        
+          observer.next(group);
+      }, error => console.log(error));
+    });
+  }
+
+  onChanged(): Observable<ChatGroup> {
+    return Observable.create(observer => {
+      this.database.ref('chat_groups')        
+        .on('child_changed', data => {
+          const group = data.val() as ChatGroup;
+          group.is_member = this.getMember(group);
+          group.last_message = this.getLastMessage(group);        
+          observer.next(group);
       }, error => console.log(error));
     });
   }
