@@ -93,8 +93,6 @@ class ChatGroup extends Model
         return $dir;
     }  
 
-    
-
     public function users()
     {
         return $this->belongsToMany(User::class);
@@ -105,6 +103,11 @@ class ChatGroup extends Model
         $this->syncFbSet();
     }
 
+    public function updateInFb()
+    {
+        $this->syncFbSet(self::$OPERATION_UPDATE);
+    }  
+
     protected function syncFbSet($operation = null)
     {
         $data = $this->toArray();
@@ -112,7 +115,7 @@ class ChatGroup extends Model
         unset($data['photo']);
         $this->setTimestamps($data, $operation);
         $this->getModelReference()->update($data);
-    }      
+    }   
     
     public function getPhotoUrlAttribute()
     {

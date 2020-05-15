@@ -32,6 +32,7 @@ class ChatMessageFb
             'user_id' => $data['firebase_uid']
         ]);
         $this->setLastMessage($newReference->getKey());
+        $this->chatGroup->updateInFb();
     }
 
     private function upload(UploadedFile $file)
