@@ -23,7 +23,15 @@ export class ChatGroupListComponent {
   ngOnInit() {
     this.chatGroupFb
       .list()
-      .subscribe(groups => this.groups = groups);
+      .subscribe(groups => {
+        this.groups = groups
+      });
+
+    this.chatGroupFb
+      .onAdded()
+      .subscribe(group => {
+        this.groups.unshift(group);
+      });
       
     /* const database = this.firebaseAuth.firebase.database();
     database.ref('chat_groups').on('child_added', data => {

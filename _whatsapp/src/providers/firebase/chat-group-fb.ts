@@ -22,7 +22,7 @@ export class ChatGroupFbProvider {
     this.database = this.firebaseAuth.firebase.database();
   }
 
-  list() {
+  list(): Observable<ChatGroup[]> {
     return Observable.create(observer => {
       this.database.ref('chat_groups').orderByChild('updated_at').once('value', data => {
         const groupsRaw = data.val() as Array<ChatGroup>;
@@ -34,6 +34,20 @@ export class ChatGroupFbProvider {
           groups.push(groupsRaw[key]);
         }
         observer.next(groups);
+      }, error => console.log(error));
+    });
+  }
+
+  onAdded(): Observable<ChatGroup> {
+    return Observable.create(observer => {
+      this.database.ref('chat_groups')
+        .orderByChild('created_at')
+        .startAt(Date.now())
+        .on('child_added', data => {
+        const group = data.val() as ChatGroup;
+        group.is_member = this.getMember(group);
+        group.last_message = this.getLastMessage(group);        
+        observer.next(group);
       }, error => console.log(error));
     });
   }

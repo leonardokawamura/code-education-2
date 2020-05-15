@@ -2,8 +2,8 @@ import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/cor
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ModalComponent } from 'src/app/components/bootstrap/modal/modal.component';
 import { HttpErrorResponse } from '@angular/common/http';
-import fieldsOptions from '../../category/category-form/category-fields-options';
 import { ChatGroupHttpService } from 'src/app/services/http/chat-group-http.service';
+import fieldsOptions from '../chat-group-form/chat-group-fields-options';
 
 @Component({
   selector: 'chat-group-new-modal',
