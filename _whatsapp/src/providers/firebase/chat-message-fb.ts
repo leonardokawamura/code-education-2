@@ -21,7 +21,7 @@ export class ChatMessageFbProvider {
     this.database = this.firebaseAuth.firebase.database();
   }
 
-  latest(group: ChatGroup): Observable<ChatGroup> {
+  latest(group: ChatGroup) {
     return Observable.create(observer => {
       this.database.ref(`chat_groups_messages/${group.id}/messages`)
         .orderByKey()

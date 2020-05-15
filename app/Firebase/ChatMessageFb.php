@@ -55,7 +55,7 @@ class ChatMessageFb
         return ChatGroup::DIR_CHAT_GROUPS . '/' . $this->chatGroup->id . '/messages_files';
     }       
 
-    public function deleteMessage(ChatGroup $chatGroup)
+    public function deleteMessages(ChatGroup $chatGroup)
     {
         $this->chatGroup = $chatGroup;
         $this->getMessageReferences()->remove();
