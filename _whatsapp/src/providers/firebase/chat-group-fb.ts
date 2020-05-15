@@ -4,6 +4,7 @@ import { FirebaseAuthProvider } from '../auth/firebase-auth';
 import { Observable } from 'rxjs/Observable';
 import { ChatGroup, Role, ChatMessage } from '../../app/model';
 import { AuthProvider } from '../../providers/auth/auth';
+import { ChatMessageHttpProvider } from 'providers/http/chat-message-http';
 
 /*
   Generated class for the ChatGroupFbProvider provider.
@@ -71,8 +72,23 @@ export class ChatGroupFbProvider {
       this.database
         .ref('chat_groups_messages/' + group.id + '/messages/' + lastMessageId)
         .once('value', data => {          
-          const message = data.val();
-          observer.next(message);
+          const message = data.val() as ChatMessage;
+          this.getUser(message.user_id)
+            .subscribe((user) => {
+              message.user = user;
+              observer.next(message);
+            });
+        });
+    });
+  }
+
+  private getUser(userId) {
+    return Observable.create(observer => {
+      this.database
+        .ref(`users/${userId}`)
+        .once('value', data => {          
+          const user = data.val();
+          observer.next(user);
         });
     });
   }

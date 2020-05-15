@@ -5,7 +5,19 @@
         <img src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?f=y" alt="">
       </ion-avatar>
       <h2>{{ group.name }}</h2>
-      <h3>{{ (group.last_message | async)?.content }}</h3>
+      <h3>
+        <ng-container *ngIf="group.last_message | async as message">
+          <span *ngIf="message.type === 'text'">
+            {{ message.user.name }}: {{ formatTextMessage(message) }}...
+          </span>
+          <span *ngIf="message.type === 'audio'">
+            {{ message.user.name }}: <ion-icon name="mic"></ion-icon> Áudio
+          </span>
+          <span *ngIf="message.type === 'image'">
+            {{ message.user.name }}: <ion-icon name="images"></ion-icon> Imagem
+          </span>
+        </ng-container>
+      </h3>
     </ion-item>
   </ion-list>
 </ion-content>

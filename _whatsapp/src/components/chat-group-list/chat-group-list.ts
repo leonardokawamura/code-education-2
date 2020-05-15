@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FirebaseAuthProvider } from '../../providers/auth/firebase-auth';
-import { ChatGroup } from '../../app/model';
+import { ChatGroup, ChatMessage } from '../../app/model';
 import { ChatGroupFbProvider } from '../../providers/firebase/chat-group-fb';
 
 /**
@@ -37,6 +37,11 @@ export class ChatGroupListComponent {
         this.groups[index] = group;
       }
     }); */
+  }
+
+  formatTextMessage(message: ChatMessage) {
+    const maxLenght = 20;
+    return message.content.length > maxLenght ? message.content.slice(0, maxLenght) : message.content;
   }
 
 }
