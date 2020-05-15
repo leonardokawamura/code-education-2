@@ -24,6 +24,7 @@ export class ChatGroupListComponent {
     this.chatGroupFb
       .list()
       .subscribe(groups => this.groups = groups);
+      
     /* const database = this.firebaseAuth.firebase.database();
     database.ref('chat_groups').on('child_added', data => {
       const group = data.val() as ChatGroup;
