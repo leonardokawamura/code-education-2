@@ -17,7 +17,7 @@ import { ChatMessageFbProvider } from '../../../providers/firebase/chat-message-
 export class ChatMessagesPage {
 
   chatGroup: ChatGroup;
-  messages: ChatMessage[] = [];
+  messages: {key: string, value: ChatMessage}[] = [];
   limit = 20;
 
   constructor(public navCtrl: NavController, 
