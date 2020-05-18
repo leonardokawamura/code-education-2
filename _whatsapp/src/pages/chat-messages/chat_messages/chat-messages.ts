@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Content } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Content, InfiniteScroll } from 'ionic-angular';
 import { ChatMessage, ChatGroup } from '../../../app/model';
 import { ChatMessageFbProvider } from '../../../providers/firebase/chat-message-fb';
 /**
@@ -20,6 +20,7 @@ export class ChatMessagesPage {
   messages: {key: string, value: ChatMessage}[] = [];
   limit = 20;
   showContent = false;
+  canMoreMessages = true;
 
   @ViewChild(Content) content: Content;
 
@@ -43,6 +44,17 @@ export class ChatMessagesPage {
           this.showContent = true;
         }, 500);
       });
+  }
+
+  doInfinite(infiniteScroll: InfiniteScroll) {
+    this.chatMessageFb.oldest(this.chatGroup, this.limit, this.messages[0].key)
+      .subscribe((messages) => {
+        if(!messages.length) {
+          this.canMoreMessages = false;
+        }
+        this.messages.unshift(...messages);
+        infiniteScroll.complete();
+      }, () => infiniteScroll.complete());
   }
 
 }
