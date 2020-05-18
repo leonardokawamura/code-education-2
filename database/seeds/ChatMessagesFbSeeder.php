@@ -72,9 +72,6 @@ class ChatMessagesFbSeeder extends Seeder
             str_random(16) . '.' . $photoFile->getExtension()
         );
         return $uploadFile;
-    }
-    
-    
-    
+    }    
     
 }
