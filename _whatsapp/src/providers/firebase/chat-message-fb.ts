@@ -3,7 +3,7 @@ import { FirebaseAuthProvider } from '../auth/firebase-auth';
 import { Observable } from 'rxjs/Observable';
 import { ChatGroup, ChatMessage } from '../../app/model';
 import { AuthProvider } from '../../providers/auth/auth';
-import { User } from 'firebase';
+import { User, database } from 'firebase';
 
 /*
   Generated class for the ChatGroupFbProvider provider.
@@ -57,21 +57,20 @@ export class ChatMessageFbProvider {
     });
   }
 
-  /* onAdded(): Observable<ChatGroup> {
+  onAdded(group: ChatGroup): Observable<{key: string, value: ChatMessage}[]> {
     return Observable.create(observer => {
-      this.database.ref('chat_groups')
+      this.database.ref(`chat_groups_messages/${group.id}/messages`)
         .orderByChild('created_at')
         .startAt(Date.now())
         .on('child_added', data => {
-          const group = data.val() as ChatGroup;
-          group.is_member = this.getMember(group);
-          group.last_message = this.getLastMessage(group);        
-          observer.next(group);
+          const message = data.val() as ChatMessage;
+          message.user$ = this.getUser(message.user_id);
+          observer.next({key: data.key, value: message}); 
       }, error => console.log(error));
     });
   }
 
-  onChanged(): Observable<ChatGroup> {
+  /*onChanged(): Observable<ChatGroup> {
     return Observable.create(observer => {
       this.database.ref('chat_groups')        
         .on('child_changed', data => {

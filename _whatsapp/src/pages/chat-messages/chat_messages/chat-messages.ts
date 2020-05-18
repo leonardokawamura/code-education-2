@@ -44,6 +44,11 @@ export class ChatMessagesPage {
           this.showContent = true;
         }, 500);
       });
+
+    this.chatMessageFb.onAdded(this.chatGroup)
+      .subscribe((message) => {
+        this.messages.push(message); 
+      })  
   }
 
   doInfinite(infiniteScroll: InfiniteScroll) {
