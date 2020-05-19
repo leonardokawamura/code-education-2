@@ -4,6 +4,7 @@ import { ChatGroup, ChatMessage } from '../../app/model';
 import { ChatGroupFbProvider } from '../../providers/firebase/chat-group-fb';
 import { App } from 'ionic-angular';
 import { ChatMessagesPage } from '../../pages/chat-messages/chat_messages/chat-messages';
+import { ChatGroupViewerProvider } from '../../providers/chat-group-viewer/chat-group-viewer';
 
 /**
  * Generated class for the ChatGroupListComponent component.
@@ -21,12 +22,16 @@ export class ChatGroupListComponent {
 
   constructor(private firebaseAuth: FirebaseAuthProvider,
               private chatGroupFb: ChatGroupFbProvider,
-              private app: App) {}
+              private app: App,
+              private chatGroupViewer: ChatGroupViewerProvider) {}
 
   ngOnInit() {
     this.chatGroupFb
       .list()
       .subscribe(groups => {
+        groups.forEach((group) => {
+          this.chatGroupViewer.loadViewed(group);
+        });
         this.groups = groups
       });
 

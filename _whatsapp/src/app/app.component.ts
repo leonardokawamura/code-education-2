@@ -16,7 +16,7 @@ import { LoginOptionsPage } from '../pages/login-options/login-options';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = ChatMessagesPage;
+  rootPage: any = MainPage;
 
   pages: Array<{title: string, component: any}>;
 
