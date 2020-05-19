@@ -6,6 +6,7 @@ import { fromPromise } from 'rxjs/observable/fromPromise';
 import { flatMap } from 'rxjs/operators';
 import { User } from '../../app/model';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { environment } from '../../environments/environment';
 
 const TOKEN_KEY = 'code-education';
 /*
@@ -28,7 +29,7 @@ export class AuthProvider {
     return fromPromise(this.firebaseAuth.getToken())
       .pipe(
         flatMap(token => {          
-          return this.http.post<{token: string}>('http://dev.code-education.com.br/api/login_vendor', {token});
+          return this.http.post<{token: string}>(`${environment.api.url}/login_vendor`, {token});
         })
       );
   }

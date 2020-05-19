@@ -4,6 +4,7 @@ import { fromPromise } from 'rxjs/observable/fromPromise';
 import { FirebaseAuthProvider } from '../auth/firebase-auth';
 import { flatMap } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
+import { environment } from '../../environments/environment';
 
 interface Customer {
   name: string;
@@ -14,9 +15,8 @@ interface Customer {
 @Injectable()
 export class CustomerHttpProvider {
 
-  constructor(public http: HttpClient, private firebaseAuth: FirebaseAuthProvider) {
-    console.log('Hello CustomerHttpProvider Provider');
-  }
+  constructor(public http: HttpClient, 
+              private firebaseAuth: FirebaseAuthProvider) {}
 
   create(data: Customer): Observable<any> {
     const formData = this.formDataToSend(data);
@@ -24,7 +24,7 @@ export class CustomerHttpProvider {
       .pipe(
         flatMap(token => {
           formData.append('token', token);
-          return this.http.post<{token: string}>('http://dev.code-education.com.br/api/customers', formData);
+          return this.http.post<{token: string}>(`${environment.api.url}/customers`, formData);
         })
       );
   }
@@ -43,7 +43,7 @@ export class CustomerHttpProvider {
     return fromPromise(this.firebaseAuth.getToken())
       .pipe(
         flatMap(token => {
-          return this.http.post<{token: string}>('http://dev.code-education.com.br/api/customers/phone_numbers', {email, token});
+          return this.http.post<{token: string}>(`${environment.api.url}/customers/phone_numbers`, {email, token});
         })
       );
   }

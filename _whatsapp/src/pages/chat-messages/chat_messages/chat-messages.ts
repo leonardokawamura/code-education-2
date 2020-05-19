@@ -30,12 +30,7 @@ export class ChatMessagesPage {
               public navParams: NavParams,
               private chatMessageFb: ChatMessageFbProvider,
               private isCurrentUser: IsCurrentUserPipe) {
-    //this.chatGroup = this.navParams.get('chat_group');
-    this.chatGroup = {
-      id: 1,
-      name: '',
-      photo_url: ''
-    };
+    this.chatGroup = this.navParams.get('chat_group');    
   }
 
   ionViewDidLoad() {
