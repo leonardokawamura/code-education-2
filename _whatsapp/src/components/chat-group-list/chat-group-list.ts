@@ -26,8 +26,7 @@ export class ChatGroupListComponent {
               private chatGroupViewer: ChatGroupViewerProvider) {}
 
   ngOnInit() {
-    this.chatGroupFb
-      .list()
+    this.chatGroupFb.list()
       .subscribe(groups => {
         groups.forEach((group) => {
           this.chatGroupViewer.loadViewed(group);
@@ -35,19 +34,19 @@ export class ChatGroupListComponent {
         this.groups = groups
       });
 
-    this.chatGroupFb
-      .onAdded()
+    this.chatGroupFb.onAdded()
       .subscribe(group => {
+        this.chatGroupViewer.loadViewed(group);
         this.groups.unshift(group);
       });
 
-    this.chatGroupFb
-      .onChanged()
+    this.chatGroupFb.onChanged()
       .subscribe(group => {
         const index = this.groups.findIndex((g => g.id === group.id));
         if(index === -1) {
           return;
         }
+        this.chatGroupViewer.loadViewed(group);
         this.groups.splice(index, 1);
         this.groups.unshift(group);
       });
@@ -72,6 +71,7 @@ export class ChatGroupListComponent {
   }
 
   goToMessages(group: ChatGroup) {
+    this.chatGroupViewer.viewed(group);
     this.app.getRootNav().push(ChatMessagesPage, {'chat_group': group});
   }
 

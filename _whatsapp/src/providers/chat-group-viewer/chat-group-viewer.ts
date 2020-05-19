@@ -15,8 +15,16 @@ const CHAT_GROUPS_VIEWED_KEY = 'chat_groups_viewed';
 @Injectable()
 export class ChatGroupViewerProvider {
 
-  constructor(public http: HttpClient,
-              private isCurrentUser: IsCurrentUserPipe) {}
+  constructor(private isCurrentUser: IsCurrentUserPipe) {}
+
+  viewed(group: ChatGroup) {
+    group.viewed = true;
+    this.setChatGroup(group);
+  }            
+  unViewed(group: ChatGroup) {
+    group.viewed = false;
+    this.setChatGroup(group);
+  }            
 
   loadViewed(group: ChatGroup) {
     this.hasViewed(group).subscribe((hasViewed) => {
