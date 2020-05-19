@@ -22,6 +22,7 @@ export class ChatFooterComponent {
   timer = new Timer();
   recording = false;
   subjectReleaseAudioButton = new Subject();
+  sending = false;
 
   @ViewChild('inputFileImage') InputFileImage: TextInput;
   @ViewChild('itemSliding') itemSliding: ItemSliding;
@@ -113,9 +114,17 @@ export class ChatFooterComponent {
   }
 
   sendMessage(data: {content, type}) {
+    this.sending = true;
     this.chatMessageHttp
       .create(1, data)
-      .subscribe(() => {console.log('enviou')});
+      .subscribe(() => {
+        this.sending = false;
+        if(data.type === 'text') {
+          this.text = '';
+        }
+      }, (error) => {
+        this.sending = false;
+      });
   }
 
   selectImage() {
