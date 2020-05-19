@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ChatGroup } from '../../app/model';
+import { Observable } from 'rxjs/Observable';
 
 const CHAT_GROUPS_VIEWED_KEY = 'chat_groups_viewed';
 
@@ -19,6 +20,12 @@ export class ChatGroupViewerProvider {
 
   loadViewed(group: ChatGroup) {
     this.setChatGroup(group);
+  }
+
+  private hasViewed(group: ChatGroup): Observable<boolean> {
+    return Observable.create((observer) => {
+
+    });
   }
 
   private setChatGroup(group: ChatGroup) {
