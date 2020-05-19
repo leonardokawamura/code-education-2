@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ChatGroup } from '../../app/model';
 import { Observable } from 'rxjs/Observable';
+import { IsCurrentUserPipe } from '../../pipes/is-current-user/is-current-user';
 
 const CHAT_GROUPS_VIEWED_KEY = 'chat_groups_viewed';
 
@@ -14,23 +15,34 @@ const CHAT_GROUPS_VIEWED_KEY = 'chat_groups_viewed';
 @Injectable()
 export class ChatGroupViewerProvider {
 
-  constructor(public http: HttpClient) {
-    console.log('Hello ChatGroupViewerProvider Provider');
-  }
+  constructor(public http: HttpClient,
+              private isCurrentUser: IsCurrentUserPipe) {}
 
   loadViewed(group: ChatGroup) {
-    this.setChatGroup(group);
+    this.hasViewed(group).subscribe((hasViewed) => {
+        group.viewed = hasViewed;
+        this.setChatGroup(group);
+      });
   }
 
   private hasViewed(group: ChatGroup): Observable<boolean> {
     return Observable.create((observer) => {
-
+      let collection = this.collection;
+      if(collection.hasOwnProperty(group.id) && collection[group.id].viewed === true) {
+        group.last_message.subscribe((message) => {
+          collection = this.collection;
+          const hasViewed = this.isCurrentUser.transform(message.user_id) || group.updated_at === collection[group.id].updated_at;
+          observer.next(hasViewed);
+        });
+        return;
+      }
+      observer.next(false);
     });
   }
 
   private setChatGroup(group: ChatGroup) {
     const collection = this.collection;
-    collection[group.id] = {name: group.name};
+    collection[group.id] = {viewed: group.viewed, updated_at: group.updated_at};
     this.collection = collection;
   }
    
