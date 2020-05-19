@@ -48,8 +48,7 @@ export class ChatMessagesPage {
 
     this.chatMessageFb.onAdded(this.chatGroup)
       .subscribe((message) => {
-        console.log(message);
-        //this.messages.push(message); 
+        this.messages.push(message); 
       })  
   }
 
