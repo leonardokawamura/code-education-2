@@ -21,6 +21,7 @@ export class ChatMessagesPage {
   limit = 20;
   showContent = false;
   canMoreMessages = true;
+  countNewMessages = 0;
 
   @ViewChild(Content) content: Content;
 
@@ -40,14 +41,15 @@ export class ChatMessagesPage {
       .subscribe(messages => {
         this.messages = messages;
         setTimeout(() => {
-          this.content.scrollToBottom(0);
+          this.scrollToBottom();
           this.showContent = true;
         }, 500);
       });
 
     this.chatMessageFb.onAdded(this.chatGroup)
       .subscribe((message) => {
-        this.messages.push(message); 
+        console.log(message);
+        //this.messages.push(message); 
       })  
   }
 
@@ -60,6 +62,20 @@ export class ChatMessagesPage {
         this.messages.unshift(...messages);
         infiniteScroll.complete();
       }, () => infiniteScroll.complete());
+  }
+
+  scrollToBottom() {
+    this.countNewMessages = 0;
+    this.content.scrollToBottom(0);
+  }
+
+  showButtonScrollBottom() {
+    const dimensions = this.content.getContentDimensions();
+    const contentHeight = dimensions.contentHeight;
+    const scrollTop = dimensions.scrollTop;
+    const scrollHeight = dimensions.scrollHeight;
+
+    return scrollHeight > scrollTop + contentHeight;
   }
 
 }
