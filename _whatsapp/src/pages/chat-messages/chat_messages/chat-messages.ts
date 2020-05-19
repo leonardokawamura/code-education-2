@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Content, InfiniteScroll } from 'ionic-angular';
 import { ChatMessage, ChatGroup } from '../../../app/model';
 import { ChatMessageFbProvider } from '../../../providers/firebase/chat-message-fb';
+import { IsCurrentUserPipe } from '../../../pipes/is-current-user/is-current-user';
 /**
  * Generated class for the ChatMessagesPage page.
  *
@@ -27,7 +28,8 @@ export class ChatMessagesPage {
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
-              private chatMessageFb: ChatMessageFbProvider) {
+              private chatMessageFb: ChatMessageFbProvider,
+              private isCurrentUser: IsCurrentUserPipe) {
     //this.chatGroup = this.navParams.get('chat_group');
     this.chatGroup = {
       id: 1,
@@ -49,7 +51,11 @@ export class ChatMessagesPage {
     this.chatMessageFb.onAdded(this.chatGroup)
       .subscribe((message) => {
         this.messages.push(message); 
-      })  
+        if(this.isCurrentUser.transform(message.value.user_id)) {
+          return;
+        }
+        this.countNewMessages++;
+      });  
   }
 
   doInfinite(infiniteScroll: InfiniteScroll) {
