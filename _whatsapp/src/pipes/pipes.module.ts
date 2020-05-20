@@ -15,7 +15,8 @@ import { ColorFirstLetterPipe } from './color-first-letter/color-first-letter';
         ColorFirstLetterPipe
     ],
     providers: [
-        IsCurrentUserPipe
+        IsCurrentUserPipe,
+        BuildUrlPipe
     ]
 })
 export class PipesModule {}
