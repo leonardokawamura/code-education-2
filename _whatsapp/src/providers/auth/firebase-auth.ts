@@ -29,9 +29,15 @@ export class FirebaseAuthProvider {
     await this.getFirebaseUI();
     return new Promise((resolve) => {            
       const uiConfig = {
-        signInOptions: [
-          firebase.auth.PhoneAuthProvider.PROVIDER_ID
-        ],
+        signInOptions: [{
+            provider: firebase.auth.PhoneAuthProvider.PROVIDER_ID,
+            /*recaptchaParameters: {
+              type: 'image', // 'audio'
+              size: 'invisible', // 'invisible' or 'compact'
+              badge: 'bottomleft' //' bottomright' or 'inline' applies to invisible.
+            },
+            defaultCountry: 'GB'*/
+        }],
         callbacks: {
           signInSuccessWithAuthResult: (authResult, redirectUrl) => {
             resolve(true);
@@ -52,7 +58,7 @@ export class FirebaseAuthProvider {
         this.ui = new firebaseui.auth.AuthUI(firebase.auth());
         this.ui.start(selectorElement, uiConfig);
       });
-    }
+    }    
   }
 
   private async getFirebaseUI(): Promise<any> {
