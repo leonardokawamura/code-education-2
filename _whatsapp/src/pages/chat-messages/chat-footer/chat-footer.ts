@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { ChatMessageHttpProvider } from '../../../providers/http/chat-message-http';
-import { TextInput, ItemSliding } from 'ionic-angular';
+import { TextInput, ItemSliding, AlertController } from 'ionic-angular';
 import Timer from 'easytimer.js/dist/easytimer.min';
 import { AudioRecorderProvider } from '../../../providers/audio-recorder/audio-recorder';
 import { Subject } from 'rxjs/Subject';
@@ -28,7 +28,8 @@ export class ChatFooterComponent {
   @ViewChild('itemSliding') itemSliding: ItemSliding;
 
   constructor(private chatMessageHttp: ChatMessageHttpProvider, 
-              private audioRecorder: AudioRecorderProvider) {}
+              private audioRecorder: AudioRecorderProvider,
+              private alertCtrl: AlertController) {}
 
   ngOnInit() {
     this.onStopRecord();
@@ -81,6 +82,10 @@ export class ChatFooterComponent {
   }
 
   holdAudioButton() {
+    if(!this.audioRecorder.hasPermission) {
+      this.showAlertPermission();
+      return;
+    }
     this.recording = true;
     this.audioRecorder.startRecord();
     this.timer.start({precision: 'seconds'});
@@ -89,6 +94,31 @@ export class ChatFooterComponent {
       this.text = `${time} Gravando...`;
     })
   } 
+
+  showAlertPermission() {
+    const alert = this.alertCtrl.create({
+      title: 'Aviso',
+      message: 'No momento você não tem permissões para gravar áudios. Deseja ativar?',
+      buttons: [
+        {
+          text: 'Ok',
+          handler: () => {
+            this.audioRecorder
+              .requestPermission().then((result) => {
+                console.log('permissão para gravação', result);
+                if(result) {
+                  this.audioRecorder.showAlertToCloseApp();
+                }
+              });
+          }
+        },
+        {
+          text: 'Cancelar'
+        }
+      ]
+    });
+    alert.present();
+  }
 
   private getMinutesSeconds() {
     return this.timer.getTimeValues().toString().substring(3);

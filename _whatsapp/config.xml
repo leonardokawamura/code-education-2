@@ -104,5 +104,7 @@
     <plugin name="cordova-plugin-media" spec="^5.0.3" />
     <plugin name="cordova-plugin-file" spec="^6.0.2" />
     <plugin name="com-sarriaroman-photoviewer" spec="^1.2.4" />
-    <plugin name="cordova.plugins.diagnostic" spec="^5.0.2" />
+    <plugin name="cordova.plugins.diagnostic" spec="^4.0.12">
+        <variable name="ANDROID_SUPPORT_VERSION" value="28.+" />
+    </plugin>
 </widget>

@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ChatGroup } from '../../app/model';
 import { Observable } from 'rxjs/Observable';

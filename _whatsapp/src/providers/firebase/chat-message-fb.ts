@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { FirebaseAuthProvider } from '../auth/firebase-auth';
 import { Observable } from 'rxjs/Observable';
 import { ChatGroup, ChatMessage } from '../../app/model';
-import { AuthProvider } from '../../providers/auth/auth';
-import { User, database } from 'firebase';
 
 /*
   Generated class for the ChatGroupFbProvider provider.
@@ -16,8 +14,7 @@ export class ChatMessageFbProvider {
 
   database;
 
-  constructor(private firebaseAuth: FirebaseAuthProvider,
-              private auth: AuthProvider) {
+  constructor(private firebaseAuth: FirebaseAuthProvider) {
     this.database = this.firebaseAuth.firebase.database();
   }
 
