@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
-import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { IonicApp, IonicErrorHandler, IonicModule, Select } from 'ionic-angular';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -32,6 +32,7 @@ import { DirectivesModule } from '../directives/directives.module';
 import { StoragePermissionProvider } from '../providers/storage-permission/storage-permission';
 import { Diagnostic } from '@ionic-native/diagnostic';
 import { FirebasePhoneNumberCheckComponent } from '../components/firebase-phone-number-check/firebase-phone-number-check';
+import { SelectCountriesCodeComponent } from '../components/select-countries-code/select-countries-code';
 
 function jwtFactory(authService: AuthProvider) {
   return {
@@ -56,7 +57,8 @@ function jwtFactory(authService: AuthProvider) {
     CustomerCreatePage,
     MainPage,
     ChatGroupListComponent,
-    FirebasePhoneNumberCheckComponent    
+    FirebasePhoneNumberCheckComponent,
+    SelectCountriesCodeComponent    
   ],
   imports: [
     BrowserModule,
@@ -86,7 +88,8 @@ function jwtFactory(authService: AuthProvider) {
     CustomerCreatePage,
     MainPage,
     ChatGroupListComponent,
-    FirebasePhoneNumberCheckComponent
+    FirebasePhoneNumberCheckComponent,
+    SelectCountriesCodeComponent
   ],
   providers: [
     StatusBar,
