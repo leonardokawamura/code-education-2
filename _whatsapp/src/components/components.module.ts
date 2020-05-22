@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
+import { FirebasePhoneNumberCheckComponent } from './firebase-phone-number-check/firebase-phone-number-check';
 @NgModule({
-	declarations: [],
+	declarations: [FirebasePhoneNumberCheckComponent],
 	imports: [],
-	exports: []
+	exports: [FirebasePhoneNumberCheckComponent]
 })
 export class ComponentsModule {}
