@@ -13,9 +13,18 @@ import { Component } from '@angular/core';
 export class FirebasePhoneNumberCheckComponent {
 
   countryCode = "55";
+  verificationId = "";
 
   constructor() {
     
+  }
+
+  verifyPhoneNumber() {
+    this.verificationId = '111111';
+  }
+
+  cancel() {
+    this.verificationId = '';
   }
 
 }
