@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "462348407056",
+    "firebase_url": "https://whatsapp-de-vendas.firebaseio.com",
+    "project_id": "whatsapp-de-vendas",
+    "storage_bucket": "whatsapp-de-vendas.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:462348407056:android:32123827766e1fe6ced595",
+        "android_client_info": {
+          "package_name": "com.leolk.codeshopping"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "462348407056-tok527pg3q8df6p60f3jhinggq011i3f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUfMDqKOMKCHHVYWhZvgoQUo6lsI9x0j8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "462348407056-tok527pg3q8df6p60f3jhinggq011i3f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

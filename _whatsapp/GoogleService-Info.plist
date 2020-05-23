@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>462348407056-sottp5r0gi5umu999avj50uk00mc1nps.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.462348407056-sottp5r0gi5umu999avj50uk00mc1nps</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCml35n-1AFCn3WUW3YN10mj3PgD5LT3Lw</string>
+	<key>GCM_SENDER_ID</key>
+	<string>462348407056</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.leolk.codeshopping</string>
+	<key>PROJECT_ID</key>
+	<string>whatsapp-de-vendas</string>
+	<key>STORAGE_BUCKET</key>
+	<string>whatsapp-de-vendas.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:462348407056:ios:ca1659058fe0e899ced595</string>
+	<key>DATABASE_URL</key>
+	<string>https://whatsapp-de-vendas.firebaseio.com</string>
+</dict>
+</plist>
