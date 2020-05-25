@@ -38,7 +38,9 @@ function jwtFactory(authService: AuthProvider) {
   return {
     whitelistedDomains: [
       new RegExp('dev.code-education.com.br/*'),
-      new RegExp('192.168.1.6:8000/*')
+      new RegExp('192.168.1.6:8000/*'),
+      new RegExp('192.168.1.6:8100/*'),
+      new RegExp('192.168.1.4:5555/*')
     ],
     tokenGetter: () => {
       return authService.getToken()
