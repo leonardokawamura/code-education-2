@@ -4,6 +4,7 @@ import { FirebaseAuthProvider } from '../../providers/auth/firebase-auth';
 import { AuthProvider } from '../../providers/auth/auth';
 import { MainPage } from '../main/main';
 import { CustomerCreatePage } from '../customer-create/customer-create';
+import { environment } from '../../environments/environment';
 
 /**
  * Generated class for the LoginPhoneNumberPage page.
@@ -19,6 +20,8 @@ import { CustomerCreatePage } from '../customer-create/customer-create';
 })
 export class LoginPhoneNumberPage {
 
+  showFirebaseUi = environment.showFirebaseUi;
+
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               private firebaseAuth: FirebaseAuthProvider,
@@ -31,8 +34,10 @@ export class LoginPhoneNumberPage {
         this.handleAuthUser();
         unsubscribed();
       }
-    });       
-    this.firebaseAuth.makePhoneNumberForm('#firebase-ui');
+    });  
+    if(environment.showFirebaseUi) {
+      this.firebaseAuth.makePhoneNumberForm('#firebase-ui');
+    }         
   }
 
   handleAuthUser() {
@@ -41,10 +46,12 @@ export class LoginPhoneNumberPage {
       .subscribe(token => {
        this.redirectToMainPage();
     }, responseError => {
-      this.firebaseAuth
-        .makePhoneNumberForm('#firebase-ui')
-        .then(() => this.handleAuthUser());
-      this.redirectToCustomerCreatePage();
+      if(environment.showFirebaseUi) {
+        this.firebaseAuth
+          .makePhoneNumberForm('#firebase-ui')
+          .then(() => this.handleAuthUser());
+        this.redirectToCustomerCreatePage();
+      }
     }); 
   }
 

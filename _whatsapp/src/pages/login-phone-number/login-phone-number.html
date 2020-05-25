@@ -11,7 +11,7 @@
 </ion-header>
 
 <ion-content padding>
-  <firebase-phone-number-check></firebase-phone-number-check>
+  <firebase-phone-number-check *ngIf="!showFirebaseUi"></firebase-phone-number-check>
   <div id="firebase-ui"></div>
 </ion-content>
 
