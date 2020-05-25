@@ -29,11 +29,11 @@
         <strong>{{ fullPhoneNumber }}</strong>
       </p>
       <ion-item no-padding>
-        <ion-input type="number" placeholder="Código SMS"></ion-input>
+        <ion-input type="number" placeholder="Código SMS" [(ngModel)]="smsCode"></ion-input>
       </ion-item>
-      <p text-center>
+      <p text-center class="container-links-sms">
         <button type="button" ion-button outline color="green-dark" (click)="cancel()">Cancelar</button>
-        <button type="button" ion-button color="green-dark">Continuar</button>
+        <button type="button" ion-button color="green-dark" (click)="signInWithVerificationId()">Continuar</button>
         <a href="javascript:void(0)" ion-button>Reenviar</a>
       </p>
     </ion-card-content>
