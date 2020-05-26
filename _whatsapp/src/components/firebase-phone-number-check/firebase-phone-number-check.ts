@@ -27,15 +27,24 @@ export class FirebasePhoneNumberCheckComponent {
     
   }
 
+  resendSmsCode() {
+    this.verifyPhoneNumber()
+      .then(() => this.showToast('SMS enviado')); 
+  }
+
   verifyPhoneNumber() {
-    this.platform.ready().then(() => {
-      cordova.plugins.firebase.auth.verifyPhoneNumber(this.fullPhoneNumber, 30000)
-        .then((verificationId) => {
-          this.verificationId = verificationId;
-        }, (error) => {
-          this.showToast('Não foi possível verificar o número, tente novamente');
-        }); 
-    });
+    return new Promise<any>((resolve, reject) => {
+      this.platform.ready().then(() => {
+        cordova.plugins.firebase.auth.verifyPhoneNumber(this.fullPhoneNumber, 30000)
+          .then((verificationId) => {
+            resolve(this.verificationId = verificationId);
+          }, (error) => {
+            console.log(error);
+            reject(error);
+            this.showToast('Não foi possível verificar o número, tente novamente');
+          }); 
+      });      
+    }).then((verification) => { console.log('Código de verificação foi recebido') });
   }
 
   signInWithVerificationId() {
