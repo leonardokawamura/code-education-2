@@ -4,6 +4,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { FirebaseAuthProvider } from '../../providers/auth/firebase-auth';
 import { CustomerHttpProvider } from '../../providers/http/customer-http';
 import { LoginOptionsPage } from '../login-options/login-options';
+import { environment } from '../../environments/environment';
 
 /**
  * Generated class for the ResetPhoneNumberPage page.
@@ -20,7 +21,8 @@ import { LoginOptionsPage } from '../login-options/login-options';
 export class ResetPhoneNumberPage {
 
   email = new FormControl('', [Validators.required, Validators.email]);
-  canShowFirebaseUI = false;
+  hasBtnEmailClicked = false;
+  showFirebaseUI = environment.showFirebaseUI;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
@@ -34,16 +36,23 @@ export class ResetPhoneNumberPage {
     console.log('ionViewDidLoad ResetPhoneNumberPage');
   }
 
-  showFirebaseUI() {
-    this.canShowFirebaseUI = true;
+  loadFirebaseUI() {
+    this.hasBtnEmailClicked = true;
     this.handleUpdate();
   }
 
   handleUpdate() {
-    this.firebaseAuth
-      .makePhoneNumberForm('#firebase-ui')
-      .then(() => {
-        const email = this.email.value;
+    if(environment.showFirebaseUI) {
+      this.firebaseAuth
+        .makePhoneNumberForm('#firebase-ui')
+        .then(() => {
+          this.requestUpdatePhoneNumber();
+        });
+    }
+  }
+
+  requestUpdatePhoneNumber() {
+    const email = this.email.value;
         this.customerHttp
           .requestUpdatePhoneNumber(email)
           .subscribe(() => {
@@ -71,7 +80,6 @@ export class ResetPhoneNumberPage {
             toast.present();
             this.handleUpdate();
           });
-      });
   }
 
 }

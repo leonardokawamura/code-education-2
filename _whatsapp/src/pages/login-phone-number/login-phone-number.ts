@@ -20,7 +20,7 @@ import { environment } from '../../environments/environment';
 })
 export class LoginPhoneNumberPage {
 
-  showFirebaseUi = environment.showFirebaseUi;
+  showFirebaseUI = environment.showFirebaseUI;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
@@ -35,7 +35,7 @@ export class LoginPhoneNumberPage {
         unsubscribed();
       }
     });  
-    if(environment.showFirebaseUi) {
+    if(environment.showFirebaseUI) {
       this.firebaseAuth.makePhoneNumberForm('#firebase-ui');
     }         
   }
@@ -46,7 +46,7 @@ export class LoginPhoneNumberPage {
       .subscribe(token => {
        this.redirectToMainPage();
     }, responseError => {
-      if(environment.showFirebaseUi) {
+      if(environment.showFirebaseUI) {
         this.firebaseAuth
           .makePhoneNumberForm('#firebase-ui')
           .then(() => this.handleAuthUser());

@@ -8,5 +8,5 @@ export const environment = {
     }
   },
   baseFilesUrl: 'http://192.168.1.6:8000/storage',
-  showFirebaseUi: !document.URL.startsWith('file:///')
+  showFirebaseUI: !document.URL.startsWith('file:///')
 };
