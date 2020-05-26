@@ -13,7 +13,7 @@ import { LoginPhoneNumberPage } from '../pages/login-phone-number/login-phone-nu
 import { ResetPhoneNumberPage } from '../pages/reset-phone-number/reset-phone-number';
 import { FirebaseAuthProvider } from '../providers/auth/firebase-auth';
 import { AuthProvider } from '../providers/auth/auth';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MainPage } from '../pages/main/main';
 import { CustomerCreatePage } from '../pages/customer-create/customer-create';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -33,6 +33,7 @@ import { StoragePermissionProvider } from '../providers/storage-permission/stora
 import { Diagnostic } from '@ionic-native/diagnostic';
 import { FirebasePhoneNumberCheckComponent } from '../components/firebase-phone-number-check/firebase-phone-number-check';
 import { SelectCountriesCodeComponent } from '../components/select-countries-code/select-countries-code';
+import { RefreshTokenInterceptor } from '../providers/auth/refresh-token-interceptor';
 
 function jwtFactory(authService: AuthProvider) {
   return {
@@ -106,7 +107,12 @@ function jwtFactory(authService: AuthProvider) {
     ChatGroupFbProvider,
     ChatGroupViewerProvider,
     StoragePermissionProvider,
-    Diagnostic   
+    Diagnostic,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: RefreshTokenInterceptor,
+      multi: true
+    }   
   ]
 })
 export class AppModule {}
