@@ -16,12 +16,12 @@ export class RefreshTokenInterceptor implements HttpInterceptor {
               private app: App,
               private injector: Injector) { }
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {     
     this.jwtInterceptor;
-    if(!this.authService.getToken || !this.isTokenExpired() || req.url === this.authService.refreshUrl()) {
+    if(!this.authService.getToken || !this.isTokenExpired() || req.url === this.authService.refreshUrl()) {      
       return this.handleRequest(req, next);
-    } else {
-      this.authService.refresh()
+    } else {      
+      return this.authService.refresh()
         .pipe(
           flatMap((data) => {
             const obs = this._jwtInterceptor.intercept(req, next);

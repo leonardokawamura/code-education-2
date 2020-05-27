@@ -5,6 +5,7 @@ import { AuthProvider } from '../../providers/auth/auth';
 import { MainPage } from '../main/main';
 import { CustomerCreatePage } from '../customer-create/customer-create';
 import { environment } from '../../environments/environment';
+import { HttpClient } from '@angular/common/http';
 
 /**
  * Generated class for the LoginPhoneNumberPage page.
