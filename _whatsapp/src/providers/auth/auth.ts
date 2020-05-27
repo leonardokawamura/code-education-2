@@ -8,7 +8,7 @@ import { User } from '../../app/model';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from '../../environments/environment';
 
-const TOKEN_KEY = 'code-education';
+const TOKEN_KEY = 'api-app-token';
 /*
   Generated class for the AuthProvider provider.
 

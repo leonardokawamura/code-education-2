@@ -25,10 +25,9 @@ export class LoginPhoneNumberPage {
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               private firebaseAuth: FirebaseAuthProvider,
-              private authService: AuthProvider) {
-  }
+              private authService: AuthProvider) {}
 
-  ionViewDidLoad() {
+  ionViewDidLoad() {   
     const unsubscribed = this.firebaseAuth.firebase.auth().onAuthStateChanged(user => {
       if(user) {
         this.handleAuthUser();
