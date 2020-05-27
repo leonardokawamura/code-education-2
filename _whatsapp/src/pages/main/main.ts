@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ChatGroupListComponent } from '../../components/chat-group-list/chat-group-list';
 import { StoragePermissionProvider } from '../../providers/storage-permission/storage-permission';
 import { AudioRecorderProvider } from '../../providers/audio-recorder/audio-recorder';
+import { RedirectIfNotAuthProvider } from '../../providers/redirect-if-not-auth/redirect-if-not-auth';
 
 /**
  * Generated class for the MainPage page.
@@ -22,7 +23,12 @@ export class MainPage {
   
   constructor(public navCtrl: NavController, 
               public navParams: NavParams, 
-              private audioRecorder: AudioRecorderProvider) {  
+              private audioRecorder: AudioRecorderProvider,
+              private redirectIfNotAuth: RedirectIfNotAuthProvider) {  
+  }
+
+  ionViewCanEnter() {
+    return this.redirectIfNotAuth.ionViewCanEnter();
   }
 
   ionViewDidLoad() {

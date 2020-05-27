@@ -34,6 +34,7 @@ import { Diagnostic } from '@ionic-native/diagnostic';
 import { FirebasePhoneNumberCheckComponent } from '../components/firebase-phone-number-check/firebase-phone-number-check';
 import { SelectCountriesCodeComponent } from '../components/select-countries-code/select-countries-code';
 import { RefreshTokenInterceptor } from '../providers/auth/refresh-token-interceptor';
+import { RedirectIfNotAuthProvider } from '../providers/redirect-if-not-auth/redirect-if-not-auth';
 
 function jwtFactory(authService: AuthProvider) {
   return {
@@ -112,7 +113,8 @@ function jwtFactory(authService: AuthProvider) {
       provide: HTTP_INTERCEPTORS,
       useClass: RefreshTokenInterceptor,
       multi: true
-    }   
+    },
+    RedirectIfNotAuthProvider   
   ]
 })
 export class AppModule {}
