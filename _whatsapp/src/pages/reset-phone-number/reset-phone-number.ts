@@ -4,7 +4,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { FirebaseAuthProvider } from '../../providers/auth/firebase-auth';
 import { CustomerHttpProvider } from '../../providers/http/customer-http';
 import { LoginOptionsPage } from '../login-options/login-options';
-import { environment } from '../../environments/environment';
+import { environment } from '@app/env';
 
 /**
  * Generated class for the ResetPhoneNumberPage page.

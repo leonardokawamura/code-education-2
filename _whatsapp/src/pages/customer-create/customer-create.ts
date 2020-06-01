@@ -2,6 +2,8 @@ import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, TextInput } from 'ionic-angular';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { CustomerHttpProvider } from '../../providers/http/customer-http';
+import { MainPage } from '../main/main';
+import { AuthProvider } from '../../providers/auth/auth';
 
 /**
  * Generated class for the CustomerCreatePage page.
@@ -25,7 +27,8 @@ export class CustomerCreatePage {
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               private formBuilder: FormBuilder,
-              private customerHttp: CustomerHttpProvider) {
+              private customerHttp: CustomerHttpProvider,
+              private auth: AuthProvider) {
     this.form = this.formBuilder.group({
       name: ['', [Validators.required, Validators.maxLength(255)]],
       email: ['', [Validators.required, Validators.email, Validators.maxLength(255)]],
@@ -40,9 +43,11 @@ export class CustomerCreatePage {
   submit() {
     this.customerHttp
       .create(this.form.value)
-      .subscribe(() => {
+      .subscribe((res) => {
         console.log('cliente foi criado');
-      })
+        this.auth.setToken(res.token);
+        this.navCtrl.setRoot(MainPage);
+      });
   }
 
   selectPhoto() {
@@ -67,6 +72,5 @@ export class CustomerCreatePage {
       this.photoPreview = (<any>target).result;
     }
   }
-
 
 }

@@ -4,8 +4,7 @@ import { FirebaseAuthProvider } from '../../providers/auth/firebase-auth';
 import { AuthProvider } from '../../providers/auth/auth';
 import { MainPage } from '../main/main';
 import { CustomerCreatePage } from '../customer-create/customer-create';
-import { environment } from '../../environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { environment } from '@app/env';
 
 /**
  * Generated class for the LoginPhoneNumberPage page.
@@ -20,7 +19,7 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: 'login-phone-number.html',
 })
 export class LoginPhoneNumberPage {
-
+  
   showFirebaseUI = environment.showFirebaseUI;
 
   constructor(public navCtrl: NavController, 
@@ -41,18 +40,21 @@ export class LoginPhoneNumberPage {
   }
 
   handleAuthUser() {
-    this.authService
-      .login()
-      .subscribe(token => {
-       this.redirectToMainPage();
-    }, responseError => {
-      if(environment.showFirebaseUI) {
-        this.firebaseAuth
-          .makePhoneNumberForm('#firebase-ui')
-          .then(() => this.handleAuthUser());
-        this.redirectToCustomerCreatePage();
-      }
-    }); 
+    this.authService.login()
+      .subscribe(
+        token => {
+          console.log('redirecionando para main page');
+          this.redirectToMainPage();
+        }, 
+        responseError => {
+          if(environment.showFirebaseUI) {
+            this.firebaseAuth.makePhoneNumberForm('#firebase-ui')
+              .then(() => this.handleAuthUser());
+          }
+          console.log('redirecionando para createPage');
+          this.redirectToCustomerCreatePage();
+        }
+      ); 
   }
 
   redirectToMainPage() {

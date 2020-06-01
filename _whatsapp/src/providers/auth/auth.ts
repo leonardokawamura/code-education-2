@@ -6,9 +6,11 @@ import { fromPromise } from 'rxjs/observable/fromPromise';
 import { flatMap, tap } from 'rxjs/operators';
 import { User } from '../../app/model';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { environment } from '../../environments/environment';
+import { environment } from '@app/env';
 
-const TOKEN_KEY = 'api-app-token';
+declare const cordova;
+
+const TOKEN_KEY = 'api_app_token';
 /*
   Generated class for the AuthProvider provider.
 
@@ -28,7 +30,7 @@ export class AuthProvider {
   login(): Observable<{token: string}> {    
     return fromPromise(this.firebaseAuth.getToken())
       .pipe(
-        flatMap(token => {          
+        flatMap(token => {      
           return this.http.post<{token: string}>(`${environment.api.url}/login_vendor`, {token});
         })
       );
@@ -89,5 +91,5 @@ export class AuthProvider {
   refreshUrl() {
     return `${environment.api.url}/refresh`;
   }
-
+  
 }

@@ -18,14 +18,20 @@ export class RefreshTokenInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {     
     this.jwtInterceptor;
-    if(!this.authService.getToken || !this.isTokenExpired() || req.url === this.authService.refreshUrl()) {      
+    /* 
+      !this.authService.getToken() = nao possui token
+      !this.isTokenExpired() = token nao esta expirado
+      req.url === this.authService.refreshUrl() = requisicao para /refresh
+      Em qualquer um desses casos nao precisa requisitar o refresh do token
+    */
+    if(!this.authService.getToken() || !this.isTokenExpired() || req.url === this.authService.refreshUrl()) {      
       return this.handleRequest(req, next);
-    } else {      
+    } else { 
       return this.authService.refresh()
         .pipe(
-          flatMap((data) => {
-            const obs = this._jwtInterceptor.intercept(req, next);
-            this.setPipes(obs);
+          flatMap((data) => {            
+            let obs = this._jwtInterceptor.intercept(req, next);
+            obs = this.setPipes(obs);
             return obs;
           })
         );
@@ -37,16 +43,15 @@ export class RefreshTokenInterceptor implements HttpInterceptor {
     return this.authService.isTokenExpired(token);
   }
 
-  private handleRequest(req: HttpRequest<any>, next: HttpHandler) {
-    const obs = next.handle(req);
-    this.setPipes(obs);
+  private handleRequest(req: HttpRequest<any>, next: HttpHandler) {    
+    let obs = next.handle(req);
+    obs = this.setPipes(obs);
     return obs;
   }
 
   private setPipes(observable: Observable<any>) {
-    observable.pipe(
+    return observable.pipe(
       tap((event: HttpEvent<any>) => {
-        console.log(event);
         this.setNewTokenIfResponseValid(event);
       }, (eventError: HttpEvent<any>) => {
         this.setNewTokenIfResponseValid(eventError);
@@ -72,9 +77,9 @@ export class RefreshTokenInterceptor implements HttpInterceptor {
     }
   }
 
-  private setNewTokenIfResponseValid(event: HttpEvent<any>) {
-    if(event instanceof HttpResponseBase) {
-      const authorizathionHeader = event.headers.get('authorization');
+  private setNewTokenIfResponseValid(event: HttpEvent<any>) {    
+    if(event instanceof HttpResponseBase) {      
+      const authorizathionHeader = event.headers.get('authorization'); 
       if(authorizathionHeader) {
         const token = authorizathionHeader.split(' ')[1];
         this.authService.setToken(token);

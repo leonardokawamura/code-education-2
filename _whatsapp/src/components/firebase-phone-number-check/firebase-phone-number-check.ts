@@ -49,21 +49,25 @@ export class FirebasePhoneNumberCheckComponent {
 
   signInWithVerificationId() {
     cordova.plugins.firebase.auth.signInWithVerificationId(this.verificationId, this.smsCode)
-      .then((userInfo) => {
-        this.firebaseAuth
-          .firebase
-          .auth()
-          .signInAndRetrieveDataWithCredential(this.fbCredential)
-            .then((user) => {
-              console.log(user);
-              this.onAuth.emit(user);
-            }, (error) => {
-              console.log(error);
-              this.showToast('Não foi possível autenticar o telefone');
-            })
-      }, (error) => {
-        this.showToast('Não foi possível verificar o código SMS');
-      });
+      .then(
+        userInfo => {
+          this.firebaseAuth
+            .firebase
+            .auth()
+            .signInAndRetrieveDataWithCredential(this.fbCredential)
+            .then(
+              user => {
+                this.onAuth.emit(user);
+              }, 
+              error => {
+                this.showToast('Não foi possível autenticar o telefone');
+              }
+            )
+        }, 
+        error => {
+          this.showToast('Não foi possível verificar o código SMS');
+        }
+      );
   }
 
   get fbCredential() {

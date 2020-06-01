@@ -18,12 +18,12 @@ export class CustomerHttpProvider {
   constructor(public http: HttpClient, 
               private firebaseAuth: FirebaseAuthProvider) {}
 
-  create(data: Customer): Observable<any> {
-    const formData = this.formDataToSend(data);
+  create(data: Customer): Observable<any> {    
+    const formData = this.formDataToSend(data);    
     return fromPromise(this.firebaseAuth.getToken())
       .pipe(
         flatMap(token => {
-          formData.append('token', token);
+          formData.append('token', token);          
           return this.http.post<{token: string}>(`${environment.api.url}/customers`, formData);
         })
       );
