@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
-import { Observable } from 'rxjs';
-import { User } from 'src/app/model';
+import { environment } from '@app/env';
+import { Observable } from 'rxjs/Observable';
+import { User } from '../../app/model';
 import { tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
-import { AuthService } from '../auth.service';
+import { AuthProvider } from '../auth/auth';
 
 interface Profile {
   name?: string;
@@ -12,16 +12,15 @@ interface Profile {
   password?: string;
   photo?: File | false | null;
   token?: string;
+  device_token?: string;
 }
 
-@Injectable({
-  providedIn: 'root'
-})
-export class UserProfileHttpService {
+@Injectable()
+export class UserProfileHttp {
 
   private beaseUrl = `${environment.api.url}/profile`;
 
-  constructor(private http: HttpClient, private authService: AuthService) { }
+  constructor(private http: HttpClient, private authService: AuthProvider) { }
 
   update(data: Profile): Observable<{user: User, token: string}> {
     const formData = this.formDataToSend(data);    
