@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, Loading } from 'ionic-angular';
 import { FirebaseAuthProvider } from '../../providers/auth/firebase-auth';
 import { AuthProvider } from '../../providers/auth/auth';
 import { MainPage } from '../main/main';
@@ -21,15 +21,21 @@ import { environment } from '@app/env';
 export class LoginPhoneNumberPage {
   
   showFirebaseUI = environment.showFirebaseUI;
+  loader: Loading;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               private firebaseAuth: FirebaseAuthProvider,
-              private authService: AuthProvider) {}
+              private authService: AuthProvider,
+              private loadingCtrl: LoadingController) {}
 
   ionViewDidLoad() {   
     const unsubscribed = this.firebaseAuth.firebase.auth().onAuthStateChanged(user => {
       if(user) {
+        this.loader = this.loadingCtrl.create({
+          content: 'Carregando...'
+        });
+        this.loader.present();
         this.handleAuthUser();
         unsubscribed();
       }
@@ -43,10 +49,12 @@ export class LoginPhoneNumberPage {
     this.authService.login()
       .subscribe(
         response => {
+          this.loader.dismiss();
           console.log('redirecionando para main page');
           this.redirectToMainPage();
         }, 
         responseError => {
+          this.loader.dismiss();
           if(environment.showFirebaseUI) {
             this.firebaseAuth.makePhoneNumberForm('#firebase-ui')
               .then(() => this.handleAuthUser());

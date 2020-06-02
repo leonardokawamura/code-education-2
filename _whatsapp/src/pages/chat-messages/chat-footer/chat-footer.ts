@@ -1,10 +1,11 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, Input } from '@angular/core';
 import { ChatMessageHttpProvider } from '../../../providers/http/chat-message-http';
 import { TextInput, ItemSliding, AlertController } from 'ionic-angular';
 import Timer from 'easytimer.js/dist/easytimer.min';
 import { AudioRecorderProvider } from '../../../providers/audio-recorder/audio-recorder';
 import { Subject } from 'rxjs/Subject';
 import { debounceTime } from 'rxjs/operators';
+import { ChatGroup } from '../../../app/model';
 /**
  * Generated class for the ChatFooterComponent component.
  *
@@ -23,6 +24,8 @@ export class ChatFooterComponent {
   recording = false;
   subjectReleaseAudioButton = new Subject();
   sending = false;
+
+  @Input() chatGroup: ChatGroup;
 
   @ViewChild('inputFileImage') InputFileImage: TextInput;
   @ViewChild('itemSliding') itemSliding: ItemSliding;
@@ -146,7 +149,7 @@ export class ChatFooterComponent {
   sendMessage(data: {content, type}) {
     this.sending = true;
     this.chatMessageHttp
-      .create(1, data)
+      .create(this.chatGroup.id, data)
       .subscribe(() => {
         this.sending = false;
         if(data.type === 'text') {
