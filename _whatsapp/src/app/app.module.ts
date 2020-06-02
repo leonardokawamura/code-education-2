@@ -36,6 +36,7 @@ import { SelectCountriesCodeComponent } from '../components/select-countries-cod
 import { RefreshTokenInterceptor } from '../providers/auth/refresh-token-interceptor';
 import { RedirectIfNotAuthProvider } from '../providers/redirect-if-not-auth/redirect-if-not-auth';
 import { MoreOptionsComponent } from '../components/more-options/more-options';
+import { FirebaseMessaging } from '@ionic-native/firebase-messaging';
 
 function jwtFactory(authService: AuthProvider) {
   return {
@@ -117,7 +118,8 @@ function jwtFactory(authService: AuthProvider) {
       useClass: RefreshTokenInterceptor,
       multi: true
     },
-    RedirectIfNotAuthProvider   
+    RedirectIfNotAuthProvider,
+    FirebaseMessaging   
   ]
 })
 export class AppModule {}
