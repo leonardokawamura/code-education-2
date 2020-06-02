@@ -42,7 +42,7 @@ export class LoginPhoneNumberPage {
   handleAuthUser() {
     this.authService.login()
       .subscribe(
-        token => {
+        response => {
           console.log('redirecionando para main page');
           this.redirectToMainPage();
         }, 

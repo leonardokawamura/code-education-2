@@ -22,13 +22,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['namespace' => 'Api', 'as' => 'api.'], function() {
     Route::name('login')->post('login', 'AuthController@login');
     Route::name('login_vendor')->post('login_vendor', 'AuthController@loginFirebase');
-    Route::name('logout')->post('logout', 'AuthController@logout')->middleware(['auth:api']);
+    
     Route::name('refresh')->post('refresh', 'AuthController@refresh');
 
     Route::post('customers/phone_numbers', 'CustomerController@requestPhoneNumberUpdate');
     Route::patch('customers/phone_numbers/{token}', 'CustomerController@updatePhoneNumber');
     Route::resource('customers', 'CustomerController', ['only' => ['store']]);
     Route::group(['middleware' => ['auth:api', 'jwt.refresh']], function () { 
+        Route::name('logout')->post('logout', 'AuthController@logout');
         Route::patch('profile', 'UserProfileController@update');
         Route::resource('chat_groups.messages', 'ChatMessageFbController')->only(['store']);
         Route::group(['middleware' => ['can:is_seller']], function () {

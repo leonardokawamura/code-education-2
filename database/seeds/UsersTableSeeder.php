@@ -29,7 +29,7 @@ class UsersTableSeeder extends Seeder
                     'photo' => $this->getAdminPhoto()
                 ]);
                 Model::unguard();
-                $user->profile->firebase_uid = 'oYASb011XLdrkwKgPycRKmg4tjf2';
+                $user->profile->firebase_uid = '8NuWeoj5JpPElfe1O0XZPyHNVxn2';
                 $user->profile->save();
             });
 
@@ -44,7 +44,7 @@ class UsersTableSeeder extends Seeder
                     'phone_number' => '+16505551235'
                 ]);
                 Model::unguard();
-                $user->profile->firebase_uid = 'M8ADxRc7agXKggyJUN8hlaxTc9T2';
+                $user->profile->firebase_uid = '5fseDKbObCRGZcYoJxdDQHApzRw2';
                 $user->profile->save();
             });
 

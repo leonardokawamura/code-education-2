@@ -28,7 +28,7 @@ export class CustomerCreatePage {
               public navParams: NavParams,
               private formBuilder: FormBuilder,
               private customerHttp: CustomerHttpProvider,
-              private auth: AuthProvider) {
+              private authService: AuthProvider) {
     this.form = this.formBuilder.group({
       name: ['', [Validators.required, Validators.maxLength(255)]],
       email: ['', [Validators.required, Validators.email, Validators.maxLength(255)]],
@@ -43,9 +43,9 @@ export class CustomerCreatePage {
   submit() {
     this.customerHttp
       .create(this.form.value)
-      .subscribe((res) => {
+      .subscribe((response) => {
         console.log('cliente foi criado');
-        this.auth.setToken(res.token);
+        this.authService.setToken(response.token);
         this.navCtrl.setRoot(MainPage);
       });
   }

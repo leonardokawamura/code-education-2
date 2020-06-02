@@ -35,6 +35,7 @@ import { FirebasePhoneNumberCheckComponent } from '../components/firebase-phone-
 import { SelectCountriesCodeComponent } from '../components/select-countries-code/select-countries-code';
 import { RefreshTokenInterceptor } from '../providers/auth/refresh-token-interceptor';
 import { RedirectIfNotAuthProvider } from '../providers/redirect-if-not-auth/redirect-if-not-auth';
+import { MoreOptionsComponent } from '../components/more-options/more-options';
 
 function jwtFactory(authService: AuthProvider) {
   return {
@@ -62,7 +63,8 @@ function jwtFactory(authService: AuthProvider) {
     MainPage,
     ChatGroupListComponent,
     FirebasePhoneNumberCheckComponent,
-    SelectCountriesCodeComponent    
+    SelectCountriesCodeComponent,
+    MoreOptionsComponent    
   ],
   imports: [
     BrowserModule,
@@ -93,7 +95,8 @@ function jwtFactory(authService: AuthProvider) {
     MainPage,
     ChatGroupListComponent,
     FirebasePhoneNumberCheckComponent,
-    SelectCountriesCodeComponent
+    SelectCountriesCodeComponent,
+    MoreOptionsComponent
   ],
   providers: [
     StatusBar,

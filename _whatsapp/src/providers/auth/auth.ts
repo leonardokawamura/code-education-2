@@ -7,8 +7,9 @@ import { flatMap, tap } from 'rxjs/operators';
 import { User } from '../../app/model';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from '@app/env';
+import { forkJoin } from 'rxjs/observable/forkJoin';
 
-declare const cordova;
+declare const cordova; 
 
 const TOKEN_KEY = 'api_app_token';
 /*
@@ -31,7 +32,11 @@ export class AuthProvider {
     return fromPromise(this.firebaseAuth.getToken())
       .pipe(
         flatMap(token => {      
-          return this.http.post<{token: string}>(`${environment.api.url}/login_vendor`, {token});
+          return this.http
+            .post<{token: string}>(`${environment.api.url}/login_vendor`, {token})
+            .pipe(
+              tap(response => this.setToken(response.token))
+            )
         })
       );
   }
@@ -90,6 +95,17 @@ export class AuthProvider {
 
   refreshUrl() {
     return `${environment.api.url}/refresh`;
+  }
+
+  logout(): Observable<any> {
+    return forkJoin(
+      this.firebaseAuth.firebase.auth().signOut(),
+      cordova.plugins.firebase.auth.signOut(),
+      this.http.post(`${environment.api.url}/logout`, {})
+        .pipe(
+          tap(() => this.setToken(null))
+        )
+    )
   }
   
 }
