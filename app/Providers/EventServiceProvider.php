@@ -18,6 +18,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         'App\Events\UserCreatedEvent' => [
             'App\Listeners\SendMailToDefinePassword'
+        ],
+        'App\Events\ChatMessageSent' => [
+            'App\Listeners\SendPushChatGroupsMembers'
         ]
     ];
 
