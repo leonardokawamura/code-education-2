@@ -3,6 +3,7 @@ declare(strict_types = 1);
 namespace App\Listeners;
 
 use App\Events\ChatMessageSent;
+use App\Firebase\CloudMessagingFb;
 use App\Models\ChatGroup;
 use App\Models\User;
 use App\Models\UserProfile;
@@ -28,11 +29,26 @@ class SendPushChatGroupsMembers
      * @param  ChatMessageSent  $event
      * @return void
      */
-    public function handle(/*ChatMessageSent $event*/)
+    public function handle(ChatMessageSent $event)
     {
-        //$this->event = $event;
-        $this->event = new ChatMessageSent(ChatGroup::find(1), '', '', User::find(1));
-        $this->getTokens();
+        $this->event = $event;
+        $tokens = $this->getTokens();
+
+        if(!count($tokens)) {
+            return;
+        }
+
+        $chatGroup = $this->event->getChatGroup();
+        $from = $this->event->getFrom();
+
+        /** @var CloudMessagingFb $messaging */
+        $messaging = app(CloudMessagingFb::class);
+        $messaging
+            ->setTitle("{$from->name} enviou uma mensagem em {$chatGroup->name}")
+            ->setBody($this->getBody())
+            ->setTokens($tokens)
+            ->send();
+            
     }
 
     private function getTokens(): array
@@ -79,7 +95,16 @@ class SendPushChatGroupsMembers
         return $sellersTokensCollection->toArray();
     }
     
-    
-    
+    private function getBody()
+    {
+        switch($this->event->getMessageType()) {
+            case 'text':
+                return substr($this->event->getContent(), 0, 20);
+            case 'audio':
+                return 'Novo áudio';
+            case 'image':
+                return 'Nova imagem';
+        }
+    }   
     
 }
