@@ -3,6 +3,7 @@ declare(strict_types = 1);
 namespace App\Listeners;
 
 use App\Events\ChatMessageSent;
+use App\Models\ChatGroup;
 use App\Models\User;
 use App\Models\UserProfile;
 
@@ -27,9 +28,10 @@ class SendPushChatGroupsMembers
      * @param  ChatMessageSent  $event
      * @return void
      */
-    public function handle(ChatMessageSent $event)
+    public function handle(/*ChatMessageSent $event*/)
     {
-        $this->event = $event;
+        //$this->event = $event;
+        $this->event = new ChatMessageSent(ChatGroup::find(1), '', '', User::find(1));
         $this->getTokens();
     }
 
@@ -37,6 +39,7 @@ class SendPushChatGroupsMembers
     {
         $membersTokens = $this->getMembersTokens();
         $sellersTokens = $this->getSellersTokens();
+        dd($sellersTokens);
         return array_merge($membersTokens, $sellersTokens);
     }
 
