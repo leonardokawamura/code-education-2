@@ -5,6 +5,7 @@ import { AudioRecorderProvider } from '../../providers/audio-recorder/audio-reco
 import { RedirectIfNotAuthProvider } from '../../providers/redirect-if-not-auth/redirect-if-not-auth';
 import { MoreOptionsComponent } from '../../components/more-options/more-options';
 import { PushNotificationProvider } from '../../providers/push-notification/push-notification';
+import { FirebaseMessaging } from '@ionic-native/firebase-messaging';
 
 /**
  * Generated class for the MainPage page.
@@ -27,7 +28,8 @@ export class MainPage {
               private audioRecorder: AudioRecorderProvider,
               private redirectIfNotAuth: RedirectIfNotAuthProvider,
               private popover: PopoverController,
-              private pushNotification: PushNotificationProvider) {  
+              private pushNotification: PushNotificationProvider,
+              private fcm: FirebaseMessaging) {  
   }
 
   ionViewCanEnter() {
@@ -36,6 +38,9 @@ export class MainPage {
 
   ionViewDidLoad() {
     this.pushNotification.registerToken();
+    this.fcm.onBackgroundMessage().subscribe((data) => {
+      console.log(data);
+    });
     const hasPermissionToRecorder = this.audioRecorder.hasPermission;
     this.audioRecorder.requestPermission()
       .then((result) => {

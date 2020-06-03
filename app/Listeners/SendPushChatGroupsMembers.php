@@ -46,8 +46,10 @@ class SendPushChatGroupsMembers
             ->setTitle("{$from->name} enviou uma mensagem em {$chatGroup->name}")
             ->setBody($this->getBody())
             ->setTokens($tokens)
-            ->send();
-            
+            ->setData([
+                'chat_group_id' => $chatGroup->id
+            ])
+            ->send();            
     }
 
     private function getTokens(): array
