@@ -4,7 +4,6 @@ namespace App\Listeners;
 
 use App\Events\ChatMessageSent;
 use App\Firebase\CloudMessagingFb;
-use App\Models\ChatGroup;
 use App\Models\User;
 use App\Models\UserProfile;
 
@@ -33,7 +32,7 @@ class SendPushChatGroupsMembers
     {
         $this->event = $event;
         $tokens = $this->getTokens();
-
+        
         if(!count($tokens)) {
             return;
         }
@@ -55,7 +54,7 @@ class SendPushChatGroupsMembers
     {
         $membersTokens = $this->getMembersTokens();
         $sellersTokens = $this->getSellersTokens();
-        dd($sellersTokens);
+
         return array_merge($membersTokens, $sellersTokens);
     }
 
