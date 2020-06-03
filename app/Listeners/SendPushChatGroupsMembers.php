@@ -3,6 +3,8 @@ declare(strict_types = 1);
 namespace App\Listeners;
 
 use App\Events\ChatMessageSent;
+use App\Models\User;
+use App\Models\UserProfile;
 
 class SendPushChatGroupsMembers
 {
@@ -28,6 +30,7 @@ class SendPushChatGroupsMembers
     public function handle(ChatMessageSent $event)
     {
         $this->event = $event;
+        $this->getTokens();
     }
 
     private function getTokens(): array
@@ -61,7 +64,16 @@ class SendPushChatGroupsMembers
 
     private function getSellersTokens(): array
     {
-        return array();
+        $from = $this->event->getFrom();
+        $sellersTokensCollection = UserProfile::whereNotNull('device_token')
+            ->whereNotIn('id', [$from->profile->id])
+            ->whereHas('user', function ($query) {
+                $query->where('role', User::ROLE_SELLER);
+            })
+            ->get()
+            ->pluck('device_token');
+
+        return $sellersTokensCollection->toArray();
     }
     
     
