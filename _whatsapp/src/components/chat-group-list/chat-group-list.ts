@@ -19,6 +19,7 @@ export class ChatGroupListComponent {
 
   groups: ChatGroup[] = [];
   chatActive: ChatGroup;
+  chatGroupIdToFirstOpen = null;
 
   constructor(private chatGroupFb: ChatGroupFbProvider,
               private app: App,
@@ -30,7 +31,8 @@ export class ChatGroupListComponent {
         groups.forEach((group) => {
           this.chatGroupViewer.loadViewed(group);
         });
-        this.groups = groups
+        this.groups = groups;
+        this.goToMessagesFromNotification();
       });
 
     this.chatGroupFb.onAdded()
@@ -52,25 +54,30 @@ export class ChatGroupListComponent {
         }        
         this.groups.splice(index, 1);
         this.groups.unshift(group);
-      });
-      
-    /* const database = this.firebaseAuth.firebase.database();
-    database.ref('chat_groups').on('child_added', data => {
-      const group = data.val() as ChatGroup;
-      this.groups.push(group);
-    }, error => console.log(error));
-    database.ref('chat_groups').on('child_changed', data => {
-      const group = data.val() as ChatGroup;
-      const index = this.groups.findIndex((g) => g.id == group.id);
-      if(index !== -1) {
-        this.groups[index] = group;
-      }
-    }); */
+      });    
   }
 
   formatTextMessage(message: ChatMessage) {
     const maxLenght = 20;
     return message.content.length > maxLenght ? message.content.slice(0, maxLenght) : message.content;
+  }
+
+  goToMessagesFromNotification(chatGroupId = null) {
+    if(chatGroupId) {
+      this.chatGroupIdToFirstOpen = chatGroupId;
+    }
+    if(this.chatGroupIdToFirstOpen) {
+      const group = this.getById(this.chatGroupIdToFirstOpen);
+      if(group) {
+        this.goToMessages(group);
+      }
+    }
+  }
+
+  getById(chatGroupId) {
+    // push notification is always string instead of use === we'l use == (group.id == chatGroupId)
+    const index = this.groups.findIndex(group => group.id == chatGroupId);
+    return index === -1 ? null : this.groups[index];
   }
 
   goToMessages(group: ChatGroup) {
