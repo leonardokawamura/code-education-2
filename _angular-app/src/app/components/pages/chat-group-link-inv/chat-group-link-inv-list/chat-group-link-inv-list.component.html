@@ -1,9 +1,9 @@
 <div class="row">
-    <h1>Listagem de links de convites - {{chatGroup?.name}}</h1>
+    <h1>Listagem de convites - {{chatGroup?.name}}</h1>
     <div class="col-12" style="margin-top: 25px;margin-bottom: 25px;">
         <div class="row">
             <div class="col-auto">
-                <button class="btn btn-primary" (click)="linkInvInsertService.showModalInsert()">Novo link</button>
+                <button class="btn btn-primary" (click)="linkInvInsertService.showModalInsert()">CADASTRAR CONVITE</button>
             </div>
             <div class="col-auto"></div>
         </div>        
@@ -45,15 +45,13 @@
     (onSuccess)="linkInvInsertService.onInsertSuccess($event)"
     (onError)="linkInvInsertService.onInsertError($event)">
 </chat-group-link-inv-new-modal>
-<!--
     
-<chat-group-link-inv-edit-modal 
-    [groupId]="groupId" 
+<chat-group-link-inv-edit-modal [groupId]="groupId" 
     [linkInvId]="linkInvIdToEdit"
     (onSuccess)="linkInvEditService.onEditSuccess($event)" 
     (onError)="linkInvEditService.onEditError($event)">
 </chat-group-link-inv-edit-modal>
-
+<!--
 <chat-group-link-inv-delete-modal 
     [groupId]="groupId" 
     [linkInvId]="linkInvIdToDelete"

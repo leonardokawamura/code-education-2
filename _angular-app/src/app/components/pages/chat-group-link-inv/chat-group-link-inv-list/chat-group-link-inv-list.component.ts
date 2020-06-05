@@ -47,7 +47,7 @@ export class ChatGroupLinkInvListComponent implements OnInit {
               protected linkInvEditService: ChatGroupLinkInvEditService,
               protected linkInvDeleteService: ChatGroupLinkInvDeleteService) { 
     this.linkInvInsertService.linkInvListComponent = this;
-    //this.linkInvEditService.linkInvListComponent = this;
+    this.linkInvEditService.linkInvListComponent = this;
     //this.linkInvDeleteService.linkInvListComponent = this;
   }
 

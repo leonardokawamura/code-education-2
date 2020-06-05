@@ -8,22 +8,22 @@ import { ChatGroupLinkInvListComponent } from './chat-group-link-inv-list.compon
 })
 export class ChatGroupLinkInvEditService {
 
-    private _chatGroupListComponent: ChatGroupLinkInvListComponent;
+    private _linkInvListComponent: ChatGroupLinkInvListComponent;
 
     constructor(private notifyMessage: NotifyMessageService) { }
 
-    set chatGroupListComponent(value: ChatGroupLinkInvListComponent) {
-        this._chatGroupListComponent = value;
+    set linkInvListComponent(value: ChatGroupLinkInvListComponent) {
+        this._linkInvListComponent = value;
     }
 
-    showModalEdit(chatGroupId: number) {
-        this._chatGroupListComponent.groupId = chatGroupId;
-        //this._chatGroupListComponent.linkInvEditModal.showModal();
+    showModalEdit(linkInvId: number) {
+        this._linkInvListComponent.linkInvIdToEdit = linkInvId;
+        this._linkInvListComponent.linkInvEditModal.showModal();
     }
 
     onEditSuccess($event: any) {
         this.notifyMessage.success('Convite atualizado com sucesso');
-        this._chatGroupListComponent.getLinkInvitations();
+        this._linkInvListComponent.getLinkInvitations();
     }
 
     onEditError($event: HttpErrorResponse) {
