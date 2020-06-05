@@ -3,84 +3,49 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ChatGroupInvitationCollection;
+use App\Http\Resources\ChatGroupInvitationResource;
+use App\Models\ChatGroup;
 use App\Models\ChatGroupInvitation;
+use ChatGroupInvitationsTableSeeder;
 use Illuminate\Http\Request;
 
 class ChatGroupInvitationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    
+    public function index(ChatGroup $chat_group)
     {
-        //
+        $linkInvitations = $chat_group->linkInvitations()->paginate();
+        return new ChatGroupInvitationCollection($linkInvitations, $chat_group);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\ChatGroupInvitation  $chatGroupInvitation
-     * @return \Illuminate\Http\Response
-     */
-    public function show(ChatGroupInvitation $chatGroupInvitation)
+    public function show(ChatGroup $chat_group, ChatGroupInvitation $link_invitation)
     {
-        //
+        $this->assertInvitation($chat_group, $link_invitation);
+        return new ChatGroupInvitationResource($link_invitation);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\ChatGroupInvitation  $chatGroupInvitation
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(ChatGroupInvitation $chatGroupInvitation)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\ChatGroupInvitation  $chatGroupInvitation
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, ChatGroupInvitation $chatGroupInvitation)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\ChatGroupInvitation  $chatGroupInvitation
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(ChatGroupInvitation $chatGroupInvitation)
     {
         //
     }
+
+    private function assertInvitation(ChatGroup $chatGroup, ChatGroupInvitation $link_invitation)
+    {
+        if($link_invitation->group_id != $chatGroup->id) {
+            abort(404);
+        }
+    }
+    
+    
 }

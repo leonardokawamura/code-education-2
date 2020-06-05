@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\ChatGroupInvitation;
 use App\Models\ProductInput;
 use App\Models\ProductOutput;
 use Illuminate\Support\ServiceProvider;
@@ -30,6 +31,11 @@ class AppServiceProvider extends ServiceProvider
                 throw new \Exception("Estoque de {$product->name} não pode ser negativo");
             }
             $product->save();
+        });
+
+        ChatGroupInvitation::creating(function ($invitation) {
+            $invitation->slug = str_random(7);
+            $invitation->remaining = $invitation->total;
         });
     }
 
