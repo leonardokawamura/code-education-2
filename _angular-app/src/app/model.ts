@@ -73,6 +73,16 @@ export interface ChatGroup {
     readonly update_at?: {date: string};
 }
 
+export interface ChatGroupLinkInvitation {
+    id?: number;
+    total?: number;
+    remaining?: number;
+    group?: ChatGroup;
+    expires_at?: {date: string};
+    readonly created_at?: {date: string};
+    readonly update_at?: {date: string};
+}
+
 export interface ChatGroupUser {
     
 }
