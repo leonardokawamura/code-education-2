@@ -37,6 +37,10 @@ class AppServiceProvider extends ServiceProvider
             $invitation->slug = str_random(7);
             $invitation->remaining = $invitation->total;
         });
+
+        ChatGroupInvitation::updating(function ($invitation) {
+            $invitation->remaining = $invitation->total;
+        });
     }
 
     /**

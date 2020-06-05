@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ChatGroupInvitationCreateRequest;
+use App\Http\Requests\ChatGroupInvitationUpdateRequest;
 use App\Http\Resources\ChatGroupInvitationCollection;
 use App\Http\Resources\ChatGroupInvitationResource;
 use App\Models\ChatGroup;
 use App\Models\ChatGroupInvitation;
-use ChatGroupInvitationsTableSeeder;
-use Illuminate\Http\Request;
 
 class ChatGroupInvitationController extends Controller
 {
@@ -19,9 +19,10 @@ class ChatGroupInvitationController extends Controller
         return new ChatGroupInvitationCollection($linkInvitations, $chat_group);
     }
 
-    public function store(Request $request)
+    public function store(ChatGroupInvitationCreateRequest $request, ChatGroup $chat_group)
     {
-        //
+        $chatGroup = ChatGroupInvitation::create($request->all() + ['group_id' => $chat_group->id]);
+        return new ChatGroupInvitationResource($chatGroup);
     }
 
     public function show(ChatGroup $chat_group, ChatGroupInvitation $link_invitation)
@@ -30,14 +31,20 @@ class ChatGroupInvitationController extends Controller
         return new ChatGroupInvitationResource($link_invitation);
     }
 
-    public function update(Request $request, ChatGroupInvitation $chatGroupInvitation)
+    public function update(ChatGroupInvitationUpdateRequest $request, ChatGroup $chat_group, ChatGroupInvitation $link_invitation)
     {
-        //
+        $this->assertInvitation($chat_group, $link_invitation);
+        $link_invitation
+            ->fill($request->except('group_id'))
+            ->save();
+        return new ChatGroupInvitationResource($link_invitation);
     }
 
-    public function destroy(ChatGroupInvitation $chatGroupInvitation)
+    public function destroy(ChatGroup $chat_group, ChatGroupInvitation $link_invitation)
     {
-        //
+        $this->assertInvitation($chat_group, $link_invitation);
+        $link_invitation->delete();
+        response()->json([], 204);
     }
 
     private function assertInvitation(ChatGroup $chatGroup, ChatGroupInvitation $link_invitation)
