@@ -44,7 +44,7 @@ class ChatGroupInvitationController extends Controller
     {
         $this->assertInvitation($chat_group, $link_invitation);
         $link_invitation->delete();
-        response()->json([], 204);
+        return response()->json([], 204);
     }
 
     private function assertInvitation(ChatGroup $chatGroup, ChatGroupInvitation $link_invitation)
