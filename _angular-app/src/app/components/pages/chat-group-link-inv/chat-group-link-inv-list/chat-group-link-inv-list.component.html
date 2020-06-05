@@ -40,13 +40,13 @@
     <pagination-controls (pageChange)="pageChanged($event)" previousLabel="Anterior" nextLabel="Próximo">
     </pagination-controls>
 </div>
-<!--
-<chat-group-link-inv-new-modal 
-    [groupId]="groupId" 
+
+<chat-group-link-inv-new-modal [groupId]="groupId" 
     (onSuccess)="linkInvInsertService.onInsertSuccess($event)"
     (onError)="linkInvInsertService.onInsertError($event)">
 </chat-group-link-inv-new-modal>
-
+<!--
+    
 <chat-group-link-inv-edit-modal 
     [groupId]="groupId" 
     [linkInvId]="linkInvIdToEdit"

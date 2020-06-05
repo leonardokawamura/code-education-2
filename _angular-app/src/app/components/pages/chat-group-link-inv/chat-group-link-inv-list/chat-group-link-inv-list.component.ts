@@ -1,8 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ChatGroup, ChatGroupLinkInvitation } from '../../../../model';
-import { ChatGroupNewModalComponent } from '../../chat-group/chat-group-new-modal/chat-group-new-modal.component';
-import { ChatGroupEditModalComponent } from '../../chat-group/chat-group-edit-modal/chat-group-edit-modal.component';
-import { ChatGroupDeleteModalComponent } from '../../chat-group/chat-group-delete-modal/chat-group-delete-modal.component';
 import { ActivatedRoute } from '@angular/router';
 import { ChatGroupLinkInvHttpService } from '../../../../services/http/chat-group-link-inv-http.service';
 import { ChatGroupLinkInvNewModalComponent } from '../chat-group-link-inv-new-modal/chat-group-link-inv-new-modal.component';
@@ -13,7 +10,7 @@ import { ChatGroupLinkInvEditService } from './chat-group-link-inv-edit.service'
 import { ChatGroupLinkInvDeleteService } from './chat-group-link-inv-delete.service';
 
 @Component({
-  selector: 'app-chat-group-link-inv-list',
+  selector: 'chat-group-link-inv-list',
   templateUrl: './chat-group-link-inv-list.component.html',
   styleUrls: ['./chat-group-link-inv-list.component.css']
 })
@@ -35,25 +32,23 @@ export class ChatGroupLinkInvListComponent implements OnInit {
 
   searchText: string = '';
 
-  @ViewChild(ChatGroupNewModalComponent, {static: false})
+  @ViewChild(ChatGroupLinkInvNewModalComponent, {static: false})
   linkInvNewModal: ChatGroupLinkInvNewModalComponent;
 
-  @ViewChild(ChatGroupEditModalComponent, {static: false})
+  @ViewChild(ChatGroupLinkInvEditModalComponent, {static: false})
   linkInvEditModal: ChatGroupLinkInvEditModalComponent;
 
-  @ViewChild(ChatGroupDeleteModalComponent, {static: false})
+  @ViewChild(ChatGroupLinkInvDeleteModalComponent, {static: false})
   linkInvDeleteModal: ChatGroupLinkInvDeleteModalComponent;
 
-  constructor(
-    private route: ActivatedRoute,
-    private linkInvHttp: ChatGroupLinkInvHttpService,
-    protected linkInvInsertService: ChatGroupLinkInvInsertService,
-    protected linkInvEditService: ChatGroupLinkInvEditService,
-    protected linkInvDeleteService: ChatGroupLinkInvDeleteService
-  ) { 
-    //this.linkInvInsertService.chatGroupLinkInvListComponent = this;
-    //this.linkInvEditService.chatGroupLinkInvListComponent = this;
-    //this.linkInvDeleteService.chatGroupLinkInvListComponent = this;
+  constructor(private route: ActivatedRoute,
+              private linkInvHttp: ChatGroupLinkInvHttpService,
+              protected linkInvInsertService: ChatGroupLinkInvInsertService,
+              protected linkInvEditService: ChatGroupLinkInvEditService,
+              protected linkInvDeleteService: ChatGroupLinkInvDeleteService) { 
+    this.linkInvInsertService.linkInvListComponent = this;
+    //this.linkInvEditService.linkInvListComponent = this;
+    //this.linkInvDeleteService.linkInvListComponent = this;
   }
 
   ngOnInit() {

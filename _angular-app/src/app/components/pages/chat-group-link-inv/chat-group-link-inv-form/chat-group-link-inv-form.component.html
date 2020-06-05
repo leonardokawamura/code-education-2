@@ -1,1 +1,19 @@
-<p>chat-group-link-inv-form works!</p>
+<div class="form-group" [formGroup]="form">
+    <label [for]="fieldsOptions.total.id">{{ fieldsOptions.total.label }}</label>
+    <input type="number" class="form-control" [id]="fieldsOptions.total.id" isInvalid formControlName="total">
+    <field-error [field]="form.get('total')" 
+                 [label]="fieldsOptions.total.label"
+                 [messages]="fieldsOptions.total.validationMessage"></field-error>
+</div>
+<div class="form-group" [formGroup]="form">
+    <label for="remaining">Restantes</label>
+    <input type="number" class="form-control" id="remaining" 
+        [value]="!form.get('remaining').value ? form.get('total').value : form.get('remaining').value" readonly>
+</div>
+<div class="form-group" [formGroup]="form">
+    <label [for]="fieldsOptions.expires_at.id">{{ fieldsOptions.expires_at.label }}</label>
+    <input type="date" class="form-control" [id]="fieldsOptions.expires_at.id" isInvalid formControlName="expires_at" >
+    <field-error [field]="form.get('expires_at')" 
+                 [label]="fieldsOptions.expires_at.label"
+                 [messages]="fieldsOptions.expires_at.validationMessage"></field-error>
+</div>

@@ -8,21 +8,21 @@ import { ChatGroupLinkInvListComponent } from './chat-group-link-inv-list.compon
 })
 export class ChatGroupLinkInvInsertService {
 
-    private _chatGroupListComponent: ChatGroupLinkInvListComponent;
+    private _linkInvListComponent: ChatGroupLinkInvListComponent;
 
     constructor(private notifyMessage: NotifyMessageService) { }
 
-    set chatGroupListComponent(value: ChatGroupLinkInvListComponent) {
-        this._chatGroupListComponent = value;
+    set linkInvListComponent(value: ChatGroupLinkInvListComponent) {
+        this._linkInvListComponent = value;
     }
 
     showModalInsert() {
-        this._chatGroupListComponent.chatGroupNewModal.showModal();
+        this._linkInvListComponent.linkInvNewModal.showModal();
     }
 
     onInsertSuccess($event: any) {
-        this.notifyMessage.success('Grupo cadastrado');
-        this._chatGroupListComponent.getChatGroups();
+        this.notifyMessage.success('Convite cadastrado');
+        this._linkInvListComponent.getLinkInvitations();
     }
 
     onInsertError($event: HttpErrorResponse) {

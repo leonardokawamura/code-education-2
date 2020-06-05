@@ -17,13 +17,13 @@ export class ChatGroupLinkInvEditService {
     }
 
     showModalEdit(chatGroupId: number) {
-        this._chatGroupListComponent.chatGroupId = chatGroupId;
-        this._chatGroupListComponent.chatGroupEditModal.showModal();
+        this._chatGroupListComponent.groupId = chatGroupId;
+        //this._chatGroupListComponent.linkInvEditModal.showModal();
     }
 
     onEditSuccess($event: any) {
-        this.notifyMessage.success('Grupo atualizado com sucesso');
-        this._chatGroupListComponent.getChatGroups();
+        this.notifyMessage.success('Convite atualizado com sucesso');
+        this._chatGroupListComponent.getLinkInvitations();
     }
 
     onEditError($event: HttpErrorResponse) {
