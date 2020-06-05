@@ -8,25 +8,25 @@ import { ChatGroupLinkInvListComponent } from './chat-group-link-inv-list.compon
 })
 export class ChatGroupLinkInvDeleteService {
 
-    private _chatGroupLinkInvListComponent: ChatGroupLinkInvListComponent;
+    private _linkInvListComponent: ChatGroupLinkInvListComponent;
 
     constructor(private notifyMessage: NotifyMessageService) { }
 
-    set chatGroupLinkInvListComponent(value: ChatGroupLinkInvListComponent) {
-        this._chatGroupLinkInvListComponent = value;
+    set linkInvListComponent(value: ChatGroupLinkInvListComponent) {
+        this._linkInvListComponent = value;
     }    
 
-    showModalDelete(groupId: number) {
-        this._chatGroupLinkInvListComponent.groupId = groupId;
-        this._chatGroupLinkInvListComponent.linkInvDeleteModal.showModal();
+    showModalDelete(linkInvId: number) {
+        this._linkInvListComponent.linkInvIdToDelete = linkInvId;
+        this._linkInvListComponent.linkInvDeleteModal.showModal();
     }
 
     onDeleteSuccess($event: any) {
-        this._chatGroupLinkInvListComponent.getLinkInvitations();
+        this._linkInvListComponent.getLinkInvitations();
     }
 
     onDeleteError($event: HttpErrorResponse) {
-        this.notifyMessage.error('Não foi possível excluir o grupo');
+        this.notifyMessage.error('Não foi possível excluir o convite');
     }
 
 }

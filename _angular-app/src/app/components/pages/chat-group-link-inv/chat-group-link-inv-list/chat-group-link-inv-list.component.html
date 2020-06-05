@@ -12,8 +12,8 @@
         <thead class="thead-dark">            
             <tr>
                 <th [sortColumn]="sortColumn" columnName="id" (onSort)="sort($event)">ID</th>
-                <th>Total</th>
-                <th>Restante</th>
+                <th [sortColumn]="sortColumn" columnName="total" (onSort)="sort($event)">Total</th>
+                <th [sortColumn]="sortColumn" columnName="remaining" (onSort)="sort($event)">Restante</th>
                 <th [sortColumn]="sortColumn" columnName="expires_at" (onSort)="sort($event)">Expira</th>
                 <th style="width: 10%">Ações</th>
             </tr>
@@ -51,10 +51,10 @@
     (onSuccess)="linkInvEditService.onEditSuccess($event)" 
     (onError)="linkInvEditService.onEditError($event)">
 </chat-group-link-inv-edit-modal>
-<!--
+
 <chat-group-link-inv-delete-modal 
     [groupId]="groupId" 
     [linkInvId]="linkInvIdToDelete"
     (onSuccess)="linkInvDeleteService.onDeleteSuccess($event)" 
     (onError)="linkInvDeleteService.onDeleteError($event)">
-</chat-group-link-inv-delete-modal>-->
+</chat-group-link-inv-delete-modal>

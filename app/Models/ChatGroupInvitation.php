@@ -5,10 +5,11 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Mnabialek\LaravelEloquentFilter\Traits\Filterable;
 
 class ChatGroupInvitation extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, Filterable;
     
     protected $fillable = ['total', 'expires_at', 'group_id'];
     protected $dates = ['expires_at', 'deleted_at'];

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Filters\ChatGroupInvitationFilter;
 use App\Http\Requests\ChatGroupInvitationCreateRequest;
 use App\Http\Requests\ChatGroupInvitationUpdateRequest;
 use App\Http\Resources\ChatGroupInvitationCollection;
@@ -15,7 +16,7 @@ class ChatGroupInvitationController extends Controller
     
     public function index(ChatGroup $chat_group)
     {
-        $linkInvitations = $chat_group->linkInvitations()->paginate();
+        $linkInvitations = $chat_group->linkInvitations()->paginate();        
         return new ChatGroupInvitationCollection($linkInvitations, $chat_group);
     }
 

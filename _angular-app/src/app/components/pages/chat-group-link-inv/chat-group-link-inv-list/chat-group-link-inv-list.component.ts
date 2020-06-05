@@ -28,7 +28,7 @@ export class ChatGroupLinkInvListComponent implements OnInit {
     itemsPerPage: 5
   }
 
-  sortColumn = {column: 'created_at', sort: 'desc'};
+  sortColumn = {column: 'id', sort: 'desc'};
 
   searchText: string = '';
 
@@ -48,7 +48,7 @@ export class ChatGroupLinkInvListComponent implements OnInit {
               protected linkInvDeleteService: ChatGroupLinkInvDeleteService) { 
     this.linkInvInsertService.linkInvListComponent = this;
     this.linkInvEditService.linkInvListComponent = this;
-    //this.linkInvDeleteService.linkInvListComponent = this;
+    this.linkInvDeleteService.linkInvListComponent = this;
   }
 
   ngOnInit() {
