@@ -30,7 +30,23 @@ class ChatInvitationUser extends Model
         if($user->role == User::ROLE_SELLER) {
             throw new ChatInvitationUserException('Vendedor não precisa ingressar em um grupo', ChatInvitationUserException::ERROR_HAS_SELLER);
         }
+        if(self::isMember($groupInvitation->group, $user)) {
+            throw new ChatInvitationUserException('Usuário já é membro deste grupo', ChatInvitationUserException::ERROR_IS_MEMBER);
+        }
+        if(self::hasStored($groupInvitation, $user)) {
+            throw new ChatInvitationUserException('Usuário já cadastrou o convite', ChatInvitationUserException::ERROR_HAS_STORED);
+        }
     }
+
+    private static function isMember(ChatGroup $chatGroup, User $user)
+    {
+        return $chatGroup->users()->where('id', $user->id)->exists();
+    }    
+
+    private static function hasStored(ChatGroupInvitation $groupInvitation, User $user)
+    {
+        return $groupInvitation->userInvitations()->where('user_id', $user->id)->exists();
+    }    
 
     public function invitation()
     {

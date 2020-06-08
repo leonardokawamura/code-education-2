@@ -29,5 +29,10 @@ class ChatGroupInvitation extends Model
     {
         return $this->belongsTo(ChatGroup::class, 'group_id');
     }   
+
+    public function userInvitations()
+    {
+        return $this->hasMany(ChatInvitationUser::class, 'invitation_id');
+    }
     
 }

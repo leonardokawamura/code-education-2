@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\ChatGroupInvitation;
+use App\Models\ChatInvitationUser;
 use App\Models\ProductInput;
 use App\Models\ProductOutput;
 use Illuminate\Support\ServiceProvider;
@@ -40,6 +41,15 @@ class AppServiceProvider extends ServiceProvider
 
         ChatGroupInvitation::updating(function ($invitation) {
             $invitation->remaining = $invitation->total;
+        });
+
+        ChatInvitationUser::updated(function ($userInvitation) {
+            if($userInvitation->status == ChatInvitationUser::STATUS_PENDING || ChatInvitationUser::STATUS_REROVED) {
+                return;
+            }
+            $group = $userInvitation->invitation->group;
+            $userId = $userInvitation->user->id;
+            $group->users()->attach($userId);
         });
     }
 

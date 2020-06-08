@@ -14,12 +14,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ChatInvitationUserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index(ChatGroup $chat_group)
+   public function index(ChatGroup $chat_group)
     {
         $userInvitations = $chat_group->userInvitations()->with('user')->paginate();
         return new ChatInvitationUserCollection($userInvitations, $chat_group);
@@ -39,17 +34,27 @@ class ChatInvitationUserController extends Controller
         } catch (ChatInvitationUserException $e) {
             switch ($e->getCode()) {
                 case ChatInvitationUserException::ERROR_NOT_INVITATION:
+                case ChatInvitationUserException::ERROR_IS_MEMBER:                    
+                case ChatInvitationUserException::ERROR_HAS_STORED:                    
                     return abort(403, $e->getMessage());
                 case ChatInvitationUserException::ERROR_HAS_SELLER:
                     return abort(422, $e->getMessage());
             }
         }
     }
-
     
-    public function update(Request $request, ChatInvitationUser $chatInvitationUser)
+    public function update(Request $request, ChatGroup $chat_group, ChatInvitationUser $invitation)
     {
-        //
+        $this->assertInvitation($chat_group, $invitation);
+        if($invitation->status != ChatInvitationUser::STATUS_PENDING) {
+            abort(403, 'Só é possível alterar convite com status pendente');
+        }
+        $this->validate($request, [
+            'status' => 'required|in:' . ChatInvitationUser::STATUS_APPROVED . ',' . ChatInvitationUser::STATUS_REROVED
+        ]);
+        $invitation->status = $request->get('status');
+        $invitation->save();
+        return new ChatInvitationUserResource($invitation);
     }
 
     private function assertInvitation(ChatGroup $chatGroup, ChatInvitationUser $user)
