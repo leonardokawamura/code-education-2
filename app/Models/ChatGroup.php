@@ -102,6 +102,11 @@ class ChatGroup extends Model
     {
         return $this->hasMany(ChatGroupInvitation::class, 'group_id');
     }   
+
+    public function userInvitations()
+    {
+        return $this->hasManyThrough(ChatInvitationUser::class, ChatGroupInvitation::class, 'group_id', 'invitation_id');
+    }   
     
     protected function syncFbRemove()
     {

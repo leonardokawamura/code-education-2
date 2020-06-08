@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Exceptions\ChatInvitationUserException;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ChatInvitationUserCollection;
 use App\Http\Resources\ChatInvitationUserResource;
+use App\Models\ChatGroup;
 use App\Models\ChatGroupInvitation;
 use App\Models\ChatInvitationUser;
 use Illuminate\Http\Request;
@@ -17,16 +19,18 @@ class ChatInvitationUserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(ChatGroup $chat_group)
     {
-        //
-    }
-    
-    public function create()
-    {
-        //
+        $userInvitations = $chat_group->userInvitations()->with('user')->paginate();
+        return new ChatInvitationUserCollection($userInvitations, $chat_group);
     }
    
+    public function show(ChatGroup $chat_group, ChatInvitationUser $invitation)
+    {
+        $this->assertInvitation($chat_group, $invitation);
+        return new ChatInvitationUserResource($invitation);
+    }
+
     public function store(ChatGroupInvitation $invitation_slug)
     {
         try {
@@ -42,23 +46,18 @@ class ChatInvitationUserController extends Controller
         }
     }
 
-    public function show(ChatInvitationUser $chatInvitationUser)
-    {
-        //
-    }
-
-    public function edit(ChatInvitationUser $chatInvitationUser)
-    {
-        //
-    }
-
+    
     public function update(Request $request, ChatInvitationUser $chatInvitationUser)
     {
         //
     }
 
-    public function destroy(ChatInvitationUser $chatInvitationUser)
+    private function assertInvitation(ChatGroup $chatGroup, ChatInvitationUser $user)
     {
-        //
+        if($user->invitation->group_id != $chatGroup->id) {
+            abort(404);
+        }
     }
+    
+    
 }
