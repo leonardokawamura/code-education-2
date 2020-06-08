@@ -12,6 +12,14 @@ class ChatInvitationUser extends Model
 
     protected $fillable = ['invitation_id', 'user_id'];
 
+    public static function createIfAllowed(ChatGroupInvitation $groupInvitation, User $user)
+    {
+        return self::create([
+            'invitation_id' => $groupInvitation,
+            'user_id' => $user->id
+        ]);
+    }
+
     public function invitation()
     {
         return $this->belongsTo(ChatGroupInvitation::class, 'invitation_id');
