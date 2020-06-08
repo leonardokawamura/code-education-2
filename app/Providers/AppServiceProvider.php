@@ -39,13 +39,28 @@ class AppServiceProvider extends ServiceProvider
             $invitation->remaining = $invitation->total;
         });
 
-        ChatGroupInvitation::updating(function ($invitation) {
-            $invitation->remaining = $invitation->total;
+        ChatGroupInvitation::updating(function (ChatGroupInvitation $invitation) {
+            $oldRemaining = $invitation->getOriginal('remaining');
+            $newRemaining = $invitation->remaining;
+            if($oldRemaining == $newRemaining) {
+                $invitation->remaining = $invitation->total;
+            }
+        });
+
+        ChatInvitationUser::created(function ($userInvitation) {
+            $linkInvitation = $userInvitation->invitation;
+            $linkInvitation->remaining -= 1;
+            $linkInvitation->save();
         });
 
         ChatInvitationUser::updated(function ($userInvitation) {
-            if($userInvitation->status == ChatInvitationUser::STATUS_PENDING || ChatInvitationUser::STATUS_REROVED) {
+            if($userInvitation->status == ChatInvitationUser::STATUS_PENDING) {
                 return;
+            }
+            if($userInvitation->status == ChatInvitationUser::STATUS_REROVED) {
+                $linkInvitation = $userInvitation->invitation;
+                $linkInvitation->remaining += 1;
+                $linkInvitation->save();
             }
             $group = $userInvitation->invitation->group;
             $userId = $userInvitation->user->id;
