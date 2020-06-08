@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Common\OnlyTrashed;
 use App\Models\Category;
+use App\Models\ChatGroupInvitation;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
@@ -52,6 +53,10 @@ class RouteServiceProvider extends ServiceProvider
             $request = app(Request::class);
             $query = $this->onlyTrashedIfRequested($request, $query);
             return $query->find($value);
+        });
+
+        Route::bind('invitation_slug', function ($value) {
+            return ChatGroupInvitation::where('slug', $value)->first();
         });
     }
 

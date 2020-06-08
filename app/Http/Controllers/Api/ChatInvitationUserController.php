@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Exceptions\ChatInvitationUserException;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ChatInvitationUserResource;
 use App\Models\ChatGroupInvitation;
 use App\Models\ChatInvitationUser;
 use Illuminate\Http\Request;
@@ -30,7 +31,7 @@ class ChatInvitationUserController extends Controller
     {
         try {
             $invitationUser = ChatInvitationUser::createIfAllowed($invitation_slug, Auth::guard('api')->user());
-            return $invitationUser;
+            return new ChatInvitationUserResource($invitationUser);
         } catch (ChatInvitationUserException $e) {
             switch ($e->getCode()) {
                 case ChatInvitationUserException::ERROR_NOT_INVITATION:

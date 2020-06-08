@@ -17,14 +17,14 @@ class ChatInvitationUser extends Model
     {
         self::throwIfNotAllowed($groupInvitation, $user);        
         return self::create([
-            'invitation_id' => $groupInvitation,
+            'invitation_id' => $groupInvitation->id,
             'user_id' => $user->id
         ]);
     }
 
     private static function throwIfNotAllowed(ChatGroupInvitation $groupInvitation, User $user)
     {
-        if($groupInvitation->hasInvitation()) {
+        if(!$groupInvitation->hasInvitation()) {
             throw new ChatInvitationUserException('Ingresso no grupo não permitido', ChatInvitationUserException::ERROR_NOT_INVITATION);
         }
         if($user->role == User::ROLE_SELLER) {

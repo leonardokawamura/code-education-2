@@ -16,7 +16,11 @@ class ChatGroupInvitation extends Model
 
     public function hasInvitation()
     {
-        return $this->remaining > 0 && (!$this->expires_at or (new Carbon())->lessThanOrEqualTo("{$this->expires_at} 23:59:59"));
+        $expiresAt = $this->expires_at;
+        $expiresAt->hour(23);
+        $expiresAt->minute(59);
+        $expiresAt->second(59);
+        return $this->remaining > 0 && (!$this->expires_at or (new Carbon())->lessThanOrEqualTo($expiresAt));
     }
 
     public function group()
