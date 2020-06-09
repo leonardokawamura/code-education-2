@@ -7,6 +7,7 @@ import { MoreOptionsComponent } from '../../components/more-options/more-options
 import { PushNotificationProvider } from '../../providers/push-notification/push-notification';
 import { FirebaseMessaging } from '@ionic-native/firebase-messaging';
 import { SuperTab } from 'ionic2-super-tabs';
+import { ChatInvitationProvider } from '../../providers/chat-invitation/chat-invitation';
 
 /**
  * Generated class for the MainPage page.
@@ -32,7 +33,8 @@ export class MainPage {
               private redirectIfNotAuth: RedirectIfNotAuthProvider,
               private popover: PopoverController,
               private pushNotification: PushNotificationProvider,
-              private fcm: FirebaseMessaging) {  
+              private fcm: FirebaseMessaging,
+              private chatInvitation: ChatInvitationProvider) {  
   }
 
   ionViewCanEnter() {
@@ -52,7 +54,8 @@ export class MainPage {
         if(result && !hasPermissionToRecorder) {
           this.audioRecorder.showAlertToCloseApp();
         }
-      })
+      });
+    this.chatInvitation.requestInvitation();
   }
 
   presentMoreOptions(event) {
