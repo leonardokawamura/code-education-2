@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, PopoverController, ToastController } from 'ionic-angular';
 import { ChatGroupListComponent } from '../../components/chat-group-list/chat-group-list';
 import { AudioRecorderProvider } from '../../providers/audio-recorder/audio-recorder';
 import { RedirectIfNotAuthProvider } from '../../providers/redirect-if-not-auth/redirect-if-not-auth';
@@ -33,8 +33,8 @@ export class MainPage {
               private redirectIfNotAuth: RedirectIfNotAuthProvider,
               private popover: PopoverController,
               private pushNotification: PushNotificationProvider,
-              private fcm: FirebaseMessaging,
-              private chatInvitation: ChatInvitationProvider) {  
+              private chatInvitation: ChatInvitationProvider,
+              private toastCtrl: ToastController) {  
   }
 
   ionViewCanEnter() {
@@ -43,10 +43,23 @@ export class MainPage {
 
   ionViewDidLoad() {
     this.pushNotification.registerToken();
-    this.fcm.onBackgroundMessage().subscribe((data) => {
-      const component: ChatGroupListComponent = this.tabChatGroupList.getViews()[0].instance;
-      component.goToMessagesFromNotification(data.chat_group_id);
-    });
+    this.pushNotification.onNewMesaage()
+      .subscribe(data => {
+        console.log(data);
+        if(data.background) {
+          const component: ChatGroupListComponent = this.tabChatGroupList.getViews()[0].instance;
+          component.goToMessagesFromNotification(data.data.chat_group_id);
+        }
+      });
+    this.pushNotification.onChatGroupSubscribe()
+      .subscribe(data => {
+        console.log(data);
+        const toast = this.toastCtrl.create({
+          message: `Sua inscrição no grupo ${data.data.chat_group_name} foi aprovada`,
+          duration: 7000
+        });
+        toast.present();
+      });    
     const hasPermissionToRecorder = this.audioRecorder.hasPermission;
     this.audioRecorder.requestPermission()
       .then((result) => {

@@ -1,12 +1,10 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FirebaseMessaging } from '@ionic-native/firebase-messaging';
 import { Platform } from 'ionic-angular';
 import { UserProfileHttp } from '../http/user-profile-http';
 import { merge } from 'rxjs/observable/merge';
-import { map } from 'rxjs/operators';
+import { map, shareReplay } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
-import { ObserveOnOperator } from 'rxjs/operators/observeOn';
 
 enum NotificationType {
   CHAT_GROUP_SUBSCRIBE = '1',
@@ -25,8 +23,8 @@ export class PushNotificationProvider {
 
   private notification = merge<{background: boolean, data: any}>(
     this.fcm.onBackgroundMessage().pipe(map(data => ({background: true, data}))),
-    this.fcm.onMessage().pipe(map(data => ({background: true, data})))
-  );
+    this.fcm.onMessage().pipe(map(data => ({background: false, data})))
+  ).pipe(shareReplay());
 
   constructor(private fcm: FirebaseMessaging,
               private platform: Platform,
@@ -62,7 +60,7 @@ export class PushNotificationProvider {
     });
   }
 
-  onNewMesaage() {
+  onNewMesaage(): Observable<{background: boolean, data: any}> {
     return Observable.create(observer => {
       this.notification.subscribe(data => {
         if(data.data.type === NotificationType.NEW_MESSAGE) {
