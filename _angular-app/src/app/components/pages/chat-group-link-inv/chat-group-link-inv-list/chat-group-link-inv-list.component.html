@@ -12,6 +12,7 @@
         <thead class="thead-dark">            
             <tr>
                 <th [sortColumn]="sortColumn" columnName="id" (onSort)="sort($event)">ID</th>
+                <th>Link</th>
                 <th [sortColumn]="sortColumn" columnName="total" (onSort)="sort($event)">Total</th>
                 <th [sortColumn]="sortColumn" columnName="remaining" (onSort)="sort($event)">Restante</th>
                 <th [sortColumn]="sortColumn" columnName="expires_at" (onSort)="sort($event)">Expira</th>
@@ -21,6 +22,9 @@
         <tbody>
             <tr *ngFor="let linkInv of linkInvitations | paginate: {itemsPerPage: pagination.itemsPerPage, currentPage: pagination.page, totalItems: pagination.totalItems}">
                 <td>{{linkInv.id}}</td>
+                <td>
+                    <a [href]="linkInv.link">link</a>
+                </td>
                 <td>{{linkInv.total}}</td>
                 <td>{{linkInv.remaining}}</td>
                 <td>{{linkInv.expires_at ? (linkInv.expires_at.date | date: 'dd/MM/yyyy') : 'Sem Data' }}</td>

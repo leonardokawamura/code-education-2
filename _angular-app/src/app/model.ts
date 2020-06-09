@@ -77,6 +77,7 @@ export interface ChatGroupLinkInvitation {
     id?: number;
     total?: number;
     remaining?: number;
+    link: string;
     group?: ChatGroup;
     expires_at?: {date: string};
     readonly created_at?: {date: string};
