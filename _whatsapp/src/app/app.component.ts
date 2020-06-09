@@ -11,6 +11,7 @@ import { LoginPhoneNumberPage } from '../pages/login-phone-number/login-phone-nu
 import { LoginOptionsPage } from '../pages/login-options/login-options';
 import { FirebaseMessaging } from '@ionic-native/firebase-messaging';
 import { FirebaseDynamicLinks } from '@ionic-native/firebase-dynamic-links';
+import { ChatInvitationProvider } from '../providers/chat-invitation/chat-invitation';
  
 @Component({
   templateUrl: 'app.html'
@@ -26,7 +27,7 @@ export class MyApp {
               public statusBar: StatusBar, 
               public splashScreen: SplashScreen, 
               private fcm: FirebaseMessaging,
-              private fbDynamiclinks: FirebaseDynamicLinks) {
+              private chatInvitation: ChatInvitationProvider) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -38,19 +39,13 @@ export class MyApp {
   }
 
   initializeApp() {
-    this.platform.ready().then(() => {
-      this.fcm.getToken().then((token) => {
-        console.log(token);
-      });
-      this.fbDynamiclinks.onDynamicLink()
-        .subscribe(res => {
-            console.log(res);
-          }
-        );
+    this.platform.ready().then(() => {      
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+
+      this.chatInvitation.listen();
     });
   }
 
