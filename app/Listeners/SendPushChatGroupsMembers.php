@@ -4,6 +4,7 @@ namespace App\Listeners;
 
 use App\Events\ChatMessageSent;
 use App\Firebase\CloudMessagingFb;
+use App\Firebase\NotificationType;
 use App\Models\User;
 use App\Models\UserProfile;
 
@@ -47,6 +48,7 @@ class SendPushChatGroupsMembers
             ->setBody($this->getBody())
             ->setTokens($tokens)
             ->setData([
+                'type' => NotificationType::NEW_MESSAGE,
                 'chat_group_id' => $chatGroup->id
             ])
             ->send();            

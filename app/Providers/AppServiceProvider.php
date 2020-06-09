@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Firebase\NotificationType;
 use App\Models\ChatGroupInvitation;
 use App\Models\ChatInvitationUser;
 use App\Models\ProductInput;
@@ -65,6 +66,22 @@ class AppServiceProvider extends ServiceProvider
             $group = $userInvitation->invitation->group;
             $userId = $userInvitation->user->id;
             $group->users()->attach($userId);
+
+            $token = $userInvitation->user->profile->device_token;
+            if(!$token) {
+                return;
+            }
+            /** @var CloudMessagingFb $messaging */
+            $messaging = app(CloudMessagingFb::class);
+            $messaging
+                ->setTitle("Sua inscrição foi aprovada")
+                ->setBody('Você está inscrito em um novo grupo')
+                ->setTokens([$token])
+                ->setData([
+                    'type' => NotificationType::CHAT_GROUP_SUBSCRIBE,
+                    'chat_group_name' => $group->name
+                ])
+                ->send(); 
         });
     }
 
