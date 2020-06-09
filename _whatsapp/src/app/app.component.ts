@@ -10,6 +10,7 @@ import { ChatMessagesPage } from '../pages/chat-messages/chat_messages/chat-mess
 import { LoginPhoneNumberPage } from '../pages/login-phone-number/login-phone-number';
 import { LoginOptionsPage } from '../pages/login-options/login-options';
 import { FirebaseMessaging } from '@ionic-native/firebase-messaging';
+import { FirebaseDynamicLinks } from '@ionic-native/firebase-dynamic-links';
  
 @Component({
   templateUrl: 'app.html'
@@ -21,7 +22,11 @@ export class MyApp {
 
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, private fcm: FirebaseMessaging) {
+  constructor(public platform: Platform, 
+              public statusBar: StatusBar, 
+              public splashScreen: SplashScreen, 
+              private fcm: FirebaseMessaging,
+              private fbDynamiclinks: FirebaseDynamicLinks) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -36,7 +41,12 @@ export class MyApp {
     this.platform.ready().then(() => {
       this.fcm.getToken().then((token) => {
         console.log(token);
-      })
+      });
+      this.fbDynamiclinks.onDynamicLink()
+        .subscribe(res => {
+            console.log(res);
+          }
+        );
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();

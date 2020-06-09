@@ -39,6 +39,7 @@ import { MoreOptionsComponent } from '../components/more-options/more-options';
 import { FirebaseMessaging } from '@ionic-native/firebase-messaging';
 import { PushNotificationProvider } from '../providers/push-notification/push-notification';
 import { UserProfileHttp } from '../providers/http/user-profile-http';
+import { FirebaseDynamicLinks } from '@ionic-native/firebase-dynamic-links';
 
 function jwtFactory(authService: AuthProvider) {
   return {
@@ -123,7 +124,8 @@ function jwtFactory(authService: AuthProvider) {
     RedirectIfNotAuthProvider,
     FirebaseMessaging,
     PushNotificationProvider,
-    UserProfileHttp   
+    UserProfileHttp,
+    FirebaseDynamicLinks   
   ]
 })
 export class AppModule {}
