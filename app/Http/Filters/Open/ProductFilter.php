@@ -29,7 +29,7 @@ class ProductFilter extends SimpleQueryFilter
         }
 
         $this->query->whereHas('categories', function($query) use($value) {
-            $query->whereIn('id', $value);
+            $query->whereIn('id', $value)->where('active', true);
         });
     }
     
