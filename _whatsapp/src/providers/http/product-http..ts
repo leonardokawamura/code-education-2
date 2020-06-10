@@ -12,9 +12,13 @@ export class ProductHttpProvider {
 
   constructor(private http: HttpClient) { }
 
-  list(page: number): Observable<{data: Array<Product>, meta: any}> {    
+  list(page: number): Observable<{data: Array<Product>, meta: any}> {  
+    const fromObject = {
+      page
+    };
+    const params = new HttpParams({fromObject: (<any>fromObject)});  
     return this.http
-      .get<{data: Array<Product>, meta: any}>(this.baseUrl);
+      .get<{data: Array<Product>, meta: any}>(this.baseUrl, {params});
   }
 
   /*get(id: number): Observable<Product> {
