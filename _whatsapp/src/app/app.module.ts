@@ -41,6 +41,7 @@ import { PushNotificationProvider } from '../providers/push-notification/push-no
 import { UserProfileHttp } from '../providers/http/user-profile-http';
 import { FirebaseDynamicLinks } from '@ionic-native/firebase-dynamic-links';
 import { ChatInvitationProvider } from '../providers/chat-invitation/chat-invitation';
+import { ProductListComponent } from '../components/product-list/product-list';
 
 function jwtFactory(authService: AuthProvider) {
   return {
@@ -69,7 +70,8 @@ function jwtFactory(authService: AuthProvider) {
     ChatGroupListComponent,
     FirebasePhoneNumberCheckComponent,
     SelectCountriesCodeComponent,
-    MoreOptionsComponent    
+    MoreOptionsComponent,
+    ProductListComponent    
   ],
   imports: [
     BrowserModule,
@@ -101,7 +103,8 @@ function jwtFactory(authService: AuthProvider) {
     ChatGroupListComponent,
     FirebasePhoneNumberCheckComponent,
     SelectCountriesCodeComponent,
-    MoreOptionsComponent
+    MoreOptionsComponent,
+    ProductListComponent
   ],
   providers: [
     StatusBar,

@@ -8,6 +8,7 @@ import { PushNotificationProvider } from '../../providers/push-notification/push
 import { FirebaseMessaging } from '@ionic-native/firebase-messaging';
 import { SuperTab } from 'ionic2-super-tabs';
 import { ChatInvitationProvider } from '../../providers/chat-invitation/chat-invitation';
+import { ProductListComponent } from '../../components/product-list/product-list';
 
 /**
  * Generated class for the MainPage page.
@@ -24,6 +25,7 @@ import { ChatInvitationProvider } from '../../providers/chat-invitation/chat-inv
 export class MainPage {
 
   chatGroupList = ChatGroupListComponent;
+  productList = ProductListComponent;
 
   @ViewChild('tabChatGroupList') tabChatGroupList: SuperTab;
   
