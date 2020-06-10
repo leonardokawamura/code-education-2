@@ -5,9 +5,13 @@
   Ionic pages and navigation.
 -->
 <ion-header no-border>
-  <ion-navbar color="green-dark">
+  <product-searchbar [hidden]="!canShowSearchbar"></product-searchbar>
+  <ion-navbar color="green-dark" [hidden]="canShowSearchbar">
     <ion-title>Whatsapp de vendas</ion-title>
     <ion-buttons end>
+      <button ion-button icon-only [hidden]="!canShowSearchIcon" (click)="canShowSearchbar = true">
+        <ion-icon name="search"></ion-icon>
+      </button> 
       <button ion-button icon-only (click)="presentMoreOptions($event)">
         <ion-icon name="more"></ion-icon>
       </button>      
@@ -17,8 +21,8 @@
 
 <ion-content class="hide-scroll-content">
   <super-tabs toolbarBackground="green-dark" toolbarColor="light" indicatorColor="light">
-    <super-tab [root]="chatGroupList" title="Grupos" #tabChatGroupList></super-tab>
-    <super-tab [root]="productList" title="Produtos" #tabProductList></super-tab>
-    <super-tab [root]="chatGroupList" title="Pedidos" #taOrderList></super-tab>
+    <super-tab id="groups" [root]="chatGroupList" title="Grupos" #tabChatGroupList></super-tab>
+    <super-tab id="products" [root]="productList" title="Produtos" #tabProductList></super-tab>
+    <super-tab id="orders" [root]="chatGroupList" title="Pedidos" #taOrderList></super-tab>
   </super-tabs>
 </ion-content>

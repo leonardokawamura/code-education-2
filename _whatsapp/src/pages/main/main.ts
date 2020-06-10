@@ -6,7 +6,7 @@ import { RedirectIfNotAuthProvider } from '../../providers/redirect-if-not-auth/
 import { MoreOptionsComponent } from '../../components/more-options/more-options';
 import { PushNotificationProvider } from '../../providers/push-notification/push-notification';
 import { FirebaseMessaging } from '@ionic-native/firebase-messaging';
-import { SuperTab } from 'ionic2-super-tabs';
+import { SuperTab, SuperTabs } from 'ionic2-super-tabs';
 import { ChatInvitationProvider } from '../../providers/chat-invitation/chat-invitation';
 import { ProductListComponent } from '../../components/product-list/product-list';
 
@@ -26,7 +26,9 @@ export class MainPage {
 
   chatGroupList = ChatGroupListComponent;
   productList = ProductListComponent;
+  canShowSearchbar = false;
 
+  @ViewChild(SuperTabs) superTabs: SuperTabs;
   @ViewChild('tabChatGroupList') tabChatGroupList: SuperTab;
   
   constructor(public navCtrl: NavController, 
@@ -78,6 +80,11 @@ export class MainPage {
     popover.present({
       ev: event
     });
+  }
+
+  get canShowSearchIcon() {
+    const superTab = this.superTabs.getActiveTab();
+    return superTab.tabId === 'products';
   }
 
 }
