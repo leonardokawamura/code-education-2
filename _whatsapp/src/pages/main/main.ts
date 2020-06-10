@@ -87,4 +87,10 @@ export class MainPage {
     return superTab.tabId === 'products';
   }
 
+  onTabSelect(event) {
+    if(event.id !== 'products') {
+      this.canShowSearchbar = false;
+    }
+  }
+
 }

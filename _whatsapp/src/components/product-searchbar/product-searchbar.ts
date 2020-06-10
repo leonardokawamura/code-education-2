@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 
 /**
  * Generated class for the ProductSearchbarComponent component.
@@ -12,11 +12,12 @@ import { Component } from '@angular/core';
 })
 export class ProductSearchbarComponent {
 
-  text: string;
+  @Output() onBack: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor() {
-    console.log('Hello ProductSearchbarComponent Component');
-    this.text = 'Hello World';
+  constructor() {}
+
+  back() {
+    this.onBack.emit(true);
   }
 
 }
