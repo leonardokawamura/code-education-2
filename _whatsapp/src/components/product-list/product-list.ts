@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductHttpProvider } from '../../providers/http/product-http.';
 import { Product } from '../../app/model';
-import { InfiniteScroll } from 'ionic-angular';
+import { InfiniteScroll, Refresher } from 'ionic-angular';
 
 /**
  * Generated class for the ProductListComponent component.
@@ -41,6 +41,24 @@ export class ProductListComponent implements OnInit {
         infiniteScroll.complete();
       }  
     );
+  }
+
+  doRefresh(refresher: Refresher) {
+    this.reset();
+    this.getProducts().subscribe(
+      products => {
+        this.products = products;
+        refresher.complete();
+      },
+      error => {
+        refresher.complete();
+      }  
+    );
+  }
+
+  reset() {
+    this.page = 1;
+    this.canMoreProducts = true;
   }
 
   getProducts() {
