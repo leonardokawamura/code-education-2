@@ -44,6 +44,7 @@ import { ChatInvitationProvider } from '../providers/chat-invitation/chat-invita
 import { ProductListComponent } from '../components/product-list/product-list';
 import { ProductHttpProvider } from '../providers/http/product-http.';
 import { ProductSearchbarComponent } from '../components/product-searchbar/product-searchbar';
+import { ProductSearchProvider } from '../providers/product-search/product-search';
 
 function jwtFactory(authService: AuthProvider) {
   return {
@@ -135,7 +136,8 @@ function jwtFactory(authService: AuthProvider) {
     UserProfileHttp,
     FirebaseDynamicLinks,
     ChatInvitationProvider,
-    ProductHttpProvider   
+    ProductHttpProvider,
+    ProductSearchProvider   
   ]
 })
 export class AppModule {}

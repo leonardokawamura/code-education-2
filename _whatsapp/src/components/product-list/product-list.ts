@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProductHttpProvider } from '../../providers/http/product-http.';
 import { Product } from '../../app/model';
 import { InfiniteScroll, Refresher } from 'ionic-angular';
+import { ProductSearchProvider } from '../../providers/product-search/product-search';
 
 /**
  * Generated class for the ProductListComponent component.
@@ -21,9 +22,16 @@ export class ProductListComponent implements OnInit {
   page = 1;
   canMoreProducts = true;
 
-  constructor(private productHttp: ProductHttpProvider) {}
+  constructor(private productHttp: ProductHttpProvider, private productSearch: ProductSearchProvider) {}
 
   ngOnInit() {
+    this.productSearch.onUpdate
+      .subscribe(() => {
+        this.getProducts()
+          .subscribe(products => {
+            this.products = products;
+          })
+      });
     this.getProducts().subscribe(products => this.products = products);
   }
 

@@ -1,4 +1,5 @@
 import { Component, Output, EventEmitter } from '@angular/core';
+import { ProductSearchProvider } from '../../providers/product-search/product-search';
 
 /**
  * Generated class for the ProductSearchbarComponent component.
@@ -14,10 +15,14 @@ export class ProductSearchbarComponent {
 
   @Output() onBack: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor() {}
+  constructor(public productSearch: ProductSearchProvider) {}
 
   back() {
     this.onBack.emit(true);
+  }
+
+  filter() {
+    this.productSearch.onUpdate.next(true);
   }
 
 }
