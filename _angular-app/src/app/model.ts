@@ -43,6 +43,7 @@ export interface Product {
     price: number;
     readonly slug?: string;
     active: boolean;
+    readonly photo_url: string;
     readonly created_at?: {date: string};
     readonly update_at?: {date: string};
 }

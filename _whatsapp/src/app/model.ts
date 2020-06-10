@@ -42,3 +42,15 @@ export interface UserProfile {
     has_photo: boolean;
     firebase_uid: string;
 }
+
+export interface Product {
+    readonly id: number;
+    readonly name: string;
+    readonly description: string;
+    readonly price: number;
+    readonly slug?: string;
+    readonly active: boolean;
+    readonly photo_url: string;
+    readonly created_at?: {date: string};
+    readonly update_at?: {date: string};
+}

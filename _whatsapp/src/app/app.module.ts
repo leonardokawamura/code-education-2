@@ -42,6 +42,7 @@ import { UserProfileHttp } from '../providers/http/user-profile-http';
 import { FirebaseDynamicLinks } from '@ionic-native/firebase-dynamic-links';
 import { ChatInvitationProvider } from '../providers/chat-invitation/chat-invitation';
 import { ProductListComponent } from '../components/product-list/product-list';
+import { ProductHttpProvider } from '../providers/http/product-http.';
 
 function jwtFactory(authService: AuthProvider) {
   return {
@@ -130,7 +131,8 @@ function jwtFactory(authService: AuthProvider) {
     PushNotificationProvider,
     UserProfileHttp,
     FirebaseDynamicLinks,
-    ChatInvitationProvider   
+    ChatInvitationProvider,
+    ProductHttpProvider   
   ]
 })
 export class AppModule {}

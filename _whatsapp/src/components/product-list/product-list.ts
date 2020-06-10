@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ProductHttpProvider } from '../../providers/http/product-http.';
+import { Product } from '../../app/model';
 
 /**
  * Generated class for the ProductListComponent component.
@@ -10,13 +12,21 @@ import { Component } from '@angular/core';
   selector: 'product-list',
   templateUrl: 'product-list.html'
 })
-export class ProductListComponent {
+export class ProductListComponent implements OnInit {
 
-  text: string;
+  products: {data: Product[]} = {
+    data: []
+  };
+  page = 1;
 
-  constructor() {
-    console.log('Hello ProductListComponent Component');
-    this.text = 'Hello World';
+  constructor(private productHttp: ProductHttpProvider) {}
+
+  ngOnInit() {
+    this.getProducts().subscribe(products => this.products = products);
+  }
+
+  getProducts() {
+    return this.productHttp.list(this.page);
   }
 
 }
