@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProductSearchProvider } from '../../providers/product-search/product-search';
 import { CategoryHttpProvider } from '../../providers/http/category-http';
 import { Category } from '../../app/model';
+import { ViewController } from 'ionic-angular';
 
 /**
  * Generated class for the ProductSearchOptionsComponent component.
@@ -17,7 +18,9 @@ export class ProductSearchOptionsComponent implements OnInit{
  
   categories: Category[] = [];
 
-  constructor(public productSearch: ProductSearchProvider, private categoryHttp: CategoryHttpProvider) {
+  constructor(public productSearch: ProductSearchProvider, 
+              private categoryHttp: CategoryHttpProvider,
+              private viewCtrl: ViewController) {
     
   }
 
@@ -25,6 +28,15 @@ export class ProductSearchOptionsComponent implements OnInit{
     this.categoryHttp.list().subscribe(categories => {
       this.categories = categories;
     });
+  }
+
+  close() {
+    this.viewCtrl.dismiss();
+  }
+
+  filter() {
+    this.productSearch.onUpdate.next(true);
+    this.close(); 
   }
 
 }

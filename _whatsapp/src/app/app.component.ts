@@ -20,7 +20,7 @@ import { ProductSearchOptionsComponent } from '../components/product-search-opti
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = ProductSearchOptionsComponent; 
+  rootPage: any = MainPage; 
 
   pages: Array<{title: string, component: any}>;
 
