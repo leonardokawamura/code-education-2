@@ -47,6 +47,7 @@ import { ProductSearchbarComponent } from '../components/product-searchbar/produ
 import { ProductSearchProvider } from '../providers/product-search/product-search';
 import { ProductSearchOptionsComponent } from '../components/product-search-options/product-search-options';
 import { CategoryHttpProvider } from '../providers/http/category-http';
+import { ProductDetailPage } from '../pages/product-detail/product-detail';
 
 function jwtFactory(authService: AuthProvider) {
   return {
@@ -72,6 +73,7 @@ function jwtFactory(authService: AuthProvider) {
     ResetPhoneNumberPage,
     CustomerCreatePage,
     MainPage,
+    ProductDetailPage,
     ChatGroupListComponent,
     FirebasePhoneNumberCheckComponent,
     SelectCountriesCodeComponent,
@@ -107,6 +109,7 @@ function jwtFactory(authService: AuthProvider) {
     ResetPhoneNumberPage,
     CustomerCreatePage,
     MainPage,
+    ProductDetailPage,
     ChatGroupListComponent,
     FirebasePhoneNumberCheckComponent,
     SelectCountriesCodeComponent,

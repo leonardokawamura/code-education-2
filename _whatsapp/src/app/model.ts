@@ -63,3 +63,10 @@ export interface Category {
     readonly created_at: {date: string};
     readonly update_at: {date: string};
 }
+
+export interface ProductPhoto {
+    readonly id: number;
+    readonly photo_url: string;
+    readonly created_at: {date: string};
+    readonly update_at: {date: string}; 
+}

@@ -3,7 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
 import { environment } from '@app/env';
-import { Product } from '../../app/model';
+import { Product, ProductPhoto } from '../../app/model';
 import { ProductSearchProvider } from '../product-search/product-search';
 
 @Injectable()
@@ -25,12 +25,12 @@ export class ProductHttpProvider {
       .get<{data: Array<Product>, meta: any}>(this.baseUrl, {params});
   }
 
-  /*get(id: number): Observable<Product> {
+  get(id: number): Observable<{product: Product, photos: ProductPhoto[]}> {
     return this.http
-      .get<{data: Product}>(`${this.baseUrl}/${id}`)
+      .get<{data: any}>(`${this.baseUrl}/${id}`)
         .pipe(
           map(response => response.data)
         );
-  }*/
+  }
 
 }

@@ -1,15 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductHttpProvider } from '../../providers/http/product-http.';
 import { Product } from '../../app/model';
-import { InfiniteScroll, Refresher, ToastController, Toast } from 'ionic-angular';
+import { InfiniteScroll, Refresher, ToastController, Toast, App } from 'ionic-angular';
 import { ProductSearchProvider } from '../../providers/product-search/product-search';
+import { ProductDetailPage } from '../../pages/product-detail/product-detail';
 
-/**
- * Generated class for the ProductListComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
   selector: 'product-list',
   templateUrl: 'product-list.html'
@@ -25,7 +20,8 @@ export class ProductListComponent implements OnInit {
 
   constructor(private productHttp: ProductHttpProvider, 
               private productSearch: ProductSearchProvider,
-              private toastCtrl: ToastController) {}
+              private toastCtrl: ToastController,
+              private app: App) {}
 
   ngOnInit() {
     this.productSearch.onUpdate
@@ -96,6 +92,10 @@ export class ProductListComponent implements OnInit {
 
   getProducts() {
     return this.productHttp.list(this.page);
+  }
+
+  openProductDetail(productId: number) {
+    this.app.getRootNav().push(ProductDetailPage, {product: productId});
   }
 
 }

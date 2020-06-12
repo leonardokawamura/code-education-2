@@ -5,7 +5,7 @@
   <ion-grid>
     <ion-row *ngFor="let product of products.data; let i = index; let isPair = even">
       <ion-col *ngIf="isPair">
-        <ion-card>
+        <ion-card (click)="openProductDetail(products.data[i].id)">
           <img [src]="products.data[i].photo_url" alt="">
           <ion-card-content>
             <ion-card-title>
@@ -16,7 +16,7 @@
         </ion-card>
       </ion-col>
       <ion-col *ngIf="isPair">
-        <ion-card *ngIf="products.data[i + 1]">
+        <ion-card *ngIf="products.data[i + 1]" (click)="openProductDetail(products.data[i + 1].id)">
           <img [src]="products.data[i + 1].photo_url" alt="">
           <ion-card-content>
             <ion-card-title>
