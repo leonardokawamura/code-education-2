@@ -6,7 +6,7 @@
 
 <ion-content padding>
   <ion-card>
-    <img [src]="productData?.product.photo_url">
+    <img [src]="productData?.product.photo_url" (click)="openPhotos()">
     <ion-card-content>
       <h1><strong>{{ productData?.product.name }}</strong></h1>
       <h2><strong>{{ productData?.product.price | numberFormatBr }}</strong></h2>

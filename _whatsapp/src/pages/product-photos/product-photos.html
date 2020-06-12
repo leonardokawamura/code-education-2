@@ -1,0 +1,8 @@
+<ion-slides>
+  <ion-slide>
+    <img [src]="productData?.product.photo_url" alt="">
+  </ion-slide>
+  <ion-slide *ngFor="let photo of productData.photos">
+    <img [src]="photo.photo_url" alt="">
+  </ion-slide>
+</ion-slides>
