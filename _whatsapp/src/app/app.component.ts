@@ -12,6 +12,7 @@ import { LoginOptionsPage } from '../pages/login-options/login-options';
 import { FirebaseMessaging } from '@ionic-native/firebase-messaging';
 import { FirebaseDynamicLinks } from '@ionic-native/firebase-dynamic-links';
 import { ChatInvitationProvider } from '../providers/chat-invitation/chat-invitation';
+import { ProductSearchOptionsComponent } from '../components/product-search-options/product-search-options';
  
 @Component({
   templateUrl: 'app.html'
@@ -19,7 +20,7 @@ import { ChatInvitationProvider } from '../providers/chat-invitation/chat-invita
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = LoginOptionsPage; 
+  rootPage: any = ProductSearchOptionsComponent; 
 
   pages: Array<{title: string, component: any}>;
 
