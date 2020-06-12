@@ -14,15 +14,19 @@
     <ion-grid>
       <ion-row>
         <ion-col text-center>
-          <button ion-button icon-only class="btn-round">
+          <button ion-button icon-only class="btn-round" 
+            [color]="productSearch.options.orderBy == 'latest' ? 'green-dark' : 'dark'" 
+            (click)="productSearch.options.orderBy = 'latest'">
             <ion-icon name="list-box"></ion-icon>
           </button>
           <br>
           <span ion-text >Mais novos</span>
         </ion-col>
         <ion-col text-center>
-          <button ion-button icon-only class="btn-round">
-            <ion-icon name="paper"></ion-icon>
+          <button ion-button icon-only class="btn-round"
+            [color]="productSearch.options.orderBy == 'latest' ? 'dark' : 'green-dark'" 
+            (click)="productSearch.options.orderBy = 'oldest'">
+            <ion-icon name="paper"></ion-icon>            
           </button>
           <br>
           <span ion-text >Mais velhos</span>
@@ -32,8 +36,8 @@
   </ion-item>
   <ion-item color="green-dark">
     <ion-label color="light">Categorias</ion-label>
-    <ion-select>
-
+    <ion-select [(ngModel)]="productSearch.options.categories" multiple="true" cancelText="Cancelar" okText="Ok">
+      <ion-option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</ion-option>
     </ion-select>
   </ion-item>
 </ion-content>

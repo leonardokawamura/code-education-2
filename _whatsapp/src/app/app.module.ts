@@ -46,6 +46,7 @@ import { ProductHttpProvider } from '../providers/http/product-http.';
 import { ProductSearchbarComponent } from '../components/product-searchbar/product-searchbar';
 import { ProductSearchProvider } from '../providers/product-search/product-search';
 import { ProductSearchOptionsComponent } from '../components/product-search-options/product-search-options';
+import { CategoryHttpProvider } from '../providers/http/category-http';
 
 function jwtFactory(authService: AuthProvider) {
   return {
@@ -140,7 +141,8 @@ function jwtFactory(authService: AuthProvider) {
     FirebaseDynamicLinks,
     ChatInvitationProvider,
     ProductHttpProvider,
-    ProductSearchProvider   
+    ProductSearchProvider,
+    CategoryHttpProvider   
   ]
 })
 export class AppModule {}

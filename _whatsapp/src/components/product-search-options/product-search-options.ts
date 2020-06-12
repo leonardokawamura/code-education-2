@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ProductSearchProvider } from '../../providers/product-search/product-search';
+import { CategoryHttpProvider } from '../../providers/http/category-http';
+import { Category } from '../../app/model';
 
 /**
  * Generated class for the ProductSearchOptionsComponent component.
@@ -10,13 +13,18 @@ import { Component } from '@angular/core';
   selector: 'product-search-options',
   templateUrl: 'product-search-options.html'
 })
-export class ProductSearchOptionsComponent {
+export class ProductSearchOptionsComponent implements OnInit{
+ 
+  categories: Category[] = [];
 
-  text: string;
+  constructor(public productSearch: ProductSearchProvider, private categoryHttp: CategoryHttpProvider) {
+    
+  }
 
-  constructor() {
-    console.log('Hello ProductSearchOptionsComponent Component');
-    this.text = 'Hello World';
+  ngOnInit() {
+    this.categoryHttp.list().subscribe(categories => {
+      this.categories = categories;
+    });
   }
 
 }

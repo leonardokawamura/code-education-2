@@ -48,9 +48,18 @@ export interface Product {
     readonly name: string;
     readonly description: string;
     readonly price: number;
-    readonly slug?: string;
+    readonly slug: string;
     readonly active: boolean;
     readonly photo_url: string;
-    readonly created_at?: {date: string};
-    readonly update_at?: {date: string};
+    readonly created_at: {date: string};
+    readonly update_at: {date: string};
+}
+
+export interface Category {
+    readonly id: number;
+    readonly name: string;
+    readonly slug: string;
+    readonly active: boolean;
+    readonly created_at: {date: string};
+    readonly update_at: {date: string};
 }
