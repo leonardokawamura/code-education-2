@@ -4,17 +4,19 @@ import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
 import { environment } from '@app/env';
 import { Product } from '../../app/model';
+import { ProductSearchProvider } from '../product-search/product-search';
 
 @Injectable()
 export class ProductHttpProvider {
 
   private baseUrl = `${environment.api.url}/open/products`;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private productSearch: ProductSearchProvider) { }
 
   list(page: number): Observable<{data: Array<Product>, meta: any}> {  
     const fromObject = {
-      page
+      page,
+      search: this.productSearch.options.search
     };
     const params = new HttpParams({fromObject: (<any>fromObject)});  
     return this.http
