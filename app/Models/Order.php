@@ -13,6 +13,14 @@ class Order extends Model
 
     protected $fillable = ['user_id', 'product_id', 'amount', 'price', 'total'];
 
+    public static function createWithProduct(array $data)
+    {
+        $product = Product::find($data['product_id']);
+        $data['price'] = $product->price;
+        $data['total'] = $data['price'] * $data['amount'];
+        self::create($data);
+    }
+
     public function user()
     {
         /**
