@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Mnabialek\LaravelEloquentFilter\Traits\Filterable;
 
 class Order extends Model
 {
+    use Filterable;
+    
     const STATUS_PENDING = 1;
     const STATUS_APPROVED = 2;
     const STATUS_CANCELED = 3;
