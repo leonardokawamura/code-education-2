@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Filters\OrderFilter;
 use App\Http\Resources\OrderResource;
 use App\Models\Order;
+use App\Rules\OrderPaymentLinkChange;
 use App\Rules\OrderStatusChange;
 use Illuminate\Http\Request;
 
@@ -31,8 +32,19 @@ class OrderController extends Controller
                 'nullable',
                 'in:' . Order::STATUS_APPROVED . ',' . Order::STATUS_CANCELLED . ',' . Order::STATUS_SENT,
                 new OrderStatusChange($order->status)
+            ],
+            'payment' => [
+                'nullable',
+                'url',
+                new OrderPaymentLinkChange($order->status)
             ]
         ]); 
-        return 'tudo válido';
+        
+        $order->status = $request->get('status') ?? $order->status;
+        $order->payment_link = $request->get('payment_link') ?? $order->payment_link;
+        $order->obs = $request->get('obs') ?? $order->obs;
+        $order->save();
+
+        return new OrderResource($order);
     }
 }
