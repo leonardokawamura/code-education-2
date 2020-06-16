@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Filters\OrderFilter;
 use App\Http\Resources\OrderResource;
 use App\Models\Order;
+use App\Rules\OrderStatusChange;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -26,7 +27,12 @@ class OrderController extends Controller
     public function update(Request $request, Order $order)
     {
         $this->validate($request, [
-            'status' => 'nullable|in:' . Order::STATUS_APPROVED . ',' . Order::STATUS_CANCELLED . ',' . Order::STATUS_SENT
+            'status' => [
+                'nullable',
+                'in:' . Order::STATUS_APPROVED . ',' . Order::STATUS_CANCELLED . ',' . Order::STATUS_SENT,
+                new OrderStatusChange($order->status)
+            ]
         ]); 
+        return 'tudo válido';
     }
 }
