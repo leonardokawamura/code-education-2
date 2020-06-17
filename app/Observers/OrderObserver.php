@@ -2,6 +2,8 @@
 
 namespace App\Observers;
 
+use App\Firebase\CloudMessagingFb;
+use App\Firebase\NotificationType;
 use App\Mail\OrderCreated;
 use App\Models\Order;
 use Illuminate\Support\Facades\Mail;
@@ -10,7 +12,7 @@ class OrderObserver
 {
     public function created(Order $order)
     {
-        if (! app()->runningInConsole() && ! app()->runningUnitTests()) {
+        if (! $this->runningInTerminal()) {
             $user = $order->user;
             Mail::to($user)->send(new OrderCreated($order));
         }
@@ -29,6 +31,27 @@ class OrderObserver
         if($order->status != Order::STATUS_PENDING) {
             return;
         }
+
+        $token = $order->user->profile->device_token;
+
+        if (! $token || $this->runningInTerminal()) {
+            return;
+        }
+
+        $oldPaymentLink = $order->getOriginal('payment_link');
+
+        if ($order->payment_link && $order->payment_link != $oldPaymentLink) {
+            $messaging = app(CloudMessagingFb::class);
+            $messaging->setTitle('Link de pagamento do pedido')
+                ->setBody('Acesse o app para pagar o pedido')
+                ->setTokens([$token])
+                ->setData([
+                    'type' => NotificationType::ORDER_DO_PAYMENT,
+                    'order' => $order->id
+                ])
+                ->send();
+        }
+        
     }
     
     public function handleIfCancel(Order $order)
@@ -50,5 +73,10 @@ class OrderObserver
         if($order->status != Order::STATUS_SENT) {
             return;
         }
+    }
+
+    private function runningInTerminal()
+    {
+        return app()->runningInConsole() || app()->runningUnitTests();
     }
 }
