@@ -93,6 +93,29 @@ class OrderObserver
         if($order->status != Order::STATUS_SENT) {
             return;
         }
+        
+        $oldStatus = $order->getOriginal('status');
+
+        if ($oldStatus !== $order->status) {
+            $product = $order->product()->lockForUpdate()->first();
+            $product->decreaseStock($order->amount);
+
+            $token = $order->user->profile->device_token;
+
+            if (! $token || $this->runningInTerminal()) {
+                return;
+            }
+
+            $messaging = app(CloudMessagingFb::class);
+            $messaging->setTitle("Seu produto {$order->product->name} foi enviado")
+                ->setBody("Em breve o produto chegará nas suas mãos!")
+                ->setTokens([$token])
+                ->setData([
+                    'type' => NotificationType::ORDER_SENT,
+                    'order' => $order->id
+                ])
+                ->send();
+        }   
     }
 
     private function runningInTerminal()

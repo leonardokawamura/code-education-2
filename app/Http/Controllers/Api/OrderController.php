@@ -43,7 +43,7 @@ class OrderController extends Controller
         $order->status = $request->get('status') ?? $order->status;
         $order->payment_link = $request->get('payment_link') ?? $order->payment_link;
         $order->obs = $request->get('obs') ?? $order->obs;
-        $order->save();
+        $order->updateWithProduct();
 
         return new OrderResource($order);
     }

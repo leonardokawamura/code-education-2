@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use Mnabialek\LaravelEloquentFilter\Traits\Filterable;
 
-class Order extends Model
+class 
+Order extends Model
 {
     use Filterable;
     
@@ -22,6 +24,18 @@ class Order extends Model
         $data['price'] = $product->price;
         $data['total'] = $data['price'] * $data['amount'];
         self::create($data);
+    }
+
+    public function updateWithProduct()
+    {
+        try {            
+            DB::beginTransaction();
+            $this->save();
+            DB::commit();
+        } catch (\Exception $e) {           
+            DB::rollBack();
+            throw $e;
+        }
     }
 
     public function user()
