@@ -5,8 +5,10 @@ namespace App\Providers;
 use App\Firebase\NotificationType;
 use App\Models\ChatGroupInvitation;
 use App\Models\ChatInvitationUser;
+use App\Models\Order;
 use App\Models\ProductInput;
 use App\Models\ProductOutput;
+use App\Observers\OrderObserver;
 use Illuminate\Support\ServiceProvider;
 use Kreait\Firebase;
 use Kreait\Firebase\Factory;
@@ -83,6 +85,8 @@ class AppServiceProvider extends ServiceProvider
                 ])
                 ->send(); 
         });
+
+        Order::observe(OrderObserver::class);
     }
 
     /**
