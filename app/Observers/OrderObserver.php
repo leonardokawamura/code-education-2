@@ -2,13 +2,18 @@
 
 namespace App\Observers;
 
+use App\Mail\OrderCreated;
 use App\Models\Order;
+use Illuminate\Support\Facades\Mail;
 
 class OrderObserver
 {
     public function created(Order $order)
     {
-    
+        if (! app()->runningInConsole() && ! app()->runningUnitTests()) {
+            $user = $order->user;
+            Mail::to($user)->send(new OrderCreated($order));
+        }
     }
 
     public function updated(Order $order)
