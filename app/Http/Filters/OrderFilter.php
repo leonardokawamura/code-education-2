@@ -13,19 +13,38 @@ class OrderFilter extends SimpleQueryFilter
     /**
      * @var		array	$simpleSorts
      */
-    protected $simpleSorts = ['user_id', 'product_id', 'total', 'created_at', 'updated_at'];
+    protected $simpleSorts = ['id', 'total', 'created_at', 'user', 'product'];
 
-    /*protected function applySearch($value)
+    protected function applySearch($value)
     {
         $this->query
-            ->where('name', 'LIKE', "%$value%")
-            ->orWhere('description', 'LIKE', "%$value%");
+            ->where('users.name', 'LIKE', "%$value%")
+            ->orWhere('products.name', 'LIKE', "%$value%");
+    }
+
+    protected function applySortUser($order)
+    {
+        $this->query->orderBy('users.name', $order);
+    }
+
+    protected function applySortProduct($order)
+    {
+        $this->query->orderBy('produccts.name', $order);
     } 
+
+    public function apply($query)
+    {
+        $query = $query->select('orders.*')
+            ->join('products', 'products.id', '=', 'orders.product_id')
+            ->join('users', 'users.id', '=', 'orders.user_id');
+        
+        return parent::apply($query);
+    }
 
     public function hasFilterParemeter() {
         $contains = $this->parser->getFilters()->contains(function($filter) {
             return $filter->getField() === 'search' && !empty($filter->getValue());
         });
         return $contains;
-    }*/
+    }
 }

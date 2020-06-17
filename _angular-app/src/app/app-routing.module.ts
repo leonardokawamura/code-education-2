@@ -14,11 +14,17 @@ import { ChatGroupListComponent } from './components/pages/chat-group/chat-group
 import { ChatGroupUserListComponent } from './components/pages/chat-group-user/chat-group-user-list/chat-group-user-list.component';
 import { ChatGroupLinkInvListComponent } from './components/pages/chat-group-link-inv/chat-group-link-inv-list/chat-group-link-inv-list.component';
 import { ChatInvUserListComponent } from './components/pages/chat-inv-user/chat-inv-user-list/chat-inv-user-list.component';
+import { OrderListComponent } from './components/pages/order/order-list/order-list.component';
 
 const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'orders/list',
+    component: OrderListComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'products/:product/categories/list',
