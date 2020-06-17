@@ -86,6 +86,14 @@ class OrderObserver
         if($order->status != Order::STATUS_CANCELLED) {
             return;
         }
+
+        $oldStatus = $order->getOriginal('status');
+
+        if ($oldStatus == Order::STATUS_SENT) {
+            $product = $order->product()->lockForUpdate()->first();
+            $product->increaseStock($order->amount);
+        }
+
     }
 
     public function handleIfSent(Order $order)
