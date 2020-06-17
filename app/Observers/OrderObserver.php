@@ -21,8 +21,8 @@ class OrderObserver
     public function updated(Order $order)
     {
         $this->handleIfPending($order);
-        $this->handleIfCancel($order);
         $this->handleIfApproved($order);
+        $this->handleIfCancel($order);
         $this->handleIfSent($order);
     }
     
@@ -53,17 +53,37 @@ class OrderObserver
         }
         
     }
-    
-    public function handleIfCancel(Order $order)
-    {
-        if($order->status != Order::STATUS_CANCELLED) {
-            return;
-        }
-    }
 
     public function handleIfApproved(Order $order)
     {
         if($order->status != Order::STATUS_APPROVED) {
+            return;
+        }
+
+        $token = $order->user->profile->device_token;
+
+        if (! $token || $this->runningInTerminal()) {
+            return;
+        }
+
+        $oldStatus = $order->getOriginal('status');
+
+        if ($oldStatus !== $order->status) {
+            $messaging = app(CloudMessagingFb::class);
+            $messaging->setTitle('Seu pedido foi aprovado')
+                ->setBody("Em breve o produto {$order->product->name} será enviado")
+                ->setTokens([$token])
+                ->setData([
+                    'type' => NotificationType::ORDER_APPROVED,
+                    'order' => $order->id
+                ])
+                ->send();
+        }       
+    }        
+    
+    public function handleIfCancel(Order $order)
+    {
+        if($order->status != Order::STATUS_CANCELLED) {
             return;
         }
     }
