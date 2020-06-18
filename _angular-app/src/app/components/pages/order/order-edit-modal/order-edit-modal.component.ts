@@ -33,14 +33,12 @@ export class OrderEditModalComponent implements OnInit {
   ngOnInit() {}
 
   submit(status: OrderStatus = null) {
-    //const isPaymentLinkDisabled = this.form.get('payment_link').disabled;
+    const isPaymentLinkDisabled = this.form.get('payment_link').disabled;
     this.orderHttp
       .update(this._orderId, {
         status: status,
         obs: this.form.get('obs').value,
-        payment_link: this.form.get('payment_link').value /*isPaymentLinkDisabled
-          ? null
-          : this.form.get('payment_link').value*/
+        payment_link: isPaymentLinkDisabled ? null : this.form.get('payment_link').value
       })
       .subscribe(
         order => {
@@ -68,9 +66,14 @@ export class OrderEditModalComponent implements OnInit {
       order => {
         this.order = order;
         this.form.patchValue(order);
-        /*if (order.status !== OrderStatus.STATUS_PENDING) {
+        if (order.status !== OrderStatus.STATUS_PENDING) {
           this.form.get('payment_link').disable();
-        }*/
+        }
+      },
+      responseError => {
+        if (responseError.status == 401) {
+          this.modal.hide();
+        }
       }
     );
   }
@@ -82,7 +85,6 @@ export class OrderEditModalComponent implements OnInit {
   }
 
   reset() {
-    console.log('fechou');
     this.form.reset({
       obs: '',
       payment_link: { value: '', disabled: false }
