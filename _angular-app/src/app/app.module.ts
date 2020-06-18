@@ -72,6 +72,8 @@ import { ChatInvUserStatusComponent } from './components/pages/chat-inv-user/cha
 import { OrderListComponent } from './components/pages/order/order-list/order-list.component';
 import { OrderSearchFormComponent } from './components/pages/order/order-search-form/order-search-form.component';
 import { OrderStatusComponent } from './components/pages/order/order-status/order-status.component';
+import { OrderEditModalComponent } from './components/pages/order/order-edit-modal/order-edit-modal.component';
+import { OrderFormComponent } from './components/pages/order/order-form/order-form.component';
 
 function jwtFactory(authService: AuthService) {
   return {
@@ -149,7 +151,9 @@ function jwtFactory(authService: AuthService) {
     ChatInvUserStatusComponent,
     OrderListComponent,
     OrderSearchFormComponent,
-    OrderStatusComponent
+    OrderStatusComponent,
+    OrderEditModalComponent,
+    OrderFormComponent
   ],
   imports: [
     BrowserModule,

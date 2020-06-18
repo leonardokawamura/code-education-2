@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Order } from '../../../../model';
 import { OrderHttpService } from '../../../../services/http/order-http.service';
+import { OrderEditModalComponent } from '../order-edit-modal/order-edit-modal.component';
+import { OrderEditService } from './order-edit.service';
 
 @Component({
   selector: 'order-list',
@@ -18,11 +20,12 @@ export class OrderListComponent implements OnInit {
   }
 
   sortColumn = {column: 'created_at', sort: 'desc'};
-
   searchText: string = '';
 
-  constructor(private orderHttp: OrderHttpService) { 
-    
+  @ViewChild(OrderEditModalComponent, {static: false}) orderEditModal: OrderEditModalComponent;
+
+  constructor(private orderHttp: OrderHttpService, protected orderEditService: OrderEditService) { 
+    this.orderEditService.orderListComponent = this;
   }
 
   ngOnInit() {
