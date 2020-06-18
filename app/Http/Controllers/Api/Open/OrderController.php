@@ -47,8 +47,22 @@ class OrderController extends Controller
 
         return new OpenOrderResource($order);
     }
+
+    public function update(Order $order)
+    {
+        $this->assertOrder($order);
+
+        if ($order->status != Order::STATUS_PENDING) {
+            abort(403, 'Alteração de status em pedido não autorizado');
+        }
+
+        $order->status = Order::STATUS_CANCELLED;
+        $order->save();
+
+        return new OpenOrderResource($order);
+    }
     
-    private function assertOrder($order)
+    private function assertOrder(Order $order)
     {
         if ($order->user_id !== Auth::guard('api')->user()->id) {
             abort(404);
