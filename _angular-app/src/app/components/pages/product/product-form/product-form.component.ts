@@ -9,8 +9,7 @@ import fieldsOptions from './product-fields-options';
 })
 export class ProductFormComponent implements OnInit {
 
-  @Input()
-  form: FormGroup;
+  @Input() form: FormGroup;
 
   constructor(private changeRef: ChangeDetectorRef) { }
 

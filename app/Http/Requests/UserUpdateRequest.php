@@ -3,9 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
 
-class UserRequest extends FormRequest
+class UserUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,11 +23,11 @@ class UserRequest extends FormRequest
      */
     public function rules()
     {
-        $userId = Auth::guard('api')->user()->id;
+        $userId = $this->user->id;
         return [
-            'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users,email',
-            'password' => 'required|min:4|max:16'
+            'name' => 'min:4|max:255',
+            'email' => 'email|max:255|unique:users,email,' . $userId,
+            'password' => 'min:4|max:16'
         ];
     }
 }

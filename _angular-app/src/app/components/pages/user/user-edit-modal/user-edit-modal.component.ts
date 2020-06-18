@@ -64,10 +64,15 @@ export class UserEditModalComponent implements OnInit {
   submit() {
     this.userHttp
       .update(this._userId, this.form.value)
-      .subscribe((user) => {  
-        this.onSuccess.emit(user);      
-        this.modal.hide();   
-      }, error => this.onError.emit(error));
+      .subscribe(
+        user => {
+          this.onSuccess.emit(user);      
+          this.modal.hide();   
+        }, 
+        error => {
+          this.onError.emit(error)
+        }  
+      );
   }
 
   showModal() {

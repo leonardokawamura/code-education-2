@@ -35,7 +35,10 @@ export class ProductPhotoEditModalComponent implements OnInit {
     }
     this.productPhotoHttp
       .update(this.productId, this.photoId, files[0])
-      .subscribe(data => this.onSuccess.emit(data),
+      .subscribe(
+        data => {          
+          this.onSuccess.emit(data)
+        },
         responseError => {
           if(responseError.status == 422) {
             this.errors = responseError.error.errors;

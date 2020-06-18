@@ -34,34 +34,33 @@ export class CategoryEditModalComponent implements OnInit {
   ngOnInit() {
   }
 
-  @Input()
-  set categoryId(value) {
-    this._categoryId = value;
-    if (this._categoryId) {
-      this.categoryHttp
-        .get(this._categoryId)   
-        .subscribe(
-          category => this.form.patchValue(category),
-          responseError => {
-            if(responseError.status == 401) {
-              this.modal.hide();
-            }
-          }
-        );
-    }    
-  }
-
   submit() {
     this.categoryHttp
       .update(this._categoryId, this.form.value)
       .subscribe((category) => {  
+        this.form.reset();
         this.onSuccess.emit(category);      
         this.modal.hide();   
       }, error => this.onError.emit(error));
   }
 
-  showModal() {
+  showModal(categoryId) {
+    this._categoryId = categoryId;
+    this.getCategory();
     this.modal.show();
+  }
+
+  getCategory() {
+    this.categoryHttp
+      .get(this._categoryId)   
+      .subscribe(
+        category => this.form.patchValue(category),
+        responseError => {
+          if(responseError.status == 401) {
+            this.modal.hide();
+          }
+        }
+      );
   }
 
   showErrors() {

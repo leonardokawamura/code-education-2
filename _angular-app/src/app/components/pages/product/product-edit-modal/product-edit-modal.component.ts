@@ -43,9 +43,11 @@ export class ProductEditModalComponent implements OnInit {
     if (this._productId) {
       this.productHttp
         .get(this._productId)   
-        .subscribe(product => {
+        .subscribe(
+          product => {
             this.form.patchValue(product);
-          }, error => {
+          }, 
+          error => {
             if(error.status == 401) {
               this.modal.hide();
             }
@@ -57,10 +59,15 @@ export class ProductEditModalComponent implements OnInit {
   submit() {
     this.productHttp
       .update(this._productId, this.form.value)
-      .subscribe((product) => {  
-        this.onSuccess.emit(product);      
-        this.modal.hide();   
-      }, error => this.onError.emit(error));
+      .subscribe(
+        product => {  
+          this.onSuccess.emit(product);      
+          this.modal.hide();   
+        }, 
+        error => {
+          this.onError.emit(error)
+        }
+      );
   }
 
   showModal() {

@@ -36,37 +36,35 @@ export class ChatGroupEditModalComponent implements OnInit {
   ngOnInit() {
   }
 
-  @Input()
-  set chatGroupId(value) {
-    this._chatGroupId = value;
-    if (this._chatGroupId) {
-      this.chatGroupHttp
-        .get(this._chatGroupId)   
-        .subscribe(
-          chatGroup => {
-            this.chatGroup = chatGroup;
-            this.form.patchValue(chatGroup);
-          },
-          responseError => {
-            if(responseError.status == 401) {
-              this.modal.hide();
-            }
-          }
-        );
-    }    
-  }
-
   submit() {
     this.chatGroupHttp
       .update(this._chatGroupId, this.form.value)
-      .subscribe((chatGroup) => {          
+      .subscribe((chatGroup) => {  
         this.onSuccess.emit(chatGroup);      
         this.modal.hide();        
       }, error => this.onError.emit(error));
   }
 
-  showModal() {
+  showModal(chatGroupId) {
+    this._chatGroupId = chatGroupId;
+    this.getChatGroup();
     this.modal.show();
+  }
+
+  getChatGroup() {
+    this.chatGroupHttp
+      .get(this._chatGroupId)   
+      .subscribe(
+        chatGroup => {
+          this.chatGroup = chatGroup;
+          this.form.patchValue(chatGroup);
+        },
+        responseError => {
+          if(responseError.status == 401) {
+            this.modal.hide();
+          }
+        }
+      );
   }
 
   showErrors() {
