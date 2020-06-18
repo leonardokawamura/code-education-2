@@ -2,8 +2,9 @@ import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/cor
 import { HttpErrorResponse } from '@angular/common/http';
 import { ModalComponent } from '../../../bootstrap/modal/modal.component';
 import { OrderStatus, Order } from '../../../../model';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { OrderHttpService } from '../../../../services/http/order-http.service';
+import { Validators } from '../../../../common/validators';
 
 @Component({
   selector: 'order-edit-modal',
@@ -25,7 +26,7 @@ export class OrderEditModalComponent implements OnInit {
   
   constructor(private orderHttp: OrderHttpService, private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({   
-      payment_link: '',
+      payment_link: ['', Validators.urlOrEmpty],
       obs: ''
     });
   }

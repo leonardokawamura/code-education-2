@@ -13,7 +13,7 @@ class OrderFilter extends SimpleQueryFilter
     /**
      * @var		array	$simpleSorts
      */
-    protected $simpleSorts = ['id', 'total', 'created_at', 'user', 'product'];
+    protected $simpleSorts = ['id', 'total', 'created_at', 'user', 'product', 'status'];
 
     protected function applySearch($value)
     {
@@ -29,7 +29,7 @@ class OrderFilter extends SimpleQueryFilter
 
     protected function applySortProduct($order)
     {
-        $this->query->orderBy('produccts.name', $order);
+        $this->query->orderBy('products.name', $order);
     } 
 
     public function apply($query)
