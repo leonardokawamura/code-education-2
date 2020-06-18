@@ -83,8 +83,8 @@ export class UserEditModalComponent implements OnInit {
     return Object.keys(this.errors).length != 0;
   }
 
-  hideModal($event: Event) {
-    
+  hideModal($event: Event) {    
+    this.errors = {};
   }
 
 }

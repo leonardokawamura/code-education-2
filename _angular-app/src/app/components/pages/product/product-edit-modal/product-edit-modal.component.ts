@@ -79,7 +79,7 @@ export class ProductEditModalComponent implements OnInit {
   }
 
   hideModal($event: Event) {
-    
+    this.errors = {};
   }
 
 }

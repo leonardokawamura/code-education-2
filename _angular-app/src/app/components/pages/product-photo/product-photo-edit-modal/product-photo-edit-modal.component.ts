@@ -54,6 +54,7 @@ export class ProductPhotoEditModalComponent implements OnInit {
 
   hideModal() {     
     this.modal.hide();
+    this.errors = {};
   }
 
   showErrors() {

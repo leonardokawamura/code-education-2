@@ -87,6 +87,7 @@ export class ChatGroupLinkInvEditModalComponent implements OnInit {
   }
   hideModal() {
     this.modal.hide();
+    this.errors = {};
   }
 
   showErrors() {

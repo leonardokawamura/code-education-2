@@ -33,7 +33,7 @@ class OrderController extends Controller
                 'in:' . Order::STATUS_APPROVED . ',' . Order::STATUS_CANCELLED . ',' . Order::STATUS_SENT,
                 new OrderStatusChange($order->status)
             ],
-            'payment' => [
+            'payment_link' => [
                 'nullable',
                 'url',
                 new OrderPaymentLinkChange($order->status)

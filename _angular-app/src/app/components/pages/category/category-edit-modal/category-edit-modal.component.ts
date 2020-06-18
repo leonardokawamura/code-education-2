@@ -69,6 +69,7 @@ export class CategoryEditModalComponent implements OnInit {
 
   hideModal($event: Event) {
     this.form.reset();
+    this.errors = {};
   }
 
 }

@@ -73,6 +73,7 @@ export class ChatGroupEditModalComponent implements OnInit {
 
   hideModal($event: Event) {
     this.form.reset();
+    this.errors = {};
   }
 
 }

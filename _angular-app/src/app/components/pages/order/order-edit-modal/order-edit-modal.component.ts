@@ -24,9 +24,9 @@ export class OrderEditModalComponent implements OnInit {
   @ViewChild(ModalComponent, {static: false}) modal: ModalComponent;
   
   constructor(private orderHttp: OrderHttpService, private formBuilder: FormBuilder) {
-    this.form = this.formBuilder.group({
-      name: '',
-      active: true
+    this.form = this.formBuilder.group({   
+      payment_link: '',
+      obs: ''
     });
   }
 
@@ -37,8 +37,8 @@ export class OrderEditModalComponent implements OnInit {
     this.orderHttp
       .update(this._orderId, {
         status: status,
-        //obs: this.form.get('obs').value,
-        /*payment_link: isPaymentLinkDisabled
+        obs: this.form.get('obs').value,
+        payment_link: this.form.get('payment_link').value /*isPaymentLinkDisabled
           ? null
           : this.form.get('payment_link').value*/
       })
@@ -78,6 +78,7 @@ export class OrderEditModalComponent implements OnInit {
   hideModal($event) {
     this.modal.hide();
     this.reset();
+    this.errors = {};
   }
 
   reset() {
