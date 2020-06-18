@@ -49,6 +49,8 @@ import { ProductSearchOptionsComponent } from '../components/product-search-opti
 import { CategoryHttpProvider } from '../providers/http/category-http';
 import { ProductDetailPage } from '../pages/product-detail/product-detail';
 import { ProductPhotosPage } from '../pages/product-photos/product-photos';
+import { OrderListComponent } from '../components/order-list/order-list';
+import { OrderHttpProvider } from '../providers/http/order-http';
 
 function jwtFactory(authService: AuthProvider) {
   return {
@@ -82,7 +84,8 @@ function jwtFactory(authService: AuthProvider) {
     MoreOptionsComponent,
     ProductListComponent,
     ProductSearchbarComponent,
-    ProductSearchOptionsComponent    
+    ProductSearchOptionsComponent ,
+    OrderListComponent  
   ],
   imports: [
     BrowserModule,
@@ -119,7 +122,8 @@ function jwtFactory(authService: AuthProvider) {
     MoreOptionsComponent,
     ProductListComponent,
     ProductSearchbarComponent,
-    ProductSearchOptionsComponent
+    ProductSearchOptionsComponent,
+    OrderListComponent
   ],
   providers: [
     StatusBar,
@@ -148,7 +152,8 @@ function jwtFactory(authService: AuthProvider) {
     ChatInvitationProvider,
     ProductHttpProvider,
     ProductSearchProvider,
-    CategoryHttpProvider   
+    CategoryHttpProvider,
+    OrderHttpProvider   
   ]
 })
 export class AppModule {}

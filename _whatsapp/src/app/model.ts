@@ -70,3 +70,24 @@ export interface ProductPhoto {
     readonly created_at: {date: string};
     readonly update_at: {date: string}; 
 }
+
+export enum OrderStatus {
+    STATUS_PENDING = 1,
+    STATUS_APPROVED = 2,
+    STATUS_CANCELLED = 3,
+    STATUS_SENT = 4
+}
+
+export interface Order {
+    readonly id: number;
+    readonly total: number;
+    readonly status: OrderStatus;
+    readonly payment_link: string;
+    readonly product: Product;
+    readonly amount: number;
+    readonly price: number;
+    readonly user: User;
+    readonly obs: string;
+    readonly created_at?: {date: string};
+    readonly update_at?: {date: string};
+}

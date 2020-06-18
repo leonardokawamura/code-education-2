@@ -5,10 +5,10 @@ import { AudioRecorderProvider } from '../../providers/audio-recorder/audio-reco
 import { RedirectIfNotAuthProvider } from '../../providers/redirect-if-not-auth/redirect-if-not-auth';
 import { MoreOptionsComponent } from '../../components/more-options/more-options';
 import { PushNotificationProvider } from '../../providers/push-notification/push-notification';
-import { FirebaseMessaging } from '@ionic-native/firebase-messaging';
 import { SuperTab, SuperTabs } from 'ionic2-super-tabs';
 import { ChatInvitationProvider } from '../../providers/chat-invitation/chat-invitation';
 import { ProductListComponent } from '../../components/product-list/product-list';
+import { OrderListComponent } from '../../components/order-list/order-list';
 
 /**
  * Generated class for the MainPage page.
@@ -26,6 +26,7 @@ export class MainPage {
 
   chatGroupList = ChatGroupListComponent;
   productList = ProductListComponent;
+  orderList = OrderListComponent;
   canShowSearchbar = false;
 
   @ViewChild(SuperTabs) superTabs: SuperTabs;

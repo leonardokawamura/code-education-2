@@ -18,7 +18,7 @@ export interface Order {
     readonly id?: number;
     readonly total: number;
     status: OrderStatus;
-    pripyament_link: string;
+    payment_link: string;
     readonly product: Product;
     readonly amount: number;
     readonly price: number;
