@@ -33,14 +33,14 @@ export class OrderEditModalComponent implements OnInit {
   ngOnInit() {}
 
   submit(status: OrderStatus = null) {
-    /*const isPaymentLinkDisabled = this.form.get('payment_link').disabled;
+    //const isPaymentLinkDisabled = this.form.get('payment_link').disabled;
     this.orderHttp
       .update(this._orderId, {
         status: status,
-        obs: this.form.get('obs').value,
-        payment_link: isPaymentLinkDisabled
+        //obs: this.form.get('obs').value,
+        /*payment_link: isPaymentLinkDisabled
           ? null
-          : this.form.get('payment_link').value
+          : this.form.get('payment_link').value*/
       })
       .subscribe(
         order => {
@@ -54,7 +54,7 @@ export class OrderEditModalComponent implements OnInit {
           this.onError.emit(responseError);
         }
       );
-    return false;*/
+    return false;
   }
 
   showModal(orderId) {
