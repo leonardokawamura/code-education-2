@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { ProductHttpProvider } from '../../providers/http/product-http.';
 import { Product, ProductPhoto } from '../../app/model';
 import { ProductPhotosPage } from '../product-photos/product-photos';
+import { OrderStorePage } from '../order-store/order-store';
 
 /**
  * Generated class for the ProductDetailPage page.
@@ -23,7 +24,8 @@ export class ProductDetailPage {
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
-              private productHttp: ProductHttpProvider) {
+              private productHttp: ProductHttpProvider,
+              private modalCtrl: ModalController) {
     this.productId = this.navParams.get('product');            
   }
 
@@ -34,6 +36,11 @@ export class ProductDetailPage {
 
   openPhotos() {
     this.navCtrl.push(ProductPhotosPage, {product_data: this.productData});
+  }
+
+  openOrderStore() {
+    const modal = this.modalCtrl.create(OrderStorePage, {product: this.productData.product});
+    modal.present();
   }
 
 }

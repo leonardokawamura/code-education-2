@@ -51,6 +51,8 @@ import { ProductDetailPage } from '../pages/product-detail/product-detail';
 import { ProductPhotosPage } from '../pages/product-photos/product-photos';
 import { OrderListComponent } from '../components/order-list/order-list';
 import { OrderHttpProvider } from '../providers/http/order-http';
+import { OrderStorePage } from '../pages/order-store/order-store';
+import { OrderStorePageModule } from '../pages/order-store/order-store.module';
 
 function jwtFactory(authService: AuthProvider) {
   return {
@@ -85,7 +87,8 @@ function jwtFactory(authService: AuthProvider) {
     ProductListComponent,
     ProductSearchbarComponent,
     ProductSearchOptionsComponent ,
-    OrderListComponent  
+    OrderListComponent,
+    OrderStorePage  
   ],
   imports: [
     BrowserModule,
@@ -123,7 +126,8 @@ function jwtFactory(authService: AuthProvider) {
     ProductListComponent,
     ProductSearchbarComponent,
     ProductSearchOptionsComponent,
-    OrderListComponent
+    OrderListComponent,
+    OrderStorePage
   ],
   providers: [
     StatusBar,
