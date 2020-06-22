@@ -123,4 +123,5 @@
         <variable name="PAGE_LINK_DOMAIN" value="whatsappdevendas.page.link" />
         <variable name="FIREBASE_DYNAMIC_LINKS_VERSION" value="16.1.+" />
     </plugin>
+    <plugin name="cordova-clipboard" spec="^1.2.1" />
 </widget>
