@@ -27,4 +27,13 @@ export class OrderHttpProvider {
         );
   }
 
+  create(data: {product_id: number, amount: number}): Observable<Order> {
+    return this.http
+      .post<{data: Order}>(this.baseUrl, data)
+      .pipe(
+        map(response => response.data)
+      );
+  }
+
+
 }

@@ -4,6 +4,7 @@ import { ProductHttpProvider } from '../../providers/http/product-http.';
 import { Product, ProductPhoto } from '../../app/model';
 import { ProductPhotosPage } from '../product-photos/product-photos';
 import { OrderStorePage } from '../order-store/order-store';
+import { OrderDetailPage } from '../order-detail/order-detail';
 
 /**
  * Generated class for the ProductDetailPage page.
@@ -40,6 +41,11 @@ export class ProductDetailPage {
 
   openOrderStore() {
     const modal = this.modalCtrl.create(OrderStorePage, {product: this.productData.product});
+    modal.onDidDismiss(result => {
+      if (result) {
+        this.navCtrl.push(OrderDetailPage, {order: result});        
+      }
+    });
     modal.present();
   }
 

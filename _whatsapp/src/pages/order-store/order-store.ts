@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, LoadingController, ToastController } from 'ionic-angular';
 import { Product } from '../../app/model';
 import { OrderHttpProvider } from '../../providers/http/order-http';
+import { HttpErrorResponse } from '@angular/common/http';
 
 /**
  * Generated class for the OrderStorePage page.
@@ -23,7 +24,9 @@ export class OrderStorePage {
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               private ordertHttp: OrderHttpProvider,
-              private viewCtrl: ViewController) {
+              private viewCtrl: ViewController,
+              private loadingCtrl: LoadingController,
+              private toastCtrl: ToastController) {
     this.product = this.navParams.get('product');
     console.log(this.product);
   }
@@ -33,7 +36,28 @@ export class OrderStorePage {
   }
 
   submit() {
-    
+    const loader = this.loadingCtrl.create({
+      content: 'Carregando...'
+    });
+    this.ordertHttp
+      .create({
+        product_id: this.product.id,
+        amount: this.amount
+      })
+      .subscribe(
+        (order) => {
+          loader.dismiss();
+          const toast = this.toastCtrl.create({
+            message: 'Pedido realizado com sucesso',
+            duration: 7000
+          });
+          toast.present();
+          this.viewCtrl.dismiss(order);
+        },
+        (resonseError: HttpErrorResponse) => {
+          loader.dismiss();
+        }
+      );
   }
 
   close() {

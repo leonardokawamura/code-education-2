@@ -53,6 +53,7 @@ import { OrderListComponent } from '../components/order-list/order-list';
 import { OrderHttpProvider } from '../providers/http/order-http';
 import { OrderStorePage } from '../pages/order-store/order-store';
 import { OrderStorePageModule } from '../pages/order-store/order-store.module';
+import { OrderDetailPage } from '../pages/order-detail/order-detail';
 
 function jwtFactory(authService: AuthProvider) {
   return {
@@ -88,7 +89,8 @@ function jwtFactory(authService: AuthProvider) {
     ProductSearchbarComponent,
     ProductSearchOptionsComponent ,
     OrderListComponent,
-    OrderStorePage  
+    OrderStorePage,
+    OrderDetailPage  
   ],
   imports: [
     BrowserModule,
@@ -127,7 +129,8 @@ function jwtFactory(authService: AuthProvider) {
     ProductSearchbarComponent,
     ProductSearchOptionsComponent,
     OrderListComponent,
-    OrderStorePage
+    OrderStorePage,
+    OrderDetailPage
   ],
   providers: [
     StatusBar,

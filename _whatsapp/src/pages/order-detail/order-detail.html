@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-navbar color="green-dark">       
+    <!--<ion-title>{{ order.total | numberFormatBr }} - {{ order.product.name }}</ion-title>-->
+    <ion-title>Detalhes do pedido</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-card>
+    <ion-card-title text-center>
+      <h3>
+        <!--<order-status [status]="order.status"></order-status>-->
+      </h3>
+    </ion-card-title>    
+    <img [src]="order.product.photo_url" alt="">
+    <ion-card-content>
+      <h2>
+        <strong>{{ order.product.name.toUpperCase() }}</strong>
+      </h2>      
+      <p>{{ order.product.description }}</p><br>
+      <p>
+        <strong>Preço: {{ order.price | numberFormatBr }} / <strong>Quantidade: {{ order.amount }}</strong></strong>
+      </p>
+      <p>
+        <strong>Total: {{ order.total | numberFormatBr }}</strong>
+      </p>
+      <div text-center *ngIf="order.payment_link">
+        <button ion-button color="green-dark" outline>Copiar link de pagamento</button>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Order } from '../../app/model';
-import { InfiniteScroll, Refresher, ToastController, Toast, App } from 'ionic-angular';
+import { InfiniteScroll, Refresher, Toast, NavParams } from 'ionic-angular';
 import { OrderHttpProvider } from '../../providers/http/order-http';
+import { OrderDetailPage } from '../../pages/order-detail/order-detail';
 
 @Component({
   selector: 'order-list',
@@ -16,9 +17,8 @@ export class OrderListComponent {
   canMoreOrder = true;
   toastLoading: Toast;
 
-  constructor(private orderHttp: OrderHttpProvider,
-              private toastCtrl: ToastController,
-              private app: App) {}
+  constructor(private orderHttp: OrderHttpProvider,              
+              private navParams: NavParams) {}
 
   getOrders() {
     return this.orderHttp.list(this.page);
@@ -68,5 +68,10 @@ export class OrderListComponent {
       }  
     );
   } 
+
+  openOrderDetail(order) {
+    const navRoot = this.navParams.get('rootNavCtrl');
+    navRoot.push(OrderDetailPage, {order})
+  }
 
 }
