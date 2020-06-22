@@ -29,6 +29,9 @@
       <div text-center *ngIf="order.payment_link">
         <button ion-button color="green-dark" outline>Copiar link de pagamento</button>
       </div>
+      <p text-center *ngIf="order.status == STATUS_ENUM.STATUS_PENDING">
+        <button ion-button color="danger" (click)="cancel()">Cancelar</button>
+      </p>
     </ion-card-content>
   </ion-card>
 </ion-content>

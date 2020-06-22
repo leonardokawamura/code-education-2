@@ -17,8 +17,6 @@ export class OrderStatusComponent {
 
   @Input() status: OrderStatus;
 
-  constructor() {
-    console.log(this.STATUS_ENUM);
-  }
+  constructor() { }
 
 }
