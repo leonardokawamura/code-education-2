@@ -7,10 +7,12 @@
       <ion-avatar item-start>
         <img [src]="order.product.photo_url | buildUrl" alt="">
       </ion-avatar>
-      <h2>{{order.total | numberFormatBr}} - {{order.product.name}}</h2>
-      <p text-right>
-        <!--<order-status [status]="order.status"></order-status>-->
-        {{ order.created_at.date | date: 'dd/MM/yyyy' }}
+      <!--<h2>{{order.total | numberFormatBr}} - {{order.product.name}}</h2>-->
+      <h2>
+        <strong>Pedido nº {{ order.id }}</strong> - {{ order.created_at.date | date: 'dd/MM/yyyy' }}        
+      </h2>
+      <p text-left>        
+        <order-status [status]="order.status"></order-status>
       </p>
     </ion-item>
   </ion-list>

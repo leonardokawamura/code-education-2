@@ -1,3 +1,17 @@
 page-order-detail {
-
+    order-status {
+        ion-badge {
+            font-size: 1.7rem;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+    }
+    ion-card-title {
+        background-color: #333;
+        margin: 0 !important;
+        padding-top: 12px !important;
+        h2 {
+            color: #fff !important;
+        }
+    }    
 }

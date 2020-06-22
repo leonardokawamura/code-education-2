@@ -8,16 +8,18 @@
 <ion-content padding>
   <ion-card>
     <ion-card-title text-center>
-      <h3>
-        <!--<order-status [status]="order.status"></order-status>-->
-      </h3>
+      <h2><strong>PEDIDO Nº {{ order.id }}: </strong>
+        <order-status [status]="order.status"></order-status>
+      </h2>
     </ion-card-title>    
     <img [src]="order.product.photo_url" alt="">
     <ion-card-content>
       <h2>
         <strong>{{ order.product.name.toUpperCase() }}</strong>
       </h2>      
-      <p>{{ order.product.description }}</p><br>
+      <p>
+        {{ order.product.description }}
+      </p><br>      
       <p>
         <strong>Preço: {{ order.price | numberFormatBr }} / <strong>Quantidade: {{ order.amount }}</strong></strong>
       </p>

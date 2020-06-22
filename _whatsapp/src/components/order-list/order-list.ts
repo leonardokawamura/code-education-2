@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Order } from '../../app/model';
+import { Order, OrderStatus } from '../../app/model';
 import { InfiniteScroll, Refresher, Toast, NavParams } from 'ionic-angular';
 import { OrderHttpProvider } from '../../providers/http/order-http';
 import { OrderDetailPage } from '../../pages/order-detail/order-detail';
@@ -10,6 +10,7 @@ import { OrderDetailPage } from '../../pages/order-detail/order-detail';
 })
 export class OrderListComponent {
 
+  STATUS_ENUM: OrderStatus;
   orders: {data: Order[]} = {
     data: []
   };

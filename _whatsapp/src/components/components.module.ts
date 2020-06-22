@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
-import { ProductSearchOptionsComponent } from './product-search-options/product-search-options';
 
 @NgModule({
-	declarations: [ProductSearchOptionsComponent],
+	declarations: [],
 	imports: [],
-	exports: [ProductSearchOptionsComponent]
+	exports: []
 })
 export class ComponentsModule {}
