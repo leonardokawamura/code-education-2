@@ -1,7 +1,3 @@
-// This file can be replaced during build by using the `fileReplacements` array.
-// `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
-// The list of file replacements can be found in `angular.json`.
-
 export const environment = {
   production: false,
   api: {
@@ -10,14 +6,18 @@ export const environment = {
     get url() {
       return `${this.protocol}://${this.host}/api`
     }
-  }
+  },
+  firebaseConfig: {
+    apiKey: "AIzaSyD0_2--czFM1gy2zt8HETDI780l9sCkzzs",
+    authDomain: "whatsapp-de-vendas.firebaseapp.com",
+    databaseURL: "https://whatsapp-de-vendas.firebaseio.com",
+    projectId: "whatsapp-de-vendas",
+    storageBucket: "whatsapp-de-vendas.appspot.com",
+    messagingSenderId: "462348407056",
+    appId: "1:462348407056:web:d14cb2397a4b6a5aced595"
+  },
+  whiteListDomains: [
+    new RegExp('dev.code-education.com.br/*'),
+    new RegExp('192.168.1.6:8000/*')
+  ]
 };
-
-/*
- * For easier debugging in development mode, you can import the following file
- * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
- *
- * This import should be commented out in production mode because it will have a negative impact
- * on performance if an error is thrown.
- */
-// import 'zone.js/dist/zone-error';  // Included with Angular CLI.

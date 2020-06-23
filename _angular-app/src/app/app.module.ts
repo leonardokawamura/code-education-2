@@ -74,13 +74,11 @@ import { OrderSearchFormComponent } from './components/pages/order/order-search-
 import { OrderStatusComponent } from './components/pages/order/order-status/order-status.component';
 import { OrderEditModalComponent } from './components/pages/order/order-edit-modal/order-edit-modal.component';
 import { OrderFormComponent } from './components/pages/order/order-form/order-form.component';
+import { environment } from '../environments/environment';
 
 export function jwtFactory(authService: AuthService) {
   return {
-    whitelistedDomains: [
-      new RegExp('dev.code-education.com.br/*'),
-      new RegExp('192.168.1.6:8000/*')
-    ],
+    whitelistedDomains: environment.whiteListDomains,
     tokenGetter: () => {
       return authService.getToken()
     }

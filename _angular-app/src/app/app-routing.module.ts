@@ -15,6 +15,7 @@ import { ChatGroupUserListComponent } from './components/pages/chat-group-user/c
 import { ChatGroupLinkInvListComponent } from './components/pages/chat-group-link-inv/chat-group-link-inv-list/chat-group-link-inv-list.component';
 import { ChatInvUserListComponent } from './components/pages/chat-inv-user/chat-inv-user-list/chat-inv-user-list.component';
 import { OrderListComponent } from './components/pages/order/order-list/order-list.component';
+import { environment } from '../environments/environment';
 
 const routes: Routes = [
   {
@@ -94,9 +95,15 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
-  providers: [AuthGuard]
+  imports: [
+    RouterModule.forRoot(routes, {enableTracing: !environment.production})
+  ],
+  exports: [
+    RouterModule
+  ],
+  providers: [
+    AuthGuard
+  ]
 })
 export class AppRoutingModule { 
 
