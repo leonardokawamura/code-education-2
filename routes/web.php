@@ -29,3 +29,7 @@ Route::name('customers.web_phone_number_update')->get('customers/phone_number_up
 Route::get('/admin', function () {
     return view('angular');
 });
+
+Route::get('/admin/{params}', function ($params) {
+    return view('angular');
+})->where('params', '.*');
