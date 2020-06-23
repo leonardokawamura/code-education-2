@@ -6,10 +6,10 @@
     <table class="table table-bordered">
         <thead class="thead-dark">            
             <tr>
-                <th style="width: 5%" [sortColumn]="sortColumn" columnName="id" (onSort)="sort($event)">ID</th>
-                <th style="width: 45%" [sortColumn]="sortColumn" columnName="name" (onSort)="sort($event)">Nome</th>
-                <th style="width: 25%" [sortColumn]="sortColumn" columnName="email" (onSort)="sort($event)">E-mail</th>
-                <th style="width: 25%" [sortColumn]="sortColumn" columnName="phone" (onSort)="sort($event)">Telefone</th>
+                <th style="width: 5%" [sortColumn]="sortColumn" columnName="id" (onSort)="sort()">ID</th>
+                <th style="width: 45%" [sortColumn]="sortColumn" columnName="name" (onSort)="sort()">Nome</th>
+                <th style="width: 25%" [sortColumn]="sortColumn" columnName="email" (onSort)="sort()">E-mail</th>
+                <th style="width: 25%" [sortColumn]="sortColumn" columnName="phone" (onSort)="sort()">Telefone</th>
                 <th style="width: 10%">Ações</th>
             </tr>
         </thead>

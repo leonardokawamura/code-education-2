@@ -27,7 +27,7 @@ export class ProductInputListComponent implements OnInit {
   inputNewModal: ProductInputNewModalComponent;
 
   constructor(private inputHttp: ProductInputHttpService,
-              protected inputInsertService: ProductInputInsertService) { 
+              public inputInsertService: ProductInputInsertService) { 
     this.inputInsertService.inputListComponent = this;
   }
 

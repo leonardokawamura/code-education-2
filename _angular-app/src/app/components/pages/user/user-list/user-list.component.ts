@@ -40,9 +40,9 @@ export class UserListComponent implements OnInit {
 
   constructor(
     private userHttp: UserHttpService,
-    protected userInsertService: UserInsertService,
-    protected userEditService: UserEditService,
-    protected userDeleteService: UserDeleteService
+    public userInsertService: UserInsertService,
+    public userEditService: UserEditService,
+    public userDeleteService: UserDeleteService
   ) { 
     this.userInsertService.userListComponent = this;
     this.userEditService.userListComponent = this;

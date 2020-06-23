@@ -43,9 +43,9 @@ export class ChatGroupLinkInvListComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private linkInvHttp: ChatGroupLinkInvHttpService,
-              protected linkInvInsertService: ChatGroupLinkInvInsertService,
-              protected linkInvEditService: ChatGroupLinkInvEditService,
-              protected linkInvDeleteService: ChatGroupLinkInvDeleteService) { 
+              public linkInvInsertService: ChatGroupLinkInvInsertService,
+              public linkInvEditService: ChatGroupLinkInvEditService,
+              public linkInvDeleteService: ChatGroupLinkInvDeleteService) { 
     this.linkInvInsertService.linkInvListComponent = this;
     this.linkInvEditService.linkInvListComponent = this;
     this.linkInvDeleteService.linkInvListComponent = this;

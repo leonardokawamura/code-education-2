@@ -27,7 +27,7 @@ export class ProductOutputListComponent implements OnInit {
   outputNewModal: ProductOutputNewModalComponent;
 
   constructor(private outputHttp: ProductOutputHttpService,
-              protected outputInsertService: ProductOutputInsertService) { 
+              public outputInsertService: ProductOutputInsertService) { 
     this.outputInsertService.outputListComponent = this;
   }
 

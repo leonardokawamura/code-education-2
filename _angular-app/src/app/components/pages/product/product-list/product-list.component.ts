@@ -40,9 +40,9 @@ export class ProductListComponent implements OnInit {
 
   constructor(
     private productHttp: ProductHttpService,
-    protected productInsertService: ProductInsertService,
-    protected productEditService: ProductEditService,
-    protected productDeleteService: ProductDeleteService
+    public productInsertService: ProductInsertService,
+    public productEditService: ProductEditService,
+    public productDeleteService: ProductDeleteService
   ) { 
     this.productInsertService.productListComponent = this;
     this.productEditService.productListComponent = this;

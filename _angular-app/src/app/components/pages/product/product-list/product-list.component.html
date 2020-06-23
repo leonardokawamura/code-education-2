@@ -13,11 +13,11 @@
     <table class="table table-bordered">
         <thead class="thead-dark">            
             <tr>
-                <th style="width: 6%" [sortColumn]="sortColumn" columnName="id" (onSort)="sort($event)">ID</th>
-                <th style="width: 42%" [sortColumn]="sortColumn" columnName="name" (onSort)="sort($event)">Nome</th>
-                <th style="width: 10%" [sortColumn]="sortColumn" columnName="price" (onSort)="sort($event)">Preço</th>
+                <th style="width: 6%" [sortColumn]="sortColumn" columnName="id" (onSort)="sort()">ID</th>
+                <th style="width: 42%" [sortColumn]="sortColumn" columnName="name" (onSort)="sort()">Nome</th>
+                <th style="width: 10%" [sortColumn]="sortColumn" columnName="price" (onSort)="sort()">Preço</th>
                 <th style="width: 8%">Ativa?</th>
-                <th style="width: 12%" [sortColumn]="sortColumn" columnName="created_at" (onSort)="sort($event)">Criada em</th>
+                <th style="width: 12%" [sortColumn]="sortColumn" columnName="created_at" (onSort)="sort()">Criada em</th>
                 <th style="width: 22%">Ações</th>
             </tr>
         </thead>

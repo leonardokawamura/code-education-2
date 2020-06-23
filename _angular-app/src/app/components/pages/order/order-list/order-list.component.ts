@@ -24,7 +24,7 @@ export class OrderListComponent implements OnInit {
 
   @ViewChild(OrderEditModalComponent, {static: false}) orderEditModal: OrderEditModalComponent;
 
-  constructor(private orderHttp: OrderHttpService, protected orderEditService: OrderEditService) { 
+  constructor(private orderHttp: OrderHttpService, public orderEditService: OrderEditService) { 
     this.orderEditService.orderListComponent = this;
   }
 

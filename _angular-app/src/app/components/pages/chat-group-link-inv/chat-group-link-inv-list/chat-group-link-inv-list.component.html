@@ -11,11 +11,11 @@
     <table class="table table-bordered">
         <thead class="thead-dark">            
             <tr>
-                <th [sortColumn]="sortColumn" columnName="id" (onSort)="sort($event)">ID</th>
+                <th [sortColumn]="sortColumn" columnName="id" (onSort)="sort()">ID</th>
                 <th>Link</th>
-                <th [sortColumn]="sortColumn" columnName="total" (onSort)="sort($event)">Total</th>
-                <th [sortColumn]="sortColumn" columnName="remaining" (onSort)="sort($event)">Restante</th>
-                <th [sortColumn]="sortColumn" columnName="expires_at" (onSort)="sort($event)">Expira</th>
+                <th [sortColumn]="sortColumn" columnName="total" (onSort)="sort()">Total</th>
+                <th [sortColumn]="sortColumn" columnName="remaining" (onSort)="sort()">Restante</th>
+                <th [sortColumn]="sortColumn" columnName="expires_at" (onSort)="sort()">Expira</th>
                 <th style="width: 10%">Ações</th>
             </tr>
         </thead>

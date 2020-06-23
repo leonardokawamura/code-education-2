@@ -11,10 +11,10 @@
     <table class="table table-bordered">
         <thead class="thead-dark">            
             <tr>
-                <th style="width: 5%" [sortColumn]="sortColumn" columnName="id" (onSort)="sort($event)">ID</th>
-                <th style="width: 57%" [sortColumn]="sortColumn" columnName="name" (onSort)="sort($event)">Nome</th>
-                <th style="width: 10%" [sortColumn]="sortColumn" columnName="users" (onSort)="sort($event)">Usuários</th>
-                <th style="width: 10%" [sortColumn]="sortColumn" columnName="created_at" (onSort)="sort($event)">Criado em</th>
+                <th style="width: 5%" [sortColumn]="sortColumn" columnName="id" (onSort)="sort()">ID</th>
+                <th style="width: 57%" [sortColumn]="sortColumn" columnName="name" (onSort)="sort()">Nome</th>
+                <th style="width: 10%" [sortColumn]="sortColumn" columnName="users" (onSort)="sort()">Usuários</th>
+                <th style="width: 10%" [sortColumn]="sortColumn" columnName="created_at" (onSort)="sort()">Criado em</th>
                 <th style="width: 15%">Ações</th>
             </tr>
         </thead>

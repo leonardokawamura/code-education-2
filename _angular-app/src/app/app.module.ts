@@ -75,7 +75,7 @@ import { OrderStatusComponent } from './components/pages/order/order-status/orde
 import { OrderEditModalComponent } from './components/pages/order/order-edit-modal/order-edit-modal.component';
 import { OrderFormComponent } from './components/pages/order/order-form/order-form.component';
 
-function jwtFactory(authService: AuthService) {
+export function jwtFactory(authService: AuthService) {
   return {
     whitelistedDomains: [
       new RegExp('dev.code-education.com.br/*'),

@@ -40,9 +40,9 @@ export class ChatGroupListComponent implements OnInit {
 
   constructor(
     private chatGroupHttp: ChatGroupHttpService,
-    protected chatGroupInsertService: ChatGroupInsertService,
-    protected chatGroupEditService: ChatGroupEditService,
-    protected chatGroupDeleteService: ChatGroupDeleteService
+    public chatGroupInsertService: ChatGroupInsertService,
+    public chatGroupEditService: ChatGroupEditService,
+    public chatGroupDeleteService: ChatGroupDeleteService
   ) { 
     this.chatGroupInsertService.chatGroupListComponent = this;
     this.chatGroupEditService.chatGroupListComponent = this;

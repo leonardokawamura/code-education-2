@@ -52,7 +52,7 @@ export class ChatInvUserListComponent implements OnInit {
     this.getInvitations();
   }
 
-  sort(sortColumn) {
+  sort() {
     this.getInvitations();
   }
 

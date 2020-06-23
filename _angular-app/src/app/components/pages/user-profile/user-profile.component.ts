@@ -24,7 +24,7 @@ export class UserProfileComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private userProfileHttp: UserProfileHttpService,
               private notifyMessage: NotifyMessageService,
-              private authService: AuthService,
+              public authService: AuthService,
               private firebaseAuth: FirebaseAuthService) {
     this.form = this.formBuilder.group({
       name: ['', [
@@ -95,7 +95,7 @@ export class UserProfileComponent implements OnInit {
     this.phoneNumberAuthModal.showModal();
   }
 
-  onPhoneNumberVerification($event) {
+  onPhoneNumberVerification() {
     this.firebaseAuth.getUser().then(user => {
       this.form.get('phone_number').setValue(user.phoneNumber);
     });
