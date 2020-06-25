@@ -1,0 +1,33 @@
+runtime: php
+env: flex
+
+runtime_config:
+    document_root: public
+
+env_variables:
+    APP_NAME: Whatsapp de vendas
+    APP_ENV: prod
+    APP_KEY: 
+    APP_DEBUG: 
+    LOG_CHANNEL: 
+    JWT_SECRET: 
+    JWT_BLACKLIST_GRACE_PERIOD: 
+    FB_SERVER_KEY: 
+    MOBILE_PAGE_LINK: 
+    MOBILE_ID: 
+    CACHE_DRIVER: 
+    SESSION_DRIVER: 
+    DB_HOST: 
+    DB_PORT: 
+    DB_DATABASE: 
+    DB_USERNAME: 
+    DB_PASSWORD: 
+    DB_SOCKET: 
+    GOOGLE_CLOUD_PROJECT_ID: 
+    GOOGLE_CLOUD_KEY_FILE: 
+    GOOGLE_CLOUD_STORAGE_BUCKET: 
+    GOOGLE_CLOUD_STORAGE_API_URI:  
+    FILESYSTEM_DRIVER: 
+
+beta_settings:
+    cloud_sql_instances: 
