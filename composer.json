@@ -14,6 +14,7 @@
         "laravel/tinker": "^1.0",
         "mnabialek/laravel-eloquent-filter": "^0.1.1",
         "redjanym/php-firebase-cloud-messaging": "1.1.4",
+        "superbalist/laravel-google-cloud-storage": "2.2.1",
         "tymon/jwt-auth": "dev-develop#481c67b0d95ad14c3f3690bb6ec2a285c2f1ab1b"
     },
     "require-dev": {

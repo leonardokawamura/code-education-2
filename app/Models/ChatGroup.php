@@ -63,7 +63,7 @@ class ChatGroup extends Model
     private static function uploadPhoto(UploadedFile $photo) 
     {
         $dir = self::photoDir();
-        $photo->store($dir, ['disk' => 'public']);
+        $photo->store($dir, ['disk' => env('FILESYSTEM_DRIVER')]);
     }
 
     private static function deleteFile(UploadedFile $photo)
@@ -78,7 +78,7 @@ class ChatGroup extends Model
     private function deletePhoto()
     {
         $dir = self::photoDir();
-        Storage::disk('public')->delete("{$dir}/{$this->photo}");
+        Storage::disk(env('FILESYSTEM_DRIVER'))->delete("{$dir}/{$this->photo}");
     }
 
     private static function photoPath()
@@ -129,7 +129,8 @@ class ChatGroup extends Model
     
     public function getPhotoUrlAttribute()
     {
-        return asset("storage/{$this->photo_url_base}");
+        $fileSystemDriver = env('FILESYSTEM_DRIVER', 'local');
+        return $fileSystemDriver == 'local' ? asset("storage/{$this->photo_url_base}") : Storage::disk($fileSystemDriver)->url($this->photo_url_base);
     }
 
     public function getPhotoUrlBaseAttribute()

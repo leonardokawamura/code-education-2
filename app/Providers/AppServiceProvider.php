@@ -29,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
 
         ProductOutput::created(function($input) {
             $product = $input->product;            
-            $product->dereaseStock($input->amount);
+            $product->decreaseStock($input->amount);
         });
 
         ChatGroupInvitation::creating(function ($invitation) {
