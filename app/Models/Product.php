@@ -16,7 +16,7 @@ class Product extends Model
     use Sluggable, SoftDeletes, Filterable;
     
     protected $dates = ['deleted_at'];
-    protected $fillable = ['name', 'description', 'price', 'active'. 'photo'];
+    protected $fillable = ['name', 'description', 'price', 'active', 'photo'];
 
     const BASE_PATH = 'app/public';
     const DIR_PRODUCTS = 'products';
@@ -62,7 +62,7 @@ class Product extends Model
     private function deletePhoto()
     {
         $dir = self::photoDir();
-        Storage::disk('public')->delete("{$dir}/{$this->photo}");
+        Storage::disk(env('FILESYSTEM_DRIVER'))->delete("{$dir}/{$this->photo}");
     }
 
     private static function deleteFile(UploadedFile $photo)
@@ -83,12 +83,13 @@ class Product extends Model
     private static function uploadPhoto(UploadedFile $photo)
     {
         $dir = self::photoDir();
-        $photo->store($dir, ['disk' => 'public']);
+        $photo->store($dir, ['disk' => env('FILESYSTEM_DRIVER')]);
     }
 
     public function getPhotoUrlAttribute()
     {
-        return asset("storage/{$this->photo_url_without_asset}");
+        $fileSystemDriver = env('FILESYSTEM_DRIVER', 'local');
+        return $fileSystemDriver == 'local' ? asset("storage/{$this->photo_url_without_asset}") : Storage::disk($fileSystemDriver)->url($this->photo_url_without_asset);
     }
     
     public function getPhotoUrlWithoutAssetAttribute()
