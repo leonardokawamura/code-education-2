@@ -4,10 +4,10 @@ import { ResetPhoneNumberPage } from './reset-phone-number';
 
 @NgModule({
   declarations: [
-    ResetPhoneNumberPage,
+    //ResetPhoneNumberPage,
   ],
   imports: [
-    IonicPageModule.forChild(ResetPhoneNumberPage),
+    //IonicPageModule.forChild(ResetPhoneNumberPage),
   ],
 })
 export class ResetPhoneNumberPageModule {}

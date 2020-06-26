@@ -4,10 +4,10 @@ import { LoginPhoneNumberPage } from './login-phone-number';
 
 @NgModule({
   declarations: [
-    LoginPhoneNumberPage,
+    //LoginPhoneNumberPage,
   ],
   imports: [
-    IonicPageModule.forChild(LoginPhoneNumberPage),
+    //IonicPageModule.forChild(LoginPhoneNumberPage),
   ],
 })
 export class LoginPhoneNumberPageModule {}

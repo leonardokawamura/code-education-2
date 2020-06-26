@@ -4,10 +4,10 @@ import { OrderDetailPage } from './order-detail';
 
 @NgModule({
   declarations: [
-    OrderDetailPage,
+    //OrderDetailPage,
   ],
   imports: [
-    IonicPageModule.forChild(OrderDetailPage),
+    //IonicPageModule.forChild(OrderDetailPage),
   ],
 })
 export class OrderDetailPageModule {}

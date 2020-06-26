@@ -4,10 +4,10 @@ import { LoginOptionsPage } from './login-options';
 
 @NgModule({
   declarations: [
-    LoginOptionsPage,
+    //LoginOptionsPage,
   ],
   imports: [
-    IonicPageModule.forChild(LoginOptionsPage),
+    //IonicPageModule.forChild(LoginOptionsPage),
   ],
 })
 export class LoginOptionsPageModule {}

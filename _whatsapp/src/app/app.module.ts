@@ -56,7 +56,7 @@ import { OrderDetailPage } from '../pages/order-detail/order-detail';
 import { OrderStatusComponent } from '../components/order-status/order-status';
 import { Clipboard } from '@ionic-native/clipboard';
 
-function jwtFactory(authService: AuthProvider) {
+export function jwtFactory(authService: AuthProvider) {
   return {
     whitelistedDomains: [
       new RegExp('dev.code-education.com.br/*'),
