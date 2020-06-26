@@ -16,8 +16,7 @@ export class UserNewModalComponent implements OnInit {
 
   errors = {};
 
-  @ViewChild(ModalComponent, {static: false})
-  modal: ModalComponent;
+  @ViewChild(ModalComponent, {static: false}) modal: ModalComponent;
 
   @Output() onSuccess: EventEmitter<any> = new EventEmitter<any>();
   @Output() onError: EventEmitter<HttpErrorResponse> = new EventEmitter<HttpErrorResponse>();
@@ -33,7 +32,7 @@ export class UserNewModalComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    
   }
 
   submit() {
@@ -46,6 +45,7 @@ export class UserNewModalComponent implements OnInit {
   }
 
   showModal() {
+    this.form.reset();
     this.modal.show();
   }
 
@@ -54,7 +54,8 @@ export class UserNewModalComponent implements OnInit {
   }
 
   hideModal($event: Event) {
-    
+    this.errors = {};
+    this.form.reset();
   }
 
 }

@@ -71,5 +71,6 @@ export class ProductNewModalComponent implements OnInit {
 
   hideModal($event: Event) {
     this.errors = {};
+    this.form.reset();
   }
 }
