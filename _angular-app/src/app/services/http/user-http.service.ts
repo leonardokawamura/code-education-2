@@ -43,6 +43,9 @@ export class UserHttpService {
   }
 
   update(id: number, data: User): Observable<User> {
+    if (data.password == '' || data.password === null) {
+      delete data.password; 
+    }
     return this.http
       .put<{data: User}>(`${this.baseUrl}/${id}`, data)
         .pipe(

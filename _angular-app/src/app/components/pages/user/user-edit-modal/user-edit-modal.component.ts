@@ -34,7 +34,7 @@ export class UserEditModalComponent implements OnInit {
         Validators.maxLength(fieldsOptions.email.validationMessage.maxlength)
       ]],
       password: ['', [
-        Validators.required, 
+        //Validators.required, 
         Validators.maxLength(fieldsOptions.password.validationMessage.maxlength), 
         Validators.minLength(fieldsOptions.password.validationMessage.minlength)
       ]]
@@ -42,23 +42,6 @@ export class UserEditModalComponent implements OnInit {
   }
 
   ngOnInit() {
-  }
-
-  @Input()
-  set userId(value) {
-    this._userId = value;
-    if (this._userId) {
-      this.userHttp
-        .get(this._userId)   
-        .subscribe(
-          user => this.form.patchValue(user),
-          responseError => {
-            if(responseError.status == 401) {
-              this.modal.hide();
-            }
-          }
-        );
-    }    
   }
 
   submit() {
@@ -69,14 +52,36 @@ export class UserEditModalComponent implements OnInit {
           this.onSuccess.emit(user);      
           this.modal.hide();   
         }, 
-        error => {
-          this.onError.emit(error)
-        }  
+        responseError => {
+          if(responseError.status === 422) {
+            this.errors = responseError.error.errors;
+          } else {
+            this.onError.emit(responseError);
+          }          
+        } 
       );
   }
 
-  showModal() {
+  showModal(userId: number) {
+    this._userId = userId;
+    this.form.reset();
+    this.getUser();
     this.modal.show();
+  }
+
+  getUser() {
+    this.userHttp
+      .get(this._userId)   
+      .subscribe(
+        user => {
+          this.form.patchValue(user)
+        },
+        responseError => {
+          if(responseError.status == 401) {
+            this.modal.hide();
+          }
+        }
+      );
   }
 
   showErrors() {

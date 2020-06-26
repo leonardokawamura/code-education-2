@@ -17,7 +17,7 @@ const fieldsOptions: FieldsOptions = {
     },
     password: {
         id: 'password',
-        label: 'Password',
+        label: 'Senha',
         validationMessage: {
             maxlength: 16,
             minlength: 4

@@ -38,10 +38,19 @@ export class UserNewModalComponent implements OnInit {
   submit() {
     this.userHttp
       .create(this.form.value)
-      .subscribe((user) => {  
-        this.onSuccess.emit(user);      
-        this.modal.hide();      
-      }, error => this.onError.emit(error));
+      .subscribe(
+        user => {  
+          this.onSuccess.emit(user);      
+          this.modal.hide();      
+        }, 
+        responseError => {
+          if(responseError.status === 422) {
+            this.errors = responseError.error.errors;
+          } else {
+            this.onError.emit(responseError);
+          }          
+        }
+      );
   }
 
   showModal() {

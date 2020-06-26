@@ -17,8 +17,7 @@ export class UserEditService {
     }
 
     showModalEdit(userId: number) {
-        this._userListComponent.userId = userId;
-        this._userListComponent.userEditModal.showModal();
+        this._userListComponent.userEditModal.showModal(userId);
     }
 
     onEditSuccess($event: any) {
