@@ -5,7 +5,7 @@ const fieldsOptions: FieldsOptions = {
         id: 'name',
         label: 'Nome',
         validationMessage: {
-            maxlength: 5
+            maxlength: 255
         }
     },
     active: {
