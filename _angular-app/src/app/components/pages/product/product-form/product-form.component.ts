@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import fieldsOptions from './product-fields-options';
 
@@ -11,9 +11,12 @@ export class ProductFormComponent implements OnInit {
 
   @Input() form: FormGroup;
 
-  constructor(private changeRef: ChangeDetectorRef) { }
+  @ViewChild('photo', {static: false}) photoInput: ElementRef;
+
+  constructor(private changeRef: ChangeDetectorRef) { }  
 
   ngOnInit() {
+    this.photoInput.nativeElement.value = "";
   }
 
   ngOnChanges() {
@@ -22,6 +25,13 @@ export class ProductFormComponent implements OnInit {
 
   get fieldOptions(): any {
     return fieldsOptions;
+  }
+
+  onChoosePhoto(files: FileList) {
+    if (!files.length) {
+      return;
+    }
+    this.form.get('photo').setValue(files[0]);
   }
 
 }

@@ -6,6 +6,7 @@
                 <list-error [errors]="errors"></list-error>
             </card-error>                
             <product-form [form]="form"></product-form>
+            <img *ngIf="form.get('photo_url').value" [src]="form.get('photo_url').value" class="img-fluid">
         </div>
         <div modal-footer>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>

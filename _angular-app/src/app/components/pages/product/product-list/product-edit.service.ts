@@ -17,12 +17,11 @@ export class ProductEditService {
     }
 
     showModalEdit(productId: number) {
-        this._productListComponent.productId = productId;
-        this._productListComponent.productEditModal.showModal();
+        this._productListComponent.productEditModal.showModal(productId);
     }
 
     onEditSuccess($event: any) {
-        this.notifyMessage.success('Categoria atualizada com sucesso');
+        this.notifyMessage.success('Produto atualizado com sucesso');
         this._productListComponent.getProducts();
     }
 

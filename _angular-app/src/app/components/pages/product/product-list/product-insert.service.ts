@@ -26,7 +26,7 @@ export class ProductInsertService {
     }
 
     onInsertError($event: HttpErrorResponse) {
-        console.log($event);
+        this.notifyMessage.error('Houve um erro na atualização, tente novamente');
     }
 
 }

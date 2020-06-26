@@ -1,10 +1,10 @@
-import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter, ElementRef } from '@angular/core';
 import { ModalComponent } from 'src/app/components/bootstrap/modal/modal.component';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Product } from 'src/app/model';
 import { ProductHttpService } from 'src/app/services/http/product-http.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import fieldsOptions from '../../product/product-form/product-fields-options';
+import { ProductFormComponent } from '../product-form/product-form.component';
 
 @Component({
   selector: 'product-edit-modal',
@@ -23,6 +23,7 @@ export class ProductEditModalComponent implements OnInit {
   @Output() onError: EventEmitter<HttpErrorResponse> = new EventEmitter<HttpErrorResponse>();
 
   @ViewChild(ModalComponent, {static: false}) modal: ModalComponent;  
+  @ViewChild(ProductFormComponent, {static: false}) productForm: ProductFormComponent;
 
   constructor(private productHttp: ProductHttpService, private formBuilder: FormBuilder) {
     const maxLengthName = fieldsOptions.name.validationMessage.maxlength;
@@ -31,47 +32,53 @@ export class ProductEditModalComponent implements OnInit {
       name: ['', [Validators.required, Validators.maxLength(maxLengthName)]],
       description: ['', [Validators.required]],
       price: ['', [Validators.required, Validators.maxLength(maxLengthPrice)]],
-      active: true
+      active: true,
+      photo: null,
+      photo_url: null
     });
   }
 
   ngOnInit() {}
 
-  @Input()
-  set productId(value) {
-    this._productId = value;
-    if (this._productId) {
-      this.productHttp
-        .get(this._productId)   
-        .subscribe(
-          product => {
-            this.form.patchValue(product);
-          }, 
-          error => {
-            if(error.status == 401) {
-              this.modal.hide();
-            }
-          }
-        )
-    } 
-  }
-
   submit() {
     this.productHttp
       .update(this._productId, this.form.value)
       .subscribe(
-        product => {  
+        product => {            
           this.onSuccess.emit(product);      
-          this.modal.hide();   
+          this.modal.hide(); 
         }, 
-        error => {
-          this.onError.emit(error)
+        responseError => {
+          if(responseError.status === 422) {
+            this.errors = responseError.error.errors;
+          } else {
+            this.onError.emit(responseError);
+          }          
         }
       );
   }
 
-  showModal() {
+  showModal(productId: number) {
+    this._productId = productId;
+    this.getProduct();
     this.modal.show();
+    this.productForm.ngOnInit();
+  }
+
+  getProduct() {
+    this.productHttp
+      .get(this._productId)   
+      .subscribe(
+        product => {
+          this.form.patchValue(product);
+          this.form.get('photo').setValue(null);
+        }, 
+        error => {
+          if(error.status == 401) {
+            this.modal.hide();
+          }
+        }
+      );
   }
 
   showErrors() {
@@ -79,6 +86,7 @@ export class ProductEditModalComponent implements OnInit {
   }
 
   hideModal($event: Event) {
+    this.form.reset();    
     this.errors = {};
   }
 

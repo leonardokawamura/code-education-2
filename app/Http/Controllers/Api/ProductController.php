@@ -6,6 +6,7 @@ use App\Common\OnlyTrashed;
 use App\Http\Controllers\Controller;
 use App\Http\Filters\ProductFilter;
 use App\Http\Requests\ProductRequest;
+use App\Http\Requests\ProductUpdateRequest;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -44,7 +45,7 @@ class ProductController extends Controller
         return new ProductResource($product);
     }
 
-    public function update(ProductRequest $request, Product $product)
+    public function update(ProductUpdateRequest $request, Product $product)
     {
         $product->updateWithPhoto($request->all());
         $product->save();

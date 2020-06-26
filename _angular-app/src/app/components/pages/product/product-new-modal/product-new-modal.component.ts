@@ -16,8 +16,7 @@ export class ProductNewModalComponent implements OnInit {
 
   form: FormGroup;
 
-  @ViewChild(ModalComponent, {static: false})
-  modal: ModalComponent;
+  @ViewChild(ModalComponent, {static: false}) modal: ModalComponent;
 
   @Output() onSuccess: EventEmitter<any> = new EventEmitter<any>();
   @Output() onError: EventEmitter<HttpErrorResponse> = new EventEmitter<HttpErrorResponse>();
@@ -29,7 +28,8 @@ export class ProductNewModalComponent implements OnInit {
       name: ['', [Validators.required, Validators.maxLength(maxLengthName)]],
       description: ['', [Validators.required]],
       price: ['', [Validators.required, Validators.maxLength(maxLengthPrice)]],
-      active: true
+      active: true,
+      photo: [null, Validators.required]
     });
   }
 
@@ -40,16 +40,25 @@ export class ProductNewModalComponent implements OnInit {
   submit() {
     this.productHttp
       .create(this.form.value)
-      .subscribe((product) => {  
-        this.onSuccess.emit(product);      
-        this.modal.hide();   
-        this.form.reset({
-          name: '',
-          description: '',
-          price: '',
-          active: true
-        });  
-      }, error => this.onError.emit(error));
+      .subscribe(
+        product => {  
+          this.onSuccess.emit(product);      
+          this.modal.hide();   
+          this.form.reset({
+            name: '',
+            description: '',
+            price: '',
+            active: true
+          });  
+        }, 
+        responseError => {
+          if(responseError.status === 422) {
+            this.errors = responseError.error.errors;
+          } else {
+            this.onError.emit(responseError);
+          }          
+        }
+      );
   }
 
   showModal() {
@@ -61,6 +70,6 @@ export class ProductNewModalComponent implements OnInit {
   }
 
   hideModal($event: Event) {
-    
+    this.errors = {};
   }
 }

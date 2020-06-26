@@ -34,8 +34,9 @@ export class ProductHttpService implements HttpResource<Product> {
   }
 
   create(data: Product): Observable<Product> {
+    const formData = this.formDataToSend(data);
     return this.http
-      .post<{data: Product}>(this.baseUrl, data)
+      .post<{data: Product}>(this.baseUrl, formData)
         .pipe(
           map(response => response.data)
         );
@@ -43,11 +44,25 @@ export class ProductHttpService implements HttpResource<Product> {
   }
 
   update(id: number, data: Product): Observable<Product> {
+    const formData = this.formDataToSend(data);
+    formData.append('_method', 'PUT');
     return this.http
-      .put<{data: Product}>(`${this.baseUrl}/${id}`, data)
+      .post<{data: Product}>(`${this.baseUrl}/${id}`, formData)
         .pipe(
           map(response => response.data)
         );
+  }
+
+  private formDataToSend(data: Product): FormData {
+    const formData = new FormData();
+    formData.append('name', data.name);
+    formData.append('description', data.description);
+    formData.append('price', <any>data.price);
+    formData.append('active', <any>data.active);
+    if (data.photo) {
+      formData.append('photo', data.photo);
+    }
+    return formData;
   }
 
   destroy(id: number): Observable<any> {
