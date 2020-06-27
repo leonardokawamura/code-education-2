@@ -2,7 +2,7 @@
 <widget id="com.leolk.codeshopping" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Whatsapp de Vendas</name>
     <description>Aplicativo tipo whatsapp voltado para vendas</description>
-    <author email="hi@ionicframework.com" href="http://ionicframework.com/">Ionic Framework Team</author>
+    <author email="leonardo@garagemidia.com.br" href="http://garagemidia.com.br/">Garagemidia Design Gráfico e Web</author>
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
