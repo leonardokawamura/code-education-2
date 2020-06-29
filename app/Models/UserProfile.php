@@ -58,10 +58,8 @@ class UserProfile extends Model
             return;
         }
         $dir = self::photoDir();
-        Storage::disk('public')->delete("{$dir}/{$profile->photo}");
-    }
-    
-    
+        Storage::disk(env('FILESYSTEM_DRIVER'))->delete("{$dir}/{$profile->photo}");
+    }    
 
     public static function photoPath()
     {
@@ -75,7 +73,7 @@ class UserProfile extends Model
             return;
         }
         $dir = self::photoDir();
-        $photo->store($dir, ['disk' => 'public']);
+        $photo->store($dir, ['disk' => env('FILESYSTEM_DRIVER')]);
     }
 
     public static function deleteFile($photo = null)
@@ -97,8 +95,9 @@ class UserProfile extends Model
     }  
 
     public function getPhotoUrlAttribute()
-    {        
-        return $this->photo ? asset("storage/{$this->photo_url_base}") : $this->photo_url_base;
+    {   
+        $fileSystemDriver = env('FILESYSTEM_DRIVER');
+        return $fileSystemDriver == 'local' ? asset("storage/{$this->photo_url_base}") : Storage::disk($fileSystemDriver)->url($this->photo_url_base);
     }
 
     public function getPhotoUrlBaseAttribute()
