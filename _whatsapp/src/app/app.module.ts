@@ -62,7 +62,8 @@ export function jwtFactory(authService: AuthProvider) {
       new RegExp('dev.code-education.com.br/*'),
       new RegExp('192.168.1.6:8000/*'),
       new RegExp('192.168.1.6:8100/*'),
-      new RegExp('192.168.1.4:5555/*')
+      new RegExp('192.168.1.4:5555/*'),
+      new RegExp('whatsapp-de-vendas-281219.rj.r.appspot.com/*')
     ],
     tokenGetter: () => {
       return authService.getToken()
