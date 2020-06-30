@@ -42,7 +42,7 @@ class ChatMessageFb
 
     private function upload(UploadedFile $file)
     {
-        $file->storeAs($this->groupFileDir(), $this->buildFileName($file), ['disk' => 'public']);
+        $file->storeAs($this->groupFileDir(), $this->buildFileName($file), ['disk' => env('FILESYSTEM_DRIVER')]);
     }
 
     private function buildFileName(UploadedFile $file)
