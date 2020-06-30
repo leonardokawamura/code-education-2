@@ -72,7 +72,7 @@ class ProductPhoto extends Model
     private function deletePhoto($fileName)
     {
         $dir = self::photosDir($this->product_id);
-        Storage::disk('public')->delete("{$dir}/{$fileName}");
+        Storage::disk(env('FILESYSTEM_DRIVER'))->delete("{$dir}/{$fileName}");
     }
     
     public static function deleteFiles(int $productId, array $files)
@@ -91,7 +91,7 @@ class ProductPhoto extends Model
         $dir = self::photosDir($productId);
 
         foreach($files as $file) {
-            $file->store($dir, ['disk' => 'public']);
+            $file->store($dir, ['disk' => env('FILESYSTEM_DRIVER')]);
         }
     }
 
@@ -111,8 +111,18 @@ class ProductPhoto extends Model
 
     public function getPhotoUrlAttribute()
     {
+        //$path = self::photosDir($this->product_id);
+        //return asset("storage/{$path}/{$this->file_name}");
+
         $path = self::photosDir($this->product_id);
-        return asset("storage/{$path}/{$this->file_name}");
+        $fileSystemDriver = env('FILESYSTEM_DRIVER');
+        return $fileSystemDriver == 'local' ? asset("storage/{$path}/{$this->file_name}") : Storage::disk($fileSystemDriver)->url($this->photo_url_without_asset);
+    }
+
+    public function getPhotoUrlWithoutAssetAttribute()
+    {
+        $path = self::photosDir($this->product_id);
+        return "{$path}/{$this->file_name}";
     }
 
     public static function photosDir(int $productId)
