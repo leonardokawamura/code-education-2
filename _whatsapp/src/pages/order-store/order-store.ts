@@ -28,7 +28,6 @@ export class OrderStorePage {
               private loadingCtrl: LoadingController,
               private toastCtrl: ToastController) {
     this.product = this.navParams.get('product');
-    console.log(this.product);
   }
 
   ionViewDidLoad() {
