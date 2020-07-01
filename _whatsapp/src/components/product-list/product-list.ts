@@ -95,7 +95,8 @@ export class ProductListComponent implements OnInit {
   }
 
   openProductDetail(productId: number) {
-    this.app.getRootNav().push(ProductDetailPage, {product: productId});
+    //this.app.getRootNav().push(ProductDetailPage, {product: productId});
+    this.app.getRootNavs()[0].push(ProductDetailPage, {product: productId});
   }
 
 }
