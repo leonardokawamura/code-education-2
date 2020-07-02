@@ -13,16 +13,14 @@ import { LoginOptionsPage } from '../../pages/login-options/login-options';
 @Injectable()
 export class RedirectIfNotAuthProvider {
 
-  constructor(public app: App, public auth: AuthProvider) {
-    console.log('Hello RedirectIfNotAuthProvider Provider');
-  }
+  constructor(public app: App, public auth: AuthProvider) {}
 
   ionViewCanEnter(): Promise<boolean> {
     return this.auth.isFullyAuth().then((isAuth) => {
       if(!isAuth) {
         setTimeout(() => {
           this.app.getRootNav().setRoot(LoginOptionsPage);
-        });
+        }, 2000);
       }
       return isAuth;
     })

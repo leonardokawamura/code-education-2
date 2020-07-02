@@ -34,7 +34,7 @@ export class LoginOptionsPage {
       if(isAuth) {
         setTimeout(() => {
           this.navCtrl.setRoot(MainPage);
-        });
+        }, 1500);
       }
       return !isAuth;
     })
