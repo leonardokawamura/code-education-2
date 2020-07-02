@@ -21,6 +21,7 @@ export class OrderDetailPage {
 
   STATUS_ENUM = OrderStatus;
   order: Order;
+  reloadOrders = false
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
@@ -37,7 +38,9 @@ export class OrderDetailPage {
   }
 
   ionViewWillLeave(){
-    this.orderSubject.orderCancelled.next();
+    if (this.reloadOrders) {
+      this.orderSubject.orderCancelled.next();
+    }
   }
 
   cancel() {
@@ -55,6 +58,7 @@ export class OrderDetailPage {
           });
           toast.present();
           loader.dismiss();
+          this.reloadOrders = true;
         },  
         () => loader.dismiss()    
       );
