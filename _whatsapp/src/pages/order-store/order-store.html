@@ -5,12 +5,12 @@
         <ion-icon name="arrow-back"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-title>{{ productData?.product.name }}</ion-title>
-    <ion-buttons right>
+    <ion-title>Carrinho</ion-title>
+    <!-- <ion-buttons right>
       <button ion-button icon-only [disabled]="amount < 1" (click)="submit()">
         <ion-icon name="create"></ion-icon>
       </button>
-    </ion-buttons>
+    </ion-buttons> -->
   </ion-navbar>
 </ion-header>
 
@@ -22,10 +22,13 @@
     </ion-card-title>    
     <ion-card-content>
       <ion-list>
-        <ion-item>
+        <ion-item text-center>
           <ion-label stacked>Quantidade</ion-label>
-          <ion-input type="number" min="1" step="1" [(ngModel)]="amount"></ion-input>
+          <ion-input type="number" min="1" step="1" [(ngModel)]="amount" text-center></ion-input>          
         </ion-item>
+        <p text-center style="margin-top: 15px;">
+          <button ion-button color="green-dark" [disabled]="amount < 1" (click)="submit()">Finalizar pedido</button>
+        </p>
       </ion-list>
     </ion-card-content>
   </ion-card>

@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar color="green-dark">
-    <ion-title>{{ productData?.product.name }}</ion-title>
+    <ion-title>Detalhes do produto</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -8,9 +8,9 @@
   <ion-card>
     <img [src]="productData?.product.photo_url" (click)="openPhotos()">
     <ion-card-content>
-      <h1><strong>{{ productData?.product.name }}</strong></h1>
-      <h2><strong>{{ productData?.product.price | numberFormatBr }}</strong></h2>
+      <h1><strong>{{ productData?.product.name }}</strong></h1>      
       <p>{{ productData?.product.description }}</p>
+      <h2><strong>{{ productData?.product.price | numberFormatBr }}</strong></h2>
       <p text-center>
         <button ion-button color="green-dark" (click)="openOrderStore()">Comprar</button>
       </p>

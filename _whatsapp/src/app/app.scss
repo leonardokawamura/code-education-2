@@ -20,3 +20,10 @@
 .chat-bg {
     background-color: map-get($colors, beige-light);
 }
+
+.toast-danger {
+    .toast-wrapper {
+        background-color: crimson;
+        color: #fff;
+    }
+}
