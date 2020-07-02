@@ -1,12 +1,24 @@
 export const environment = {
-  production: false,
+  production: true,
   api: {
-    protocol: 'http',
-    host: '192.168.1.6:8000',
+    protocol: 'https',
+    host: 'whatsapp-de-vendas-281219.rj.r.appspot.com',
     get url() {
       return `${this.protocol}://${this.host}/api`
     }
   },
-  baseFilesUrl: 'http://192.168.1.6:8000/storage',
-  showFirebaseUI: !document.URL.startsWith('file:///')
+  baseFilesUrl: 'https://storage.googleapis.com/whatsapp-de-vendas-281219.appspot.com',
+  showFirebaseUI: false,
+  firebaseConfig: {
+    apiKey: "",
+    authDomain: "",
+    databaseURL: "",
+    projectId: "",
+    storageBucket: "",
+    messagingSenderId: "",
+    appId: ""
+  },
+  whiteListDomains: [    
+    new RegExp('whatsapp-de-vendas-281219.rj.r.appspot.com/*')
+  ]
 };

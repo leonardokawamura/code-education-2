@@ -56,16 +56,11 @@ import { OrderDetailPage } from '../pages/order-detail/order-detail';
 import { OrderStatusComponent } from '../components/order-status/order-status';
 import { Clipboard } from '@ionic-native/clipboard';
 import { OrderSubjectProvider } from '../providers/order-subject/order-subject';
+import { environment } from '@app/env';
 
 export function jwtFactory(authService: AuthProvider) {
   return {
-    whitelistedDomains: [
-      new RegExp('dev.code-education.com.br/*'),
-      new RegExp('192.168.1.6:8000/*'),
-      new RegExp('192.168.1.6:8100/*'),
-      new RegExp('192.168.1.4:5555/*'),
-      new RegExp('whatsapp-de-vendas-281219.rj.r.appspot.com/*')
-    ],
+    whitelistedDomains: environment.whiteListDomains,
     tokenGetter: () => {
       return authService.getToken()
     }

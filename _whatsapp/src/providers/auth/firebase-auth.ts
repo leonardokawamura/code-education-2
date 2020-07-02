@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import firebase from 'firebase';
-import firebaseConfig from '../../app/firebase-config';
 import scriptjs from 'scriptjs';
+import { environment } from '@app/env';
 
 declare const firebaseui;
 (<any>window).firebase = firebase;
@@ -18,7 +18,7 @@ export class FirebaseAuthProvider {
   private ui;
 
   constructor() {
-    firebase.initializeApp(firebaseConfig);
+    firebase.initializeApp(environment.firebaseConfig);
   }
 
   get firebase() {
