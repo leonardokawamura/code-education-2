@@ -44,7 +44,7 @@ export class OrderStorePage {
         amount: this.amount
       })
       .subscribe(
-        (order) => {
+        order => {
           loader.dismiss();
           const toast = this.toastCtrl.create({
             message: 'Pedido realizado com sucesso',
@@ -55,6 +55,12 @@ export class OrderStorePage {
         },
         (resonseError: HttpErrorResponse) => {
           loader.dismiss();
+          const toast = this.toastCtrl.create({
+            message: 'Houve um problema no envio do pedido, tente novamente ou tente mais tarde',
+            duration: 7000,
+            cssClass: "toast-danger"
+          });
+          toast.present();
         }
       );
   }
