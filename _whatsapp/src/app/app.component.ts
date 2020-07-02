@@ -42,6 +42,11 @@ export class MyApp {
       this.splashScreen.hide();
 
       this.chatInvitation.listen();
+
+      if (this.platform.is('android')) {
+        this.statusBar.overlaysWebView(false);
+        this.statusBar.backgroundColorByHexString('#075e54');
+      }
     });
   }
 
