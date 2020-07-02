@@ -1,14 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Order, OrderStatus } from '../../app/model';
 import { InfiniteScroll, Refresher, Toast, NavParams } from 'ionic-angular';
 import { OrderHttpProvider } from '../../providers/http/order-http';
 import { OrderDetailPage } from '../../pages/order-detail/order-detail';
+import { OrderSubjectProvider } from '../../providers/order-subject/order-subject';
 
 @Component({
   selector: 'order-list',
   templateUrl: 'order-list.html'
 })
-export class OrderListComponent {
+export class OrderListComponent implements OnInit {
 
   STATUS_ENUM: OrderStatus;
   orders: {data: Order[]} = {
@@ -17,9 +18,24 @@ export class OrderListComponent {
   page = 1;
   canMoreOrder = true;
   toastLoading: Toast;
+  reload = false;
 
-  constructor(private orderHttp: OrderHttpProvider,              
-              private navParams: NavParams) {}
+  constructor(private orderHttp: OrderHttpProvider, 
+              private navParams: NavParams, 
+              private orderSubject: OrderSubjectProvider) {}
+
+  ngOnInit() {
+    this.orderSubject.orderCancelled.subscribe(() => {
+      this.orderHttp.list(this.page).subscribe(
+        orders => {
+          this.orders = orders;
+        },
+        responseError => {
+          console.log(responseError);
+        }
+      ); 
+    });
+  }
 
   getOrders() {
     return this.orderHttp.list(this.page);
@@ -33,7 +49,7 @@ export class OrderListComponent {
       responseError => {
         console.log(responseError);
       }
-    );
+    );    
   }
 
   doRefresh(refresher: Refresher) {

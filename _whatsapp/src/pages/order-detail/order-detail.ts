@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, ToastController, LoadingController
 import { Order, OrderStatus } from '../../app/model';
 import { OrderHttpProvider } from '../../providers/http/order-http';
 import { Clipboard } from '@ionic-native/clipboard';
+import { OrderSubjectProvider } from '../../providers/order-subject/order-subject';
 
 /**
  * Generated class for the OrderDetailPage page.
@@ -26,7 +27,8 @@ export class OrderDetailPage {
               private orderHttp: OrderHttpProvider,
               private toastCtrl: ToastController,
               private loadingCtrl: LoadingController,
-              private clipboard: Clipboard) {
+              private clipboard: Clipboard,
+              private orderSubject: OrderSubjectProvider) {
     this.order = this.navParams.get('order');
   }
 
@@ -35,7 +37,7 @@ export class OrderDetailPage {
   }
 
   ionViewWillLeave(){
-    // TENTAR FAZER A PÁGINA DOS PEDIDOS RECARREGAR AUTOMATICAMENTE DEPOIS DO PEDIDO CANCELADO
+    this.orderSubject.orderCancelled.next();
   }
 
   cancel() {

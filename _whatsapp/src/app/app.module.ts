@@ -55,6 +55,7 @@ import { OrderStorePage } from '../pages/order-store/order-store';
 import { OrderDetailPage } from '../pages/order-detail/order-detail';
 import { OrderStatusComponent } from '../components/order-status/order-status';
 import { Clipboard } from '@ionic-native/clipboard';
+import { OrderSubjectProvider } from '../providers/order-subject/order-subject';
 
 export function jwtFactory(authService: AuthProvider) {
   return {
@@ -165,7 +166,8 @@ export function jwtFactory(authService: AuthProvider) {
     ProductSearchProvider,
     CategoryHttpProvider,
     OrderHttpProvider,
-    Clipboard   
+    Clipboard,
+    OrderSubjectProvider
   ]
 })
 export class AppModule {}
