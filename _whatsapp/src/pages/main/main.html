@@ -14,9 +14,9 @@
 </ion-header>
 
 <ion-content class="hide-scroll-content">
-  <super-tabs toolbarBackground="green-dark" toolbarColor="light" indicatorColor="light" (tabSelect)="onTabSelect($event)">
+  <super-tabs  *ngIf="chatGroupList" toolbarBackground="green-dark" toolbarColor="light" indicatorColor="light" (tabSelect)="onTabSelect($event)">
     <super-tab id="groups" [root]="chatGroupList" title="Grupos" #tabChatGroupList></super-tab>
     <super-tab id="products" [root]="productList" title="Produtos" #tabProductList></super-tab>
     <super-tab id="orders" [root]="orderList" title="Pedidos" #taOrderList></super-tab>
-  </super-tabs>
+  </super-tabs>  
 </ion-content>

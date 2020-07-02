@@ -46,11 +46,10 @@ export class MainPage {
     return this.redirectIfNotAuth.ionViewCanEnter();
   }
 
-  ionViewDidLoad() {
+  ionViewDidLoad() {        
     this.pushNotification.registerToken();
     this.pushNotification.onNewMesaage()
       .subscribe(data => {
-        console.log(data);
         if(data.background) {
           const component: ChatGroupListComponent = this.tabChatGroupList.getViews()[0].instance;
           component.goToMessagesFromNotification(data.data.chat_group_id);
@@ -58,7 +57,6 @@ export class MainPage {
       });
     this.pushNotification.onChatGroupSubscribe()
       .subscribe(data => {
-        console.log(data);
         const toast = this.toastCtrl.create({
           message: `Sua inscrição no grupo ${data.data.chat_group_name} foi aprovada`,
           duration: 7000
@@ -84,8 +82,11 @@ export class MainPage {
   }
 
   get canShowSearchIcon() {
-    const superTab = this.superTabs.getActiveTab();
-    return superTab.tabId === 'products';
+    if (this.superTabs) {
+      const superTab = this.superTabs.getActiveTab();
+      return superTab.tabId === 'products';
+    }
+    return false;
   }
 
   onTabSelect(event) {
