@@ -14,7 +14,11 @@ class OrderObserver
     {
         if (! $this->runningInTerminal()) {
             $user = $order->user;
-            Mail::to($user)->send(new OrderCreated($order));
+            try {
+                Mail::to($user)->send(new OrderCreated($order));
+            } catch (\Exception $e) {
+                return $e;
+            }            
         }
     }
 
