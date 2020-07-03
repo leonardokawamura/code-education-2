@@ -28,6 +28,7 @@ export class MainPage {
   productList = ProductListComponent;
   orderList = OrderListComponent;
   canShowSearchbar = false;
+  selectedTabIndex = 0;
 
   @ViewChild(SuperTabs) superTabs: SuperTabs;
   @ViewChild('tabChatGroupList') tabChatGroupList: SuperTab;
@@ -39,14 +40,17 @@ export class MainPage {
               private popover: PopoverController,
               private pushNotification: PushNotificationProvider,
               private chatInvitation: ChatInvitationProvider,
-              private toastCtrl: ToastController) {  
-  }
+              private toastCtrl: ToastController) {
+                if (this.navParams.get('selectedTabIndex')) {
+                  this.selectedTabIndex = this.navParams.get('selectedTabIndex');
+                }                
+              }
 
   ionViewCanEnter() {
     return this.redirectIfNotAuth.ionViewCanEnter();
   }
 
-  ionViewDidLoad() {        
+  ionViewDidLoad() {       
     this.pushNotification.registerToken();
     this.pushNotification.onNewMesaage()
       .subscribe(data => {

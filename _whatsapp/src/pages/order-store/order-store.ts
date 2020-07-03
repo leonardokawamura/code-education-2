@@ -51,7 +51,9 @@ export class OrderStorePage {
             duration: 7000
           });
           toast.present();
-          this.viewCtrl.dismiss(order);
+          setTimeout(() => {
+            this.viewCtrl.dismiss(order);            
+          }, 2000);
         },
         (resonseError: HttpErrorResponse) => {
           loader.dismiss();
