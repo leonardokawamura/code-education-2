@@ -35,21 +35,21 @@ export class FirebasePhoneNumberCheckComponent {
   verifyPhoneNumber() {
     return new Promise<any>((resolve, reject) => {
       this.platform.ready().then(() => {
-        cordova.plugins.firebase.auth.verifyPhoneNumber(this.fullPhoneNumber, 30000)
+        cordova.plugins.firebase.auth.verifyPhoneNumber(this.fullPhoneNumber, 0)
           .then(
-            verificationId => {              
+            verificationId => {       
               resolve(this.verificationId = verificationId);
             }, 
             error => {
-              reject(error);
               this.showToast('Não foi possível verificar o número, tente novamente');
+              reject(error);              
             }
           ); 
       });      
-    }).then((verification) => { console.log('Código de verificação foi recebido') });
+    }).then((verification) => { this.showToast('Código de verificação enviado') });
   }
 
-  signInWithVerificationId() {
+  /*signInWithVerificationId() {
     cordova.plugins.firebase.auth.signInWithVerificationId(this.verificationId, this.smsCode)
       .then(
         userInfo => {
@@ -69,16 +69,33 @@ export class FirebasePhoneNumberCheckComponent {
         error => {
           this.showToast('Não foi possível verificar o código SMS');
         }
-      );
-  }
+      );    
+  }*/
 
-  get fbCredential() {
+  signInWithVerificationId() {
+    cordova.plugins.firebase.auth.onAuthStateChanged((userInfo) => {
+      const fbCredential = this.firebaseAuth.firebase.auth.PhoneAuthProvider.credential(this.verificationId, this.smsCode);
+      this.firebaseAuth.firebase
+        .auth()
+        .signInAndRetrieveDataWithCredential(fbCredential)
+        .then(
+          (user) => {
+            this.onAuth.emit(user);
+          },
+          (error) => {
+            this.showToast('Não foi possível autenticar o telefone');
+          }
+        );
+    });
+  }  
+
+  /*get fbCredential() {
     return this.firebaseAuth
       .firebase
       .auth
       .PhoneAuthProvider
       .credential(this.verificationId, this.smsCode);
-  }
+  }*/
 
   showToast(message) {
     const toast = this.toastCtrl.create({
