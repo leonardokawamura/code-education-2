@@ -20,6 +20,7 @@ class CustomerController extends Controller
         $data = $request->all();
         $token = $request->token;
         $data['phone_number'] = $this->getPhoneNumber($token);
+        $data['firebase_uid'] = $this->getFirebaseUID($token);
         $data['photo'] = $data['photo'] ?? null;
         $user = User::createCustomer($data);
         return [
@@ -40,7 +41,14 @@ class CustomerController extends Controller
     {
         $firebaseAuth = app(FirebaseAuth::class);
         return $firebaseAuth->phoneNumber($token);
-    }   
+    } 
+    
+    private function getFirebaseUID($token)
+    {
+        $firebaseAuth = app(FirebaseAuth::class);
+        $user = $firebaseAuth->user($token);
+        return $user->uid;
+    }
 
     public function updatePhoneNumber($token)
     {

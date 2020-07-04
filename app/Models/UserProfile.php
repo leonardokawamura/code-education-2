@@ -17,7 +17,7 @@ class UserProfile extends Model
     const DIR_USER_PHOTO = self::DIR_USERS . '/photos';
     const USER_PHOTO_PATH = self::BASE_PATH . '/' . self::DIR_USER_PHOTO;
 
-    protected $fillable = ['photo', 'phone_number', 'device_token'];
+    protected $fillable = ['photo', 'phone_number', 'device_token', 'firebase_uid'];
 
     public static function createTokenToChangePhoneNumber(UserProfile $profile, $phoneNumber): string
     {
@@ -42,8 +42,10 @@ class UserProfile extends Model
         if(array_key_exists('photo', $data)) {
             self::deletePhoto($user->profile);
             $data['photo'] = UserProfile::getPhotoHashName($data['photo']);
-        }        
+        }    
+
         $user->profile->fill($data)->save();
+
         return $user->profile;
     }
     
