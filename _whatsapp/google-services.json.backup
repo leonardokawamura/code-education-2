@@ -15,14 +15,6 @@
       },
       "oauth_client": [
         {
-          "client_id": "462348407056-jo7cuhaabgb5enu5nokjpe3da476vq7a.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.leolk.codeshopping",
-            "certificate_hash": "0697d9bf22b2dcb6b44eaef368ea245d338589be"
-          }
-        },
-        {
           "client_id": "462348407056-tok527pg3q8df6p60f3jhinggq011i3f.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -38,13 +30,6 @@
             {
               "client_id": "462348407056-tok527pg3q8df6p60f3jhinggq011i3f.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "462348407056-sottp5r0gi5umu999avj50uk00mc1nps.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.leolk.codeshopping"
-              }
             }
           ]
         }
