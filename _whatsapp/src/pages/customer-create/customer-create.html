@@ -22,7 +22,7 @@
         <ion-input type="text" formControlName="email"></ion-input>
       </ion-item>
       <ion-input type="file" [hidden]="true" #inputFilePhoto (change)="onChoosePhoto($event.target.files)"></ion-input>
-      <button type="button" ion-button color="primary" (click)="selectPhoto()">Escolher foto para o perfil</button>
+      <button type="button" id="btn-choose-photo" ion-button color="primary" (click)="selectPhoto()">Escolher foto para o perfil</button>
     </ion-list>
     <ion-card *ngIf="photoPreview">
       <ion-item>

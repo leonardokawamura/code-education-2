@@ -1,3 +1,17 @@
 page-customer-create {
-
+    ion-item {
+        padding-left: 0 !important;
+    }
+    #btn-choose-photo {
+        margin-left: 0;
+        margin-top: 20px;
+    }
+    ion-card {
+        margin: 0 !important;
+        margin-bottom: 20px !important;
+        width: 100% !important;
+    }
+    ion-avatar {
+        margin-left: 12px !important;
+    }
 }
