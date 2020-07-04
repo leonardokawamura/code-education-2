@@ -3,7 +3,7 @@
       <ion-refresher-content pullingText='Puxe para atualizar'refreshingText="carregando"></ion-refresher-content>
   </ion-refresher>
 
-  <ng-container *ngIf="orders.data.length > 0; else noOrders">
+  <ng-container *ngIf="orders.data.length > 0">
     <ion-list>
       <ion-item *ngFor="let order of orders.data" (click)="openOrderDetail(order)">
         <ion-avatar item-start>
@@ -20,13 +20,13 @@
     </ion-list>
   </ng-container>
 
-  <ng-template #noOrders>
+  <ng-container *ngIf="!orders.data.length">
     <p class="information-text">
       <ion-icon name="information-circle"></ion-icon><br>
       <span>Você não possui nenhum pedido ainda</span><br> 
       <span class="sad-face">=(</span>
     </p>
-  </ng-template>
+  </ng-container>
 
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)" [enabled]="canMoreOrders">
       <ion-infinite-scroll-content></ion-infinite-scroll-content>
