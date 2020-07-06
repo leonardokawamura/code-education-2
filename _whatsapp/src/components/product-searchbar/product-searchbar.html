@@ -5,7 +5,7 @@
     </button>
   </ion-buttons>
   <form (submit)="filter()">
-    <ion-searchbar (ionInput)="productSearch.options.search = $event.target.value"></ion-searchbar>
+    <ion-searchbar placeholder="Procurar..." (ionInput)="productSearch.options.search = $event.target.value"></ion-searchbar>
   </form>
   <ion-buttons right>
     <button ion-button icon-only (click)="filter()">
