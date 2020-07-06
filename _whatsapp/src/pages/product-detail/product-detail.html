@@ -6,7 +6,15 @@
 
 <ion-content padding>
   <ion-card>
-    <img [src]="productData?.product.photo_url" (click)="openPhotos()">
+    <!--<img [src]="productData?.product.photo_url" (click)="openPhotos()">-->
+    <ion-slides pager="true">
+      <ion-slide>
+        <img [src]="productData?.product.photo_url" alt="">
+      </ion-slide>
+      <ion-slide *ngFor="let photo of productData?.photos">
+        <img [src]="photo.photo_url" alt="">
+      </ion-slide>
+    </ion-slides>
     <ion-card-content>
       <h1><strong>{{ productData?.product.name }}</strong></h1>      
       <p>{{ productData?.product.description }}</p>
