@@ -21,6 +21,7 @@ export class CustomerCreatePage {
 
   form: FormGroup;
   photoPreview;
+  errors = <any>{};
 
   @ViewChild('inputFilePhoto') inputFilePhoto: TextInput;
 
@@ -55,9 +56,14 @@ export class CustomerCreatePage {
           this.authService.setToken(response.token);
           this.navCtrl.setRoot(MainPage);
         },
-        error => {
+        responseError => {
           loader.dismiss();
-        });
+          if (responseError.status == 422) {
+            this.errors = responseError.error.errors
+            console.log(this.errors);
+          }          
+        }
+      );
   }
 
   selectPhoto() {
@@ -70,8 +76,22 @@ export class CustomerCreatePage {
     if(!files.length) {
       return;
     }
+    if (this.verifyMaxLengthFile(files[0])) {
+      this.errors.photo = ['O tamanho máximo do arquivo da foto é 3MB'];
+      this.form.get('photo').setErrors({'incorrect': true});
+      return;
+    }
     this.makePhotoPreview(files[0]);
     this.form.get('photo').setValue(files[0]);
+    console.log(this.errors);
+  }
+
+  verifyMaxLengthFile(file: File) {
+    const MAX_LENGTH_FILE = 3000000;
+    if (file.size > MAX_LENGTH_FILE) {
+      return true;
+    }
+    return false;
   }
 
   makePhotoPreview(file: File) {
@@ -81,6 +101,16 @@ export class CustomerCreatePage {
       const target = event.target;
       this.photoPreview = (<any>target).result;
     }
+    this.form.get('photo').setErrors({'incorrect': false});
+    delete this.errors.photo;
+  }
+
+  showErrors() {
+    return Object.keys(this.errors).length != 0;
+  }
+
+  get errorsKeys() {
+    return Object.keys(this.errors);
   }
 
 }

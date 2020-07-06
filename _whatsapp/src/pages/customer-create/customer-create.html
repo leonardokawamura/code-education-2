@@ -11,7 +11,10 @@
 </ion-header>
 
 <ion-content padding>
-  <form [formGroup]="form" (submit)="submit()">
+  <ul *ngIf="showErrors()">
+    <li *ngFor="let key of errorsKeys">{{ errors[key] }}</li>
+  </ul>
+  <form [formGroup]="form" (submit)="submit()">    
     <ion-list>
       <ion-item>
         <ion-label stacked>Nome</ion-label>

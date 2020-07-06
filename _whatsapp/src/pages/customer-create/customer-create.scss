@@ -14,4 +14,14 @@ page-customer-create {
     ion-avatar {
         margin-left: 12px !important;
     }
+    ul {
+        background: crimson;
+        color: #fff;
+        padding: 15px 15px 5px;
+        border-radius: 5px;
+    }
+    ul li {
+        margin-left: 15px;
+        margin-bottom: 10px;
+    }
 }

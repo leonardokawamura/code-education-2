@@ -46,6 +46,6 @@ class PhoneNumberUnique implements Rule
      */
     public function message()
     {
-        return 'Phone number has used';
+        return 'Esse número de telefone já está sendo usado';
     }
 }
