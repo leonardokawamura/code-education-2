@@ -17,6 +17,7 @@
 <ion-content padding>
   <ion-card>
     <ion-card-title text-center>
+      <img [src]="product.photo_url" alt="" class="thumbnail">
       {{ product.name }}<br>
       Total: {{ (product.price * amount) | numberFormatBr }}
     </ion-card-title>    
