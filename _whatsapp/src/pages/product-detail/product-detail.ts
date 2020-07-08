@@ -43,14 +43,15 @@ export class ProductDetailPage {
   }
 
   openOrderStore() {
-    const modal = this.modalCtrl.create(OrderStorePage, {product: this.productData.product});
+    /*const modal = this.modalCtrl.create(OrderStorePage, {product: this.productData.product});
     modal.onDidDismiss(result => {
       if (result) {
         //this.navCtrl.push(OrderDetailPage, {order: result});   
         this.app.getRootNavs()[0].push(MainPage, {selectedTabIndex: 2});     
       }
     });
-    modal.present();
+    modal.present();*/
+    this.app.getRootNavs()[0].push(OrderStorePage, {product: this.productData.product}); 
   }
 
 }

@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController, LoadingController, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, LoadingController, ToastController, App } from 'ionic-angular';
 import { Product } from '../../app/model';
 import { OrderHttpProvider } from '../../providers/http/order-http';
 import { HttpErrorResponse } from '@angular/common/http';
+import { MainPage } from '../main/main';
 
 /**
  * Generated class for the OrderStorePage page.
@@ -26,7 +27,8 @@ export class OrderStorePage {
               private ordertHttp: OrderHttpProvider,
               private viewCtrl: ViewController,
               private loadingCtrl: LoadingController,
-              private toastCtrl: ToastController) {
+              private toastCtrl: ToastController,
+              private app: App) {
     this.product = this.navParams.get('product');
   }
 
@@ -52,7 +54,8 @@ export class OrderStorePage {
           });
           toast.present();
           setTimeout(() => {
-            this.viewCtrl.dismiss(order);            
+            //this.viewCtrl.dismiss(order);     
+            this.app.getRootNavs()[0].push(MainPage, {selectedTabIndex: 2});       
           }, 2000);
         },
         (resonseError: HttpErrorResponse) => {
