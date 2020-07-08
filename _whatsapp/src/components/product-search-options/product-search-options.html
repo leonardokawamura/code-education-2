@@ -5,17 +5,17 @@
         <ion-icon name="arrow-back"></ion-icon>
       </button>       
     </ion-buttons>
-    <ion-title>Busca de produtos</ion-title>     
+    <ion-title>Filtros</ion-title>     
   </ion-navbar>
 </ion-header>
 
 <ion-content>
-  <ion-item color="green-dark">
+  <ion-item>
     <ion-grid>
       <ion-row>
         <ion-col text-center>
-          <button ion-button icon-only class="btn-round" 
-            [color]="productSearch.options.orderBy == 'latest' ? 'dark' : 'green-dark'" 
+          <button ion-button icon-only class="btn-order btn-round"
+            [ngClass]="{'selected': productSearch.options.orderBy == 'latest'}"             
             (click)="productSearch.options.orderBy = 'latest'">
             <ion-icon name="arrow-up"></ion-icon>
           </button>
@@ -23,8 +23,8 @@
           <span ion-text >Mais novos</span>
         </ion-col>
         <ion-col text-center>
-          <button ion-button icon-only class="btn-round"
-            [color]="productSearch.options.orderBy == 'latest' ? 'green-dark' : 'dark'" 
+          <button ion-button icon-only class="btn-round" class="btn-order btn-round"
+            [ngClass]="{'selected': productSearch.options.orderBy == 'oldest'}" 
             (click)="productSearch.options.orderBy = 'oldest'">
             <ion-icon name="arrow-down"></ion-icon>            
           </button>
@@ -34,14 +34,13 @@
       </ion-row>
     </ion-grid>
   </ion-item>
-  <ion-item color="green-dark">
+  <ion-item>
     <ion-label color="light">Categorias</ion-label>
     <ion-select [(ngModel)]="productSearch.options.categories" multiple="true" cancelText="Cancelar" okText="Ok">
       <ion-option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</ion-option>
-    </ion-select>
+    </ion-select>    
   </ion-item>
+  <p color="green-dark" text-center>
+    <button ion-button color="primary" (click)="filter()">Aplicar filtro</button>
+  </p>
 </ion-content>
-
-<ion-footer>
-  <button ion-button block color="green-dark" outline no-margin (click)="filter()">Aplicar filtro</button>
-</ion-footer>

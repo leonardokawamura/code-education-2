@@ -1,9 +1,22 @@
 product-search-options {
     ion-content {
-        background-color: map-get($colors, green-dark) !important;
+        /*background-color: map-get($colors, green-dark) !important;*/
+        background-color: #eee !important;
+    }
+    ion-item {
+        background-color: #eee !important;
+    }
+    ion-label {
+        color: #000 !important;
     }
     ion-footer {
         background-color: #fff !important;
+    }
+    .btn-order {
+        background-color: #ccc;
+    }
+    .btn-order.selected {
+        background-color: #000;
     }
     .btn-round {
         border-radius: 50%;
