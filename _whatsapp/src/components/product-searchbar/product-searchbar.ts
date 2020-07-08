@@ -38,8 +38,6 @@ export class ProductSearchbarComponent implements OnInit {
     });
     this.productSearch.onLeavingProductList.subscribe(() => {
       this.closeSearchBar();
-      let superTabToolBar: HTMLElement = this.superTabs.getElementRef().nativeElement;
-      this.renderer.setStyle(superTabToolBar.children[1], 'height', '100%');
     });
   }
 
@@ -60,12 +58,15 @@ export class ProductSearchbarComponent implements OnInit {
   openSearchBar() {    
     let superTabToolBar: HTMLElement = this.superTabs.getElementRef().nativeElement;
     this.renderer.addClass(superTabToolBar.children[0], 'hidden');    
-    this.renderer.setStyle(superTabToolBar.children[1], 'height', '100%');
+    this.renderer.addClass(superTabToolBar.children[1], 'fixed');  
+    this.renderer.addClass(superTabToolBar.children[1].querySelector('#products'), 'fixed');  
   }
 
   closeSearchBar() {
     let superTabToolBar: HTMLElement = this.superTabs.getElementRef().nativeElement;
     this.renderer.removeClass(superTabToolBar.children[0], 'hidden');  
+    this.renderer.removeClass(superTabToolBar.children[1], 'fixed');  
+    this.renderer.removeClass(superTabToolBar.children[1].querySelector('#products'), 'fixed');  
   }
 
 }

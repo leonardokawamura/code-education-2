@@ -6,13 +6,13 @@ super-tabs-toolbar {
     visibility: visible;
     opacity: 1;
     height: 48px;
-    transition: visibility 0s, opacity 0.1s, height 0.1s linear;
+    transition: visibility 0s, opacity 0.1s linear;
 }
 super-tabs-toolbar.hidden {        
     visibility: hidden;
     opacity: 0;
     height: 0;
-    /*margin-bottom: 48px;*/
+    margin-bottom: 48px;
 }
 super-tabs-container.fixed {
     height: 100%;
