@@ -1,9 +1,9 @@
 <ion-header no-border>
-  <product-searchbar [hidden]="!canShowSearchbar" (onBack)="canShowSearchbar = false"></product-searchbar>
+  <product-searchbar [hidden]="!canShowSearchbar" (onBack)="canShowSearchbar = false" [superTabs]="superTabs"></product-searchbar>
   <ion-navbar color="green-dark" [hidden]="canShowSearchbar">
     <ion-title>Whatsapp de vendas</ion-title>
     <ion-buttons end>
-      <button ion-button icon-only [hidden]="!canShowSearchIcon" (click)="canShowSearchbar = true">
+      <button ion-button icon-only [hidden]="!canShowSearchIcon" (click)="openSearchBar()">
         <ion-icon name="search"></ion-icon>
       </button> 
       <button ion-button icon-only (click)="presentMoreOptions($event)">
@@ -13,7 +13,7 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content class="hide-scroll-content">
+<ion-content class="hide-scroll-content" #mainContent id="">
   <super-tabs  *ngIf="chatGroupList" toolbarBackground="green-dark" toolbarColor="light" indicatorColor="light" [selectedTabIndex]="selectedTabIndex" (tabSelect)="onTabSelect($event)">
     <super-tab id="groups" [root]="chatGroupList" title="Grupos" #tabChatGroupList></super-tab>
     <super-tab id="products" [root]="productList" title="Produtos" #tabProductList></super-tab>

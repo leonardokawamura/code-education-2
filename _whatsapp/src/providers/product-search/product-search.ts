@@ -19,6 +19,12 @@ export class ProductSearchProvider {
 
   onUpdate = new Subject<any>();
 
+  onLeavingProductList = new Subject<any>();
+
+  onOpenSearchBar = new Subject<any>();
+
+  onCloseSearchBar = new Subject<any>();
+  
   constructor() {}
 
 }

@@ -5,12 +5,12 @@
     </button>
   </ion-buttons>
   <form (submit)="filter()">
-    <ion-searchbar placeholder="Procurar..." (ionInput)="productSearch.options.search = $event.target.value"></ion-searchbar>
+    <ion-searchbar animated showCancelButton="focus" placeholder="Procurar..." (ionInput)="productSearch.options.search = $event.target.value"></ion-searchbar>
   </form>
   <ion-buttons right>
-    <button ion-button icon-only (click)="filter()">
+    <!--<button ion-button icon-only (click)="filter()">
       <ion-icon name="search"></ion-icon>
-    </button>
+    </button>-->
     <button ion-button icon-only (click)="openProductSearchOptions()">
       <ion-icon name="options"></ion-icon>
     </button>

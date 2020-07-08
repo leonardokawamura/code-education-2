@@ -1,5 +1,7 @@
 page-main {
     .hide-scroll-content>.scroll-content {
         overflow-y: hidden;
-    }
+        transition: top .3s;
+        top: 0;
+    }   
 }

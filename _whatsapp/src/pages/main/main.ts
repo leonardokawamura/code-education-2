@@ -9,6 +9,7 @@ import { SuperTab, SuperTabs } from 'ionic2-super-tabs';
 import { ChatInvitationProvider } from '../../providers/chat-invitation/chat-invitation';
 import { ProductListComponent } from '../../components/product-list/product-list';
 import { OrderListComponent } from '../../components/order-list/order-list';
+import { ProductSearchProvider } from '../../providers/product-search/product-search';
 
 /**
  * Generated class for the MainPage page.
@@ -40,17 +41,18 @@ export class MainPage {
               private popover: PopoverController,
               private pushNotification: PushNotificationProvider,
               private chatInvitation: ChatInvitationProvider,
-              private toastCtrl: ToastController) {
-                if (this.navParams.get('selectedTabIndex')) {
-                  this.selectedTabIndex = this.navParams.get('selectedTabIndex');
-                }                
-              }
+              private toastCtrl: ToastController,
+              private productSearch: ProductSearchProvider) {
+    if (this.navParams.get('selectedTabIndex')) {
+      this.selectedTabIndex = this.navParams.get('selectedTabIndex');
+    }                         
+  }
 
   ionViewCanEnter() {
     return this.redirectIfNotAuth.ionViewCanEnter();
   }
 
-  ionViewDidLoad() {       
+  ionViewDidLoad() {           
     this.pushNotification.registerToken();
     this.pushNotification.onNewMesaage()
       .subscribe(data => {
@@ -99,4 +101,8 @@ export class MainPage {
     }
   }
 
+  openSearchBar() {
+    this.canShowSearchbar = true; 
+    this.productSearch.onOpenSearchBar.next(true); 
+  }
 }

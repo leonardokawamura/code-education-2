@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { ProductHttpProvider } from '../../providers/http/product-http.';
 import { Product } from '../../app/model';
 import { InfiniteScroll, Refresher, ToastController, Toast, App } from 'ionic-angular';
@@ -21,7 +21,8 @@ export class ProductListComponent implements OnInit {
   constructor(private productHttp: ProductHttpProvider, 
               private productSearch: ProductSearchProvider,
               private toastCtrl: ToastController,
-              private app: App) {}
+              private app: App,
+              private renderer: Renderer2) {}
 
   ngOnInit() {
     this.productSearch.onUpdate
@@ -40,6 +41,10 @@ export class ProductListComponent implements OnInit {
           )
       });
     this.getProducts().subscribe(products => this.products = products);
+  }
+
+  ionViewWillLeave() {    
+    this.productSearch.onLeavingProductList.next(true);
   }
 
   startLoading() {
