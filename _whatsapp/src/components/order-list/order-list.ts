@@ -24,7 +24,22 @@ export class OrderListComponent implements OnInit {
               private navParams: NavParams, 
               private orderSubject: OrderSubjectProvider) {}
 
+  getOrders() {
+    return this.orderHttp.list(this.page);
+  }       
+
   ngOnInit() {
+    this.getOrders().subscribe(
+      orders => {
+        this.orders = orders;
+      },
+      responseError => {
+        console.log(responseError);
+      }
+    );    
+  }
+
+  ionViewWillEnter() {
     this.orderSubject.orderCancelled.subscribe(() => {
       this.orderHttp.list(this.page).subscribe(
         orders => {
@@ -36,22 +51,7 @@ export class OrderListComponent implements OnInit {
       ); 
     });
   }
-
-  getOrders() {
-    return this.orderHttp.list(this.page);
-  }            
-
-  ionViewDidLoad() {    
-    this.getOrders().subscribe(
-      orders => {
-        this.orders = orders;
-      },
-      responseError => {
-        console.log(responseError);
-      }
-    );    
-  }
-
+  
   doRefresh(refresher: Refresher) {
     this.reset();
     this.getOrders().subscribe(
