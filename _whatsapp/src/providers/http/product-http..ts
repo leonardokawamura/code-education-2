@@ -18,7 +18,7 @@ export class ProductHttpProvider {
       page,
       'categories[]': this.productSearch.options.categories,
       sort: this.productSearch.options.orderBy == 'latest' ? '-created_at' : 'created_at',
-      search: this.productSearch.options.search
+      search: this.productSearch.options.search == undefined ? '' : this.productSearch.options.search 
     };
     const params = new HttpParams({fromObject: (<any>fromObject)});  
     return this.http

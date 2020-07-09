@@ -3,14 +3,16 @@
     <button ion-button icon-only (click)="back()">
       <ion-icon name="arrow-back"></ion-icon>
     </button>
-  </ion-buttons>
-  <form (submit)="filter()">
-    <ion-searchbar animated showCancelButton="focus" placeholder="Procurar..." (ionInput)="productSearch.options.search = $event.target.value"></ion-searchbar>
-  </form>
+  </ion-buttons>  
+  <ion-searchbar #searchbar
+    placeholder="Procurar..." 
+    inputmode="search"     
+    (search)="onKeyPressed($event)">
+  </ion-searchbar>  
   <ion-buttons right>
-    <!--<button ion-button icon-only (click)="filter()">
+    <!-- <button ion-button icon-only (click)="filter()">
       <ion-icon name="search"></ion-icon>
-    </button>-->
+    </button> -->
     <button ion-button icon-only (click)="openProductSearchOptions()">
       <ion-icon name="options"></ion-icon>
     </button>

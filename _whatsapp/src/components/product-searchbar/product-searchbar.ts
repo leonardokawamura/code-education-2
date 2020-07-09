@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, Renderer2, Input, OnInit } from '@angular/core';
+import { Component, Output, EventEmitter, Renderer2, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ProductSearchProvider } from '../../providers/product-search/product-search';
 import { ModalController, Platform, App } from 'ionic-angular';
 import { ProductSearchOptionsComponent } from '../product-search-options/product-search-options';
@@ -18,18 +18,14 @@ export class ProductSearchbarComponent implements OnInit {
 
   @Input('superTabs') superTabs: SuperTabs;
   @Output() onBack: EventEmitter<any> = new EventEmitter<any>();
+  @ViewChild('searchbar') searchbar;
 
   constructor(public productSearch: ProductSearchProvider, 
               private modalCtrl: ModalController, 
               private platform: Platform, 
               private app: App,
               private renderer: Renderer2) {
-    this.platform.registerBackButtonAction(() => {
-      const nav = this.app.getActiveNavs()[0]; 
-      const active = nav.getActive();
-      console.log(active.component);
-      return;
-    });
+    
   }
 
   ngOnInit() {
@@ -60,6 +56,7 @@ export class ProductSearchbarComponent implements OnInit {
     this.renderer.addClass(superTabToolBar.children[0], 'hidden');    
     this.renderer.addClass(superTabToolBar.children[1], 'fixed');  
     this.renderer.addClass(superTabToolBar.children[1].querySelector('#products'), 'fixed');  
+    this.setFocusOnSearchBar();
   }
 
   closeSearchBar() {
@@ -68,5 +65,26 @@ export class ProductSearchbarComponent implements OnInit {
     this.renderer.removeClass(superTabToolBar.children[1], 'fixed');  
     this.renderer.removeClass(superTabToolBar.children[1].querySelector('#products'), 'fixed');  
   }
+
+  setFocusOnSearchBar() {
+    setTimeout(() => {
+      this.searchbar.setFocus();
+    }, 300);
+  }
+
+  onKeyPressed(event) {
+    this.productSearch.options.search = event.target.value;
+    this.productSearch.onUpdate.next(true);
+  }
+
+  temqueimplementarainda() {
+    this.platform.registerBackButtonAction(() => {
+      const nav = this.app.getActiveNavs()[0]; 
+      const active = nav.getActive();
+      console.log(active.component);
+      return;
+    });
+  }
+
 
 }

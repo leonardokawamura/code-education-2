@@ -1,7 +1,7 @@
-import { Component, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ProductHttpProvider } from '../../providers/http/product-http.';
 import { Product } from '../../app/model';
-import { InfiniteScroll, Refresher, ToastController, Toast, App } from 'ionic-angular';
+import { InfiniteScroll, Refresher, ToastController, Toast, App, Content } from 'ionic-angular';
 import { ProductSearchProvider } from '../../providers/product-search/product-search';
 import { ProductDetailPage } from '../../pages/product-detail/product-detail';
 
@@ -18,11 +18,12 @@ export class ProductListComponent implements OnInit {
   canMoreProducts = true;
   toastLoading: Toast;
 
+  @ViewChild(Content) content: Content;
+
   constructor(private productHttp: ProductHttpProvider, 
               private productSearch: ProductSearchProvider,
               private toastCtrl: ToastController,
-              private app: App,
-              private renderer: Renderer2) {}
+              private app: App) {}
 
   ngOnInit() {
     this.productSearch.onUpdate
@@ -93,6 +94,7 @@ export class ProductListComponent implements OnInit {
   reset() {
     this.page = 1;
     this.canMoreProducts = true;
+    this.content.scrollToTop(0);
   }
 
   getProducts() {
