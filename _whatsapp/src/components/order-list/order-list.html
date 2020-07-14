@@ -2,31 +2,29 @@
   <ion-refresher (ionRefresh)="doRefresh($event)">
       <ion-refresher-content pullingText='Puxe para atualizar'refreshingText="carregando"></ion-refresher-content>
   </ion-refresher>
+  
+  <ion-list *ngIf="orders.data.length > 0">
+    <ion-item *ngFor="let order of orders.data" (click)="openOrderDetail(order)">
+      <ion-avatar item-start>
+        <img [src]="order.product.photo_url | buildUrl" alt="">
+      </ion-avatar>
+      <!--<h2>{{order.total | numberFormatBr}} - {{order.product.name}}</h2>-->
+      <h2>
+        <strong>Pedido nº {{ order.id }}</strong> - {{ order.created_at.date | date: 'dd/MM/yyyy' }}        
+      </h2>
+      <p text-left>        
+        <order-status [status]="order.status"></order-status>
+      </p>
+    </ion-item>
+  </ion-list>
 
-  <ng-container *ngIf="orders.data.length > 0">
-    <ion-list>
-      <ion-item *ngFor="let order of orders.data" (click)="openOrderDetail(order)">
-        <ion-avatar item-start>
-          <img [src]="order.product.photo_url | buildUrl" alt="">
-        </ion-avatar>
-        <!--<h2>{{order.total | numberFormatBr}} - {{order.product.name}}</h2>-->
-        <h2>
-          <strong>Pedido nº {{ order.id }}</strong> - {{ order.created_at.date | date: 'dd/MM/yyyy' }}        
-        </h2>
-        <p text-left>        
-          <order-status [status]="order.status"></order-status>
-        </p>
-      </ion-item>
-    </ion-list>
-  </ng-container>
-
-  <ng-container *ngIf="!orders.data.length">
+  <div [hidden]="showNoOrders">
     <p class="information-text">
       <ion-icon name="information-circle"></ion-icon><br>
       <span>Você não possui nenhum pedido ainda</span><br> 
       <span class="sad-face">=(</span>
     </p>
-  </ng-container>
+  </div>
 
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)" [enabled]="canMoreOrders">
       <ion-infinite-scroll-content></ion-infinite-scroll-content>

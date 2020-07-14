@@ -19,6 +19,7 @@ export class OrderListComponent implements OnInit {
   canMoreOrder = true;
   toastLoading: Toast;
   reload = false;
+  showNoOrders = true;
 
   constructor(private orderHttp: OrderHttpProvider, 
               private navParams: NavParams, 
@@ -31,7 +32,10 @@ export class OrderListComponent implements OnInit {
   ngOnInit() {
     this.getOrders().subscribe(
       orders => {
-        this.orders = orders;
+        this.orders = orders;        
+        if (orders.data.length <= 0) {
+          this.showNoOrders = false;
+        }
       },
       responseError => {
         console.log(responseError);

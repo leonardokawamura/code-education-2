@@ -116,7 +116,6 @@ export class ProductSearchbarComponent implements OnInit {
     this.suggestions = this.categories
       .filter(category => category.name.toLowerCase().startsWith(this.search.toLowerCase()))
       .map(category => ({ ...category, type: 'category' }))
-      console.log(this.suggestions);
     return this.suggestions.length ? true : false;
   }
 
