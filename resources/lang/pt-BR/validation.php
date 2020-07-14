@@ -178,5 +178,8 @@ return [
         'year'                  => 'ano',
         'email'                 => 'e-mail',
         'remember'              => 'lembrar-me',
+        'content'               => 'conteúdo',
+        'image'                 => 'imagem',
+        'audio'                 => 'áudio'
     ],
 ];

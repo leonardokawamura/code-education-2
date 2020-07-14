@@ -1,11 +1,12 @@
 import { Component, ViewChild, Input } from '@angular/core';
 import { ChatMessageHttpProvider } from '../../../providers/http/chat-message-http';
-import { TextInput, ItemSliding, AlertController } from 'ionic-angular';
+import { TextInput, ItemSliding, AlertController, ToastController } from 'ionic-angular';
 import Timer from 'easytimer.js/dist/easytimer.min';
 import { AudioRecorderProvider } from '../../../providers/audio-recorder/audio-recorder';
 import { Subject } from 'rxjs/Subject';
 import { debounceTime } from 'rxjs/operators';
 import { ChatGroup } from '../../../app/model';
+import { HttpErrorResponse } from '@angular/common/http';
 /**
  * Generated class for the ChatFooterComponent component.
  *
@@ -32,7 +33,8 @@ export class ChatFooterComponent {
 
   constructor(private chatMessageHttp: ChatMessageHttpProvider, 
               private audioRecorder: AudioRecorderProvider,
-              private alertCtrl: AlertController) {}
+              private alertCtrl: AlertController,
+              private toastCtrl: ToastController) {}
 
   ngOnInit() {
     this.onStopRecord();
@@ -132,11 +134,22 @@ export class ChatFooterComponent {
   }
 
   sendMessageText() {
+    if (!this.text.trim().length) {
+      return;
+    }
     this.sendMessage({content: this.text, type: 'text'});
   }
 
   sendMessageImage(files: FileList) {
     if(!files.length) {
+      return;
+    }
+    if (this.verifyMaxLengthFile(files[0])) {
+      const toast = this.toastCtrl.create({
+        message: 'O arquivo anexo não pode ser maior que 3MB',
+        duration: 4000
+      });
+      toast.present();
       return;
     }
     this.sendMessage({content: files[0], type: 'image'});
@@ -155,8 +168,20 @@ export class ChatFooterComponent {
         if(data.type === 'text') {
           this.text = '';
         }
-      }, (error) => {
+      }, (responseError: HttpErrorResponse) => {
         this.sending = false;
+        let message = '';
+        if (responseError.status == 422) {
+          message = responseError.error.errors.content[0];
+        }
+        else {
+          message = 'Houve um erro em nosso servidor, tente novamente';
+        }
+        const toast = this.toastCtrl.create({
+          message,
+          duration: 4000
+        });
+        toast.present();
       });
   }
 
@@ -164,6 +189,14 @@ export class ChatFooterComponent {
     const nativeElement: HTMLElement = this.InputFileImage.getElementRef().nativeElement;
     const inputFile = nativeElement.querySelector('input');
     inputFile.click();
+  }
+
+  verifyMaxLengthFile(file: File) {
+    const MAX_LENGTH_FILE = 3000000;
+    if (file.size > MAX_LENGTH_FILE) {
+      return true;
+    }
+    return false;
   }
 
   getIconSendMessage() {

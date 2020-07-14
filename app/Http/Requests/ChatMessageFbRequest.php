@@ -58,6 +58,20 @@ class ChatMessageFbRequest extends FormRequest
         });
         return $validator;
     }
+
+    public function messages()
+    {
+        $messages =  [
+            'content.max' => 'Tamanho máximo do arquivo é 3MB',
+            'content.uploaded' => 'Tamanho máximo do arquivo é 3MB'
+        ];
+
+        if ($this->type == 'text') {
+            $messages['content.required'] = 'A mensagem não pode ser vazia';
+        }
+
+        return $messages;
+    }
     
     
 }
