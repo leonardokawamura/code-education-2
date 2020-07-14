@@ -1,8 +1,11 @@
-import { Component, Output, EventEmitter, Renderer2, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, Output, EventEmitter, Renderer2, Input, OnInit, ViewChild } from '@angular/core';
 import { ProductSearchProvider } from '../../providers/product-search/product-search';
 import { ModalController, Platform, App } from 'ionic-angular';
 import { ProductSearchOptionsComponent } from '../product-search-options/product-search-options';
 import { SuperTabs } from 'ionic2-super-tabs';
+import { CategoryHttpProvider } from '../../providers/http/category-http';
+import { ProductHttpProvider } from '../../providers/http/product-http.';
+import { ProductDetailPage } from '../../pages/product-detail/product-detail';
 
 /**
  * Generated class for the ProductSearchbarComponent component.
@@ -16,6 +19,10 @@ import { SuperTabs } from 'ionic2-super-tabs';
 })
 export class ProductSearchbarComponent implements OnInit {
 
+  public search: string = '';
+  public suggestions: Array<any> = [];
+  public categories: Array<any> = [];
+
   @Input('superTabs') superTabs: SuperTabs;
   @Output() onBack: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('searchbar') searchbar;
@@ -24,7 +31,9 @@ export class ProductSearchbarComponent implements OnInit {
               private modalCtrl: ModalController, 
               private platform: Platform, 
               private app: App,
-              private renderer: Renderer2) {
+              private renderer: Renderer2,
+              private categoryProvider: CategoryHttpProvider,
+              private productProvider: ProductHttpProvider) {
     
   }
 
@@ -35,6 +44,7 @@ export class ProductSearchbarComponent implements OnInit {
     this.productSearch.onLeavingProductList.subscribe(() => {
       this.closeSearchBar();
     });
+    this.getCategories();
   }
 
   back() {
@@ -72,7 +82,8 @@ export class ProductSearchbarComponent implements OnInit {
     }, 300);
   }
 
-  onKeyPressed(event) {
+  onSearchPressed(event) {
+    this.search = '';
     this.productSearch.options.search = event.target.value;
     this.productSearch.onUpdate.next(true);
   }
@@ -84,6 +95,58 @@ export class ProductSearchbarComponent implements OnInit {
       console.log(active.component);
       return;
     });
+  }
+
+  getCategories() {
+    this.categoryProvider.list().subscribe(categories => {
+      this.categories = categories
+    });
+  }
+
+  autocomplete() {
+    if (!this.search.trim().length) {
+      return;
+    }
+    if (!this.searchForCategories()) {
+      this.searchForProducts();
+    }
+  }  
+    
+  searchForCategories() {
+    this.suggestions = this.categories
+      .filter(category => category.name.toLowerCase().startsWith(this.search.toLowerCase()))
+      .map(category => ({ ...category, type: 'category' }))
+      console.log(this.suggestions);
+    return this.suggestions.length ? true : false;
+  }
+
+  searchForProducts() {
+    this.productSearch.options.search = this.search;
+    this.productProvider.list(1).subscribe(
+      response => {
+        this.suggestions = response.data.map(product => ({...product, type: 'product'}));
+      }
+    )
+  }
+
+  suggestionSelected(suggestion) {
+    switch (suggestion.type) {
+      case 'category':
+        this.search = '';
+        this.productSearch.options.categories.push(suggestion.id);
+        this.filter();
+        break;
+      
+      case 'product':
+        this.search = '';
+        this.app.getRootNavs()[0].push(ProductDetailPage, {product: suggestion.id});
+        break;
+    
+      default:
+        this.search = suggestion.text;
+        this.setFocusOnSearchBar();
+        break;
+    }
   }
 
 

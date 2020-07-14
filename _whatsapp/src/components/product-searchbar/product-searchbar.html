@@ -7,8 +7,13 @@
   <ion-searchbar #searchbar
     placeholder="Procurar..." 
     inputmode="search"     
-    (search)="onKeyPressed($event)">
+    [(ngModel)]="search"
+    (ionChange)="autocomplete()"
+    (search)="onSearchPressed($event)">
   </ion-searchbar>  
+  <ion-list [hidden]="!search">
+    <ion-item (click)="suggestionSelected(suggestion)" *ngFor="let suggestion of suggestions">{{ suggestion.name }}</ion-item>
+  </ion-list>
   <ion-buttons right>
     <!-- <button ion-button icon-only (click)="filter()">
       <ion-icon name="search"></ion-icon>

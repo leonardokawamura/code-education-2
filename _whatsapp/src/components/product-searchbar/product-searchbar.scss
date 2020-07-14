@@ -1,5 +1,17 @@
 product-searchbar {
-
+    ion-navbar {
+        contain: none !important;
+        overflow: visible !important;
+    }
+    ion-list {
+        position: absolute;
+        width: 100%;
+        left: 0;
+        top: 56px;
+    }
+    ion-list ion-item {
+        padding-right: 16px !important;
+    }
 }
 
 super-tabs-toolbar {        
