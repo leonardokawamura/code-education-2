@@ -54,7 +54,8 @@ export class OrderStorePage {
           });
           toast.present();
           setTimeout(() => {
-            //this.viewCtrl.dismiss(order);     
+            //this.viewCtrl.dismiss(order);    
+            this.navCtrl.getPrevious().dismiss();
             this.app.getRootNavs()[0].push(MainPage, {selectedTabIndex: 2});       
           }, 2000);
         },
