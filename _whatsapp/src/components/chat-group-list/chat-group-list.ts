@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ChatGroup, ChatMessage } from '../../app/model';
 import { ChatGroupFbProvider } from '../../providers/firebase/chat-group-fb';
-import { App } from 'ionic-angular';
+import { App, Platform } from 'ionic-angular';
 import { ChatMessagesPage } from '../../pages/chat-messages/chat_messages/chat-messages';
 import { ChatGroupViewerProvider } from '../../providers/chat-group-viewer/chat-group-viewer';
 import { Observable } from 'rxjs/Observable';
@@ -25,11 +25,13 @@ export class ChatGroupListComponent implements OnInit {
   chatGroupIdToFirstOpen = null;
   isMember$: Observable<boolean>[] = [];
   showNoGroups = false;
+  viewIsLoaded = false;
 
   constructor(private chatGroupFb: ChatGroupFbProvider,
               private app: App,
-              private chatGroupViewer: ChatGroupViewerProvider) {}
-
+              private chatGroupViewer: ChatGroupViewerProvider,
+              public platform: Platform) {}
+    
   ngOnInit() {
     this.chatGroupFb.list()
       .subscribe(
@@ -44,7 +46,7 @@ export class ChatGroupListComponent implements OnInit {
       error => console.log(error),
       () => {
         Observable.forkJoin(...this.isMember$).subscribe(results => {
-          this.showNoGroups = results.every(value => !value);
+          this.showNoGroups = results.every(value => !value);          
         });        
       });
 
@@ -68,6 +70,12 @@ export class ChatGroupListComponent implements OnInit {
         this.groups.splice(index, 1);
         this.groups.unshift(group);
       });    
+  }
+
+  ngAfterViewInit() {    
+    setTimeout(() => {
+        this.viewIsLoaded = true;
+    }, 3000);
   }
 
   formatTextMessage(message: ChatMessage) {
@@ -97,6 +105,18 @@ export class ChatGroupListComponent implements OnInit {
     this.chatGroupViewer.viewed(group);
     this.chatActive = group;
     this.app.getRootNav().push(ChatMessagesPage, {'chat_group': group});
+  }
+
+  onDomChange(event: MutationRecord) {
+    if (this.viewIsLoaded) {
+      let isGroupHidden = [];
+      event.target.parentElement.querySelectorAll('ion-item').forEach(
+        item => {
+          isGroupHidden.push(item.hasAttribute('hidden'));
+        }      
+      );
+      this.showNoGroups = isGroupHidden.every(value => value) ? true : false;
+    }
   }
 
 }
