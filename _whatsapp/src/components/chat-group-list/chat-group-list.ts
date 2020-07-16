@@ -1,9 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ChatGroup, ChatMessage } from '../../app/model';
 import { ChatGroupFbProvider } from '../../providers/firebase/chat-group-fb';
 import { App } from 'ionic-angular';
 import { ChatMessagesPage } from '../../pages/chat-messages/chat_messages/chat-messages';
 import { ChatGroupViewerProvider } from '../../providers/chat-group-viewer/chat-group-viewer';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/forkJoin';
+import 'rxjs/add/operator/first';
 
 /**
  * Generated class for the ChatGroupListComponent component.
@@ -15,11 +18,13 @@ import { ChatGroupViewerProvider } from '../../providers/chat-group-viewer/chat-
   selector: 'chat-group-list',
   templateUrl: 'chat-group-list.html'
 })
-export class ChatGroupListComponent {
+export class ChatGroupListComponent implements OnInit {
 
   groups: ChatGroup[] = [];
   chatActive: ChatGroup;
   chatGroupIdToFirstOpen = null;
+  isMember$: Observable<boolean>[] = [];
+  showNoGroups = false;
 
   constructor(private chatGroupFb: ChatGroupFbProvider,
               private app: App,
@@ -27,12 +32,20 @@ export class ChatGroupListComponent {
 
   ngOnInit() {
     this.chatGroupFb.list()
-      .subscribe(groups => {
-        groups.forEach((group) => {
-          this.chatGroupViewer.loadViewed(group);
-        });
-        this.groups = groups;
-        this.goToMessagesFromNotification();
+      .subscribe(
+        groups => {
+          groups.forEach((group) => {
+            this.chatGroupViewer.loadViewed(group);
+            this.isMember$.push(group.is_member.first());
+          });
+          this.groups = groups;
+          this.goToMessagesFromNotification();        
+      }, 
+      error => console.log(error),
+      () => {
+        Observable.forkJoin(...this.isMember$).subscribe(results => {
+          this.showNoGroups = results.every(value => !value);
+        });        
       });
 
     this.chatGroupFb.onAdded()

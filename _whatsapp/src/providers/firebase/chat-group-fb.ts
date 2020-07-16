@@ -33,6 +33,7 @@ export class ChatGroupFbProvider {
           groups.unshift(group);
         });
         observer.next(groups);
+        observer.complete();
       }, error => console.log(error));
     });
   }

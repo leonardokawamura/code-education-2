@@ -18,6 +18,15 @@
           </span>
         </ng-container>
       </h3>
+      <input type="hidden" [value]="(group.is_member | async)">
     </ion-item>
   </ion-list>
+
+  <div [hidden]="!showNoGroups">
+    <p class="information-text">
+      <ion-icon name="information-circle"></ion-icon><br>
+      <span>Você não faz parte de nenhum grupo ainda</span><br> 
+      <span class="sad-face">=(</span>
+    </p>
+  </div>
 </ion-content>
