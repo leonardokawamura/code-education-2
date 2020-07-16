@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ChatGroup, ChatMessage } from '../../app/model';
 import { ChatGroupFbProvider } from '../../providers/firebase/chat-group-fb';
-import { App, Platform } from 'ionic-angular';
+import { App } from 'ionic-angular';
 import { ChatMessagesPage } from '../../pages/chat-messages/chat_messages/chat-messages';
 import { ChatGroupViewerProvider } from '../../providers/chat-group-viewer/chat-group-viewer';
 import { Observable } from 'rxjs/Observable';
@@ -29,8 +29,7 @@ export class ChatGroupListComponent implements OnInit {
 
   constructor(private chatGroupFb: ChatGroupFbProvider,
               private app: App,
-              private chatGroupViewer: ChatGroupViewerProvider,
-              public platform: Platform) {}
+              private chatGroupViewer: ChatGroupViewerProvider) {}
     
   ngOnInit() {
     this.chatGroupFb.list()
