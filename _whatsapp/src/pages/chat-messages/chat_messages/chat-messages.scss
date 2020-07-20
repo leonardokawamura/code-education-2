@@ -1,3 +1,12 @@
 page-chat-messages {
-
+    chat-content-left, chat-content-right {
+        margin: 12px 0;
+        display: block;
+    }
+    ion-fab button {
+        background: transparent !important;
+        width: 25px !important;
+        height: 25px !important;
+        box-shadow: none !important;
+    }
 }

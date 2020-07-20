@@ -1,3 +1,14 @@
 chat-avatar {
-
+    ion-item {
+        padding: 0 !important;
+    }
+    .item-inner {
+        padding: 0 !important;
+    }
+    .input-wrapper {
+        display: none;
+    }
+    ion-avatar {
+        margin: 0 !important
+    }
 }

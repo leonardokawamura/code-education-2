@@ -1,4 +1,6 @@
 chat-content-detail {
+    width: calc(100% - 70px);
+
     $chat-content-left: #fff;
     $chat-content-right: #e1ffc7;
 
@@ -55,7 +57,20 @@ chat-content-detail {
         z-index: 99999;
     }
 
+    ion-item {
+        padding-left: 5px !important;
+    }
+    .chat-content-user {
+        display: block;
+        margin-bottom: 5px;
+        margin-top: 5px;
+        font-size: 1.2rem !important;
+    }
+    .chat-content-text {
+        font-size: 1.4rem !important;
+    }
     .chat-content-datetime {
         font-size: 1.2rem !important;
+        margin-top: 5px;
     }
 }
