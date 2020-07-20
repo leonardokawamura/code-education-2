@@ -109,9 +109,10 @@ export class ChatGroupListComponent implements OnInit {
   onDomChange(event: MutationRecord) {
     if (this.viewIsLoaded) {
       let isGroupHidden = [];
-      event.target.parentElement.querySelectorAll('ion-item').forEach(
-        item => {
-          isGroupHidden.push(item.hasAttribute('hidden'));
+      let chatGroupElements = Array.from(event.target.parentElement.querySelectorAll('ion-item'));
+      chatGroupElements.forEach(
+        group => {
+          isGroupHidden.push(group.hasAttribute('hidden'));
         }      
       );
       this.showNoGroups = isGroupHidden.every(value => value) ? true : false;
