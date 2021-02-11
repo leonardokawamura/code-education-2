@@ -23,7 +23,7 @@ export class ChatContentDetailComponent {
 
   showImage(message: ChatMessage) {
     const url = this.builUrl.transform(message.content);
-    this.photoViewer.show(url, 'titulo da imagem', {share: true});
+    this.photoViewer.show(url, '', {share: true});
   }
 
 }

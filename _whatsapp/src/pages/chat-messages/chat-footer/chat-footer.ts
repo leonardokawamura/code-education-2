@@ -1,4 +1,4 @@
-import { Component, ViewChild, Input } from '@angular/core';
+import { Component, ViewChild, Input, ElementRef, Output, EventEmitter } from '@angular/core';
 import { ChatMessageHttpProvider } from '../../../providers/http/chat-message-http';
 import { TextInput, ItemSliding, AlertController, ToastController } from 'ionic-angular';
 import Timer from 'easytimer.js/dist/easytimer.min';
@@ -27,14 +27,18 @@ export class ChatFooterComponent {
   sending = false;
 
   @Input() chatGroup: ChatGroup;
+  @Output() onTextAreaClicked: EventEmitter<any> = new EventEmitter<any>();
+  @Output() onCreateMessageFinished: EventEmitter<any> = new EventEmitter<any>();
 
+  @ViewChild('inputTextArea') inputTextArea: TextInput;
   @ViewChild('inputFileImage') InputFileImage: TextInput;
   @ViewChild('itemSliding') itemSliding: ItemSliding;
 
   constructor(private chatMessageHttp: ChatMessageHttpProvider, 
               private audioRecorder: AudioRecorderProvider,
               private alertCtrl: AlertController,
-              private toastCtrl: ToastController) {}
+              private toastCtrl: ToastController,
+              public element:ElementRef) {}
 
   ngOnInit() {
     this.onStopRecord();
@@ -163,29 +167,33 @@ export class ChatFooterComponent {
     this.sending = true;
     this.chatMessageHttp
       .create(this.chatGroup.id, data)
-      .subscribe(() => {
-        this.sending = false;
-        if(data.type === 'text') {
-          this.text = '';
+      .subscribe(
+        () => {
+          this.sending = false;
+          if(data.type === 'text') {
+            this.text = '';
+          }
+          this.onCreateMessageFinished.emit(true);
+        }, 
+        (responseError: HttpErrorResponse) => {
+          this.sending = false;
+          let message = '';
+          if (responseError.status == 422) {
+            message = responseError.error.errors.content[0];
+          }
+          else {
+            message = 'Houve um erro em nosso servidor, tente novamente';
+          }
+          const toast = this.toastCtrl.create({
+            message,
+            duration: 4000
+          });
+          toast.present();
         }
-      }, (responseError: HttpErrorResponse) => {
-        this.sending = false;
-        let message = '';
-        if (responseError.status == 422) {
-          message = responseError.error.errors.content[0];
-        }
-        else {
-          message = 'Houve um erro em nosso servidor, tente novamente';
-        }
-        const toast = this.toastCtrl.create({
-          message,
-          duration: 4000
-        });
-        toast.present();
-      });
+      );
   }
 
-  selectImage() {
+  selectImage(event: Event) {    
     const nativeElement: HTMLElement = this.InputFileImage.getElementRef().nativeElement;
     const inputFile = nativeElement.querySelector('input');
     inputFile.click();
@@ -204,6 +212,24 @@ export class ChatFooterComponent {
       return this.text === '' ? 'mic' : 'send';
     }
     return 'mic';
+  }
+
+  textAreaClicked() {
+    this.onTextAreaClicked.emit(true);
+  }
+
+  onBlurTextArea(event: FocusEvent) {
+    console.log(event);
+    event.preventDefault();
+    return;
+  }
+
+  autoSizeTextArea(): void {
+		let textArea = this.element.nativeElement.getElementsByTagName('textarea')[0];
+		textArea.style.overflow = 'hidden';
+		textArea.style.height 	= 'auto';
+		textArea.style.height 	= textArea.scrollHeight + 'px';
+		return;
   }
 
 }

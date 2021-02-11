@@ -34,5 +34,8 @@
 </ion-content>
 
 <ion-footer no-border>
-  <chat-footer [chatGroup]="chatGroup"></chat-footer>
+  <chat-footer [chatGroup]="chatGroup" 
+    (onTextAreaClicked)="scrollToBottomOnTextAreaClicked()"
+    (onCreateMessageFinished)="scrollToBottomOnTextAreaClicked()">
+  </chat-footer>
 </ion-footer>

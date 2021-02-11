@@ -10,9 +10,9 @@ class CorsMiddleware
         'http://localhost', 
         'http://localhost:4200', 
         'http://localhost:8100', 
-        'http://192.168.1.6:8000', 
-        'http://192.168.1.6:8100', 
-        'http://192.168.1.4:8101',
+        'http://192.168.15.12:8000', 
+        'http://192.168.15.12:8100', 
+        'http://192.168.15.4:8101',
         'http://localhost:8080'
     ];
 

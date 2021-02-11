@@ -73,4 +73,10 @@ chat-content-detail {
         font-size: 1.2rem !important;
         margin-top: 5px;
     }
+    .center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        max-height: 200px;
+    }
 }

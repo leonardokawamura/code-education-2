@@ -3,7 +3,7 @@
                 'chat-content-right' : (message.user_id | isCurrentUser)}">
   <strong class="chat-content-user" [style.color]="(message.user | async)?.name | colorFirstLetter">{{ (message.user$ | async)?.name }}</strong>
   <span class="chat-content-text" *ngIf="message.type === 'text'">{{ message.content }}</span>
-  <ion-card *ngIf="message.type === 'image'">
+  <ion-card class="center" *ngIf="message.type === 'image'">
     <img [src]="message.content | buildUrl" (click)="showImage(message)">
   </ion-card>
   <audio controls style="width: 100%;" *ngIf="message.type === 'audio'">

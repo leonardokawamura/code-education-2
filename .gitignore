@@ -18,3 +18,5 @@ app.yaml
 firebase-admin.json
 cloud_sql_proxy
 whatsapp-de-vendas-281219-b7d898bb1f89.json
+_angular-app/src/environments/environment.ts
+_whatsapp/src/environments/environment.ts

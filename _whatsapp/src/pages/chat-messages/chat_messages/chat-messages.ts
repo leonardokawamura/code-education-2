@@ -71,8 +71,14 @@ export class ChatMessagesPage {
   }
 
   scrollToBottom() {
-    this.countNewMessages = 0;
+    this.countNewMessages = 0;    
     this.content.scrollToBottom(0);
+  }
+
+  scrollToBottomOnTextAreaClicked() {
+    setTimeout(() => {
+      this.content.scrollToBottom(0);
+    }, 500);
   }
 
   showButtonScrollBottom() {
